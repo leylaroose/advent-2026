@@ -12,14 +12,17 @@ window.ADVENT = {
   year: 2026,
   recipient: "Jan",
   from: "Leyla",
-  signature: "mit Liebe verpackt von Leyla",
+  // Überschrift auf der Startseite (letztes Wort wird hellgrün)
+  title: ["Für", "Jan"],
+  pill: "Advent 2026",
+  signature: "mit Liebe gecodet von Claude & Leyla",
 
   days: {
     1: {
       type: "spezi",
       title: "Prost, Adventszeit!",
       teaser: "Heute wird geschüttelt, nicht gerührt.",
-      intro: "Schüttel dein Handy, bis die Flasche aufgeht!",
+      intro: "Tipp auf die Flasche und dann: Handy schütteln, bis sie aufgeht!",
       lines: [
         "Letztes Jahr gab's 24 davon.",
         "Dieses Jahr wird's digital.",

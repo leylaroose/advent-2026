@@ -3,14 +3,14 @@
   const css = `
   .spz { text-align: center; padding-top: 4px; }
   .spz-intro { margin: 6px 0 0; }
-  .spz-stage { position: relative; height: 380px; margin: 4px auto 0; width: 100%; max-width: 320px; touch-action: manipulation; user-select: none; -webkit-user-select: none; }
+  .spz-stage { position: relative; height: clamp(250px, 46svh, 380px); margin: 4px auto 0; width: 100%; max-width: 320px; touch-action: manipulation; user-select: none; -webkit-user-select: none; }
   .spz-stage::before { /* Lichtkranz */
     content: ""; position: absolute; left: 50%; top: 46%; width: 300px; height: 300px; translate: -50% -50%;
     background: repeating-conic-gradient(rgba(255,200,61,.28) 0 10deg, transparent 10deg 20deg);
     border-radius: 50%; mask: radial-gradient(circle, #000 30%, transparent 70%); -webkit-mask: radial-gradient(circle, #000 30%, transparent 70%);
     animation: spin 18s linear infinite;
   }
-  .spz-bottle { position: absolute; left: 50%; bottom: 6px; height: 360px; translate: -50% 0; transform-origin: 50% 92%;
+  .spz-bottle { position: absolute; left: 50%; bottom: 4px; height: 96%; translate: -50% 0; transform-origin: 50% 92%;
     animation: spzIdle 2.2s ease-in-out infinite; cursor: pointer; overflow: visible; }
   @keyframes spzIdle { 0%,100% { rotate: -3deg; } 50% { rotate: 3deg; } }
   .spz-bottle.jiggle { animation: spzJiggle .28s ease-in-out; }
@@ -39,8 +39,7 @@
   @keyframes barMove { to { background-position: 28px 0; } }
   .spz-hint { margin: 14px 0 0; font-weight: 800; min-height: 1.4em; }
   .spz-hint b { display: inline-block; animation: hop 1s ease-in-out infinite; }
-  .spz-start { margin-top: 16px; }
-  .spz-reveal { display: none; margin-top: 8px; }
+    .spz-reveal { display: none; margin-top: 8px; }
   .spz.done .spz-reveal { display: block; }
   .spz.done .spz-controls { display: none; }
   .spz-line { font-family: var(--display); font-weight: 700; font-size: 26px; line-height: 1.15; margin: 12px 0; opacity: 0; color: var(--forest);
@@ -120,7 +119,6 @@
             <div class="spz-meter-label"><span>Sprudel-O-Meter</span><span class="spz-pct">0 %</span></div>
             <div class="spz-bar"><div class="spz-fill"></div></div>
           </div>
-          <button class="btn spz-start">📳 Los, schütteln!</button>
           <p class="spz-hint"></p>
         </div>
         <div class="spz-reveal">
@@ -134,7 +132,6 @@
     const fill = root.querySelector(".spz-fill");
     const pct = root.querySelector(".spz-pct");
     const hint = root.querySelector(".spz-hint");
-    const startBtn = root.querySelector(".spz-start");
     const bubbles = root.querySelector(".spz-bubbles");
 
     let progress = 0, done = false, listening = false, lastShake = 0, motionSeen = false;
@@ -180,32 +177,39 @@
       if (listening) return;
       listening = true;
       addEventListener("devicemotion", onMotion);
-      hint.innerHTML = "<b>Schütteln, schütteln, schütteln!</b>";
+      hint.innerHTML = "<b>📳 Jetzt schütteln, schütteln, schütteln!</b>";
       setTimeout(() => {
-        if (!motionSeen && !done) hint.innerHTML = "Kein Bewegungssensor? <b>Tipp einfach ganz oft auf die Flasche!</b>";
+        if (!motionSeen && !done) hint.innerHTML = "Kein Bewegungssensor? <b>Dann tipp ganz oft auf die Flasche!</b>";
       }, 1800);
     }
 
-    startBtn.addEventListener("click", async () => {
-      startBtn.style.display = "none";
+    hint.innerHTML = "<b>👆 Tipp auf die Flasche!</b>";
+
+    // Erster Tipp: auf iPhone Bewegungssensor-Erlaubnis abfragen (geht nur nach einer Berührung)
+    let asked = false;
+    function askMotion() {
+      if (asked) return;
+      asked = true;
       const DME = window.DeviceMotionEvent;
       if (DME && typeof DME.requestPermission === "function") {
-        try {
-          const res = await DME.requestPermission();
-          if (res === "granted") listen();
-          else hint.innerHTML = "Okay, dann eben so: <b>Tipp ganz oft auf die Flasche!</b>";
-        } catch (e) {
-          hint.innerHTML = "<b>Tipp ganz oft auf die Flasche!</b>";
-        }
+        DME.requestPermission()
+          .then(res => {
+            if (res === "granted") listen();
+            else hint.innerHTML = "Ohne Sensor geht's auch: <b>Tipp ganz oft auf die Flasche!</b>";
+          })
+          .catch(() => { hint.innerHTML = "<b>Tipp ganz oft auf die Flasche!</b>"; });
       } else if (DME) {
         listen();
       } else {
         hint.innerHTML = "<b>Tipp ganz oft auf die Flasche!</b>";
       }
-    });
+    }
 
-    // Tippen als Fallback (funktioniert immer)
-    bottle.addEventListener("pointerdown", e => { e.preventDefault(); shake(0.1, 1.1); });
+    // Tippen zählt immer mit (Fallback)
+    const stage = root.querySelector(".spz-stage");
+    stage.addEventListener("pointerdown", () => shake(0.08, 1.1));
+    // iOS erlaubt die Abfrage nur in einem "click" (nicht schon beim Berühren)
+    stage.addEventListener("click", askMotion);
 
     function blow() {
       done = true;
@@ -233,7 +237,6 @@
 
     root.querySelector(".spz-again").addEventListener("click", () => {
       window.DOOR_TYPES.spezi(el, day, data);
-      el.querySelector(".spz-start").click();
     });
 
     return () => removeEventListener("devicemotion", onMotion);

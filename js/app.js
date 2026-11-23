@@ -45,28 +45,33 @@
   }
 
   const sky = $(".sky");
-  for (let i = 0; i < 26; i++) {
+  for (let i = 0; i < 22; i++) {
     const s = document.createElement("i");
     s.className = "star";
-    s.style.cssText = `left:${Math.random() * 100}%;top:${Math.random() * 100}%;--s:${8 + Math.random() * 16}px;--d:${2 + Math.random() * 3}s;--delay:${-Math.random() * 5}s;--c:${Math.random() < .25 ? "#a6e8bf" : "#ffc83d"}`;
+    s.style.cssText = `left:${Math.random() * 100}%;top:${Math.random() * 100}%;--s:${8 + Math.random() * 14}px;--d:${2 + Math.random() * 3}s;--delay:${-Math.random() * 5}s;--c:${Math.random() < .25 ? "#a6e8bf" : "#ffc83d"}`;
     sky.appendChild(s);
   }
 
   const lights = $(".lights");
   const bulbColors = ["#ffc83d", "#e8414a", "#c9f07a", "#7fd7ff", "#ff9de1"];
-  const nb = Math.max(9, Math.round(innerWidth / 34));
-  for (let i = 0; i < nb; i++) {
-    const t = (i + 0.5) / nb;
-    const b = document.createElement("i");
-    b.className = "bulb";
-    const sag = Math.sin(t * Math.PI) * 22;
-    b.style.cssText = `left:calc(${t * 100}% - 6px);top:${sag + 3}px;--c:${bulbColors[i % bulbColors.length]};--d:${0.9 + (i % 3) * 0.35}s;--delay:${-(i * 0.27)}s;rotate:${(t - 0.5) * -40}deg`;
-    lights.appendChild(b);
+  function buildLights() {
+    const W = innerWidth;
+    const nb = Math.max(8, Math.round(W / 36));
+    const sagAt = t => Math.sin(t * Math.PI) * 18 + 4;
+    let d = `M 0 ${sagAt(0)}`;
+    for (let i = 1; i <= 40; i++) { const t = i / 40; d += ` L ${t * W} ${sagAt(t)}`; }
+    let html = `<svg viewBox="0 0 ${W} 30" preserveAspectRatio="none"><path d="${d}" fill="none" stroke="#0a2418" stroke-width="2.5"/></svg>`;
+    for (let i = 0; i < nb; i++) {
+      const t = (i + 0.5) / nb;
+      if (Math.abs(t - 0.5) < 0.09) continue; // Platz für die Schleife
+      html += `<i class="bulb" style="left:${t * W - 5.5}px;top:${sagAt(t) + 4}px;--c:${bulbColors[i % bulbColors.length]};--d:${0.9 + (i % 3) * 0.35}s;--delay:${-(i * 0.27)}s;rotate:${(t - 0.5) * -36}deg"></i>`;
+    }
+    lights.innerHTML = html;
   }
 
   const trees = $(".trees");
   const treeSVG = c => `<svg viewBox="0 0 60 90"><path d="M30 2 L50 34 H40 L56 58 H42 L58 80 H2 L18 58 H4 L20 34 H10 Z" fill="${c}" stroke="#0a2418" stroke-width="3.5" stroke-linejoin="round"/><rect x="25" y="79" width="10" height="10" fill="#7a4a21" stroke="#0a2418" stroke-width="3"/><circle cx="30" cy="4" r="5" fill="#ffc83d" stroke="#0a2418" stroke-width="2.5"/></svg>`;
-  [[4, 56, 46], [16, 44, 34], [74, 52, 42], [88, 40, 54], [56, 30, 28]].forEach(([l, b, w], i) => {
+  [[2, 26, 30], [11, 20, 22], [80, 24, 28], [91, 18, 34], [60, 14, 18]].forEach(([l, b, w], i) => {
     const t = document.createElement("div");
     t.className = "tree";
     t.style.cssText = `--l:${l}%;--b:${b}px;--w:${w}px;--d:${2.6 + i * 0.4}s;--delay:${-i * 0.7}s`;
@@ -74,7 +79,10 @@
     trees.appendChild(t);
   });
 
-  $("#recipient").textContent = A.recipient;
+  // Überschrift: Wörter, das letzte in Akzentfarbe
+  const words = A.title || ["Für", A.recipient];
+  $("#title").innerHTML = words.map((w, i) => `<span${i === words.length - 1 ? ' class="accent"' : ""}>${w}</span>`).join(" ");
+  if (A.pill) $("#pill").textContent = A.pill;
   $("#sign").textContent = A.signature;
 
   // ---------- Türchen verteilen ----------
@@ -83,64 +91,68 @@
     { c1: "#fff5df", c2: "#a6e8bf", n: "#2f9e5b", p: "dots" },
     { c1: "#13573a", c2: "#1d6b48", n: "#c9f07a", p: "check" },
     { c1: "#e8414a", c2: "#f06a71", n: "#fff5df", p: "stripes" },
-    { c1: "#a6e8bf", c2: "#8fd8ab", n: "#13573a", p: "zigzag" },
+    { c1: "#a6e8bf", c2: "#8fd8ab", n: "#13573a", p: "vstripes" },
     { c1: "#c9f07a", c2: "#b4df60", n: "#13573a", p: "dots" },
     { c1: "#0b3d27", c2: "#2f9e5b", n: "#ffc83d", p: "stars" },
     { c1: "#ffc83d", c2: "#ffd970", n: "#b9252e", p: "hstripes" },
     { c1: "#fff5df", c2: "#f5b7ba", n: "#e8414a", p: "check" },
     { c1: "#2f9e5b", c2: "#278a4f", n: "#fff5df", p: "zigzag" },
     { c1: "#13573a", c2: "#a6e8bf", n: "#fff5df", p: "dots" },
-    { c1: "#a6e8bf", c2: "#fff5df", n: "#0b3d27", p: "stripes" }
+    { c1: "#e6f7ec", c2: "#c4ead2", n: "#13573a", p: "vstripes" }
   ];
-  const BIG = new Set([1, 24, 6, 11, 18]);
+  const BIG = new Set([1, 24, 6, 11, 18, 3]);
   const rnd = seeded(2026);
   const order = Array.from({ length: 24 }, (_, i) => i + 1);
   for (let i = order.length - 1; i > 0; i--) { const j = Math.floor(rnd() * (i + 1)); [order[i], order[j]] = [order[j], order[i]]; }
   const doorMeta = {};
   order.forEach((d, idx) => {
-    const style = STYLES[(d * 7) % STYLES.length];
+    const big = BIG.has(d);
     doorMeta[d] = {
-      idx, style,
-      scale: BIG.has(d) ? 0.86 + rnd() * 0.06 : 0.6 + rnd() * 0.2,
+      idx,
+      style: STYLES[(d * 7) % STYLES.length],
+      scale: big ? 0.84 : 0.66 + rnd() * 0.14,
       jx: rnd(), jy: rnd(),
-      rot: (rnd() - 0.5) * 16,
+      rot: (rnd() - 0.5) * (big ? 8 : 14),
       dur: 2.2 + rnd() * 1.6,
       delay: -rnd() * 4,
-      ribbon: rnd() < 0.3 ? (rnd() < 0.5 ? "v" : "vh") : "",
-      snow: rnd() < 0.35
+      ribbon: rnd() < 0.35 ? (rnd() < 0.5 ? "v" : "vh") : ""
     };
   });
 
   const cal = $("#calendar");
+  const hero = $("#hero");
   const doorEls = {};
   function buildDoors() {
-    cal.innerHTML = "";
-    const W = cal.clientWidth;
-    const cols = 3, rows = 8;
-    const cellW = W / cols, cellH = cellW * 0.98;
-    cal.style.height = rows * cellH + 20 + "px";
+    cal.querySelectorAll(".door").forEach(e => e.remove());
+    const W = cal.clientWidth, H = cal.clientHeight;
+    const PAD = 10;
+    const cols = 4, rows = 6;
+    const band = Math.max(92, Math.min(130, H * 0.2));
+    const rowH = (H - band) / rows;
+    const cellW = (W - PAD * 2) / cols;
     const td = todayDay();
+    hero.style.top = 3 * rowH + "px";
+    hero.style.height = band + "px";
+    hero.style.setProperty("--title-size", Math.min(46, W * 0.115, band * 0.38) + "px");
     for (let d = 1; d <= 24; d++) {
       const m = doorMeta[d];
       const r = Math.floor(m.idx / cols), c = m.idx % cols;
-      const size = Math.min(cellW * m.scale, cellH * 0.94);
-      const x = c * cellW + (cellW - size) * (0.15 + m.jx * 0.7);
-      const y = r * cellH + (cellH - size) * (0.1 + m.jy * 0.8) + 10;
+      const cell = Math.min(cellW, rowH);
+      const size = cell * m.scale;
+      const foot = size * 1.18; // Platz für Drehung + Wippen
+      const x = PAD + c * cellW + (cellW - size) / 2 + (m.jx - 0.5) * Math.max(0, cellW - foot);
+      const y = r * rowH + (r >= 3 ? band : 0) + (rowH - size) / 2 + (m.jy - 0.5) * Math.max(0, rowH - foot);
       const b = document.createElement("button");
       b.className = "door";
       b.dataset.day = d;
       b.dataset.pattern = m.style.p;
-      if (m.snow) b.dataset.snow = "";
       b.style.cssText = `--x:${x}px;--y:${y}px;--size:${size}px;--rot:${m.rot}deg;--dur:${m.dur}s;--delay:${m.delay}s;--c1:${m.style.c1};--c2:${m.style.c2};--n:${m.style.n}`;
       const bands = m.ribbon ? `<span class="band"></span>${m.ribbon === "vh" ? '<span class="band h"></span>' : ""}` : "";
-      b.innerHTML = `<span class="box"><span class="inside"><span class="num-small">${d}</span></span><span class="lid">${bands}<span class="num">${d}</span></span></span>`;
+      b.innerHTML = `<span class="box"><span class="inside"><span class="star-in"></span><span class="num-small">${d}</span></span><span class="lid">${bands}<span class="num">${d}</span></span></span>`;
       const openable = isOpenable(d);
       b.setAttribute("aria-label", `Türchen ${d}, ${opened.has(d) ? "offen" : openable ? "bereit" : "noch zu"}`);
       if (opened.has(d)) b.classList.add("opened");
-      if (d === td && !opened.has(d)) {
-        b.classList.add("today");
-        b.insertAdjacentHTML("beforeend", '<span class="tag">HEUTE</span>');
-      }
+      if (d === td && !opened.has(d)) b.classList.add("today");
       b.addEventListener("click", () => onDoor(d));
       cal.appendChild(b);
       doorEls[d] = b;
@@ -151,13 +163,13 @@
     const s = $("#status");
     const first = sleepsUntil(1);
     const td = todayDay();
-    if (first > 0) s.textContent = `Noch ${first} Mal schlafen bis zum ersten Türchen!`;
-    else if (td && !opened.has(td)) s.textContent = `Türchen ${td} wartet auf dich! ✨`;
-    else if (td) s.textContent = `Morgen gibt's das nächste Türchen 🎄`;
+    let missed = 0;
+    for (let d = 1; d <= 24; d++) if (isOpenable(d) && !opened.has(d) && d !== td) missed++;
+    if (first > 0) s.textContent = first === 1 ? "Noch 1 Mal schlafen bis zum ersten Türchen!" : `Noch ${first} Mal schlafen bis zum ersten Türchen!`;
+    else if (td && !opened.has(td)) s.textContent = `Wo versteckt sich Türchen ${td}? 👀`;
+    else if (td && missed) s.textContent = `Da sind noch ${missed} zum Nachholen 👀`;
+    else if (td) s.textContent = "Morgen gibt's das nächste 🎄";
     else s.textContent = "Frohe Weihnachten! 🎄";
-    const missed = [];
-    for (let d = 1; d <= 24; d++) if (isOpenable(d) && !opened.has(d) && d !== td) missed.push(d);
-    if (missed.length && first <= 0) s.textContent += ` Nachholen: ${missed.length === 1 ? "Türchen " + missed[0] : missed.length + " Türchen"}`;
   }
 
   // ---------- Interaktion ----------
@@ -165,17 +177,19 @@
   function showBubble(d, text) {
     if (bubbleEl) bubbleEl.remove();
     clearTimeout(bubbleTimer);
-    const el = doorEls[d];
-    const r = el.getBoundingClientRect(), cr = cal.getBoundingClientRect();
+    const r = doorEls[d].getBoundingClientRect();
     bubbleEl = document.createElement("div");
     bubbleEl.className = "bubble";
     bubbleEl.textContent = text;
-    cal.appendChild(bubbleEl);
-    const bw = bubbleEl.offsetWidth;
-    let left = r.left - cr.left + r.width / 2;
-    left = Math.max(bw / 2 + 8, Math.min(cr.width - bw / 2 - 8, left));
+    document.body.appendChild(bubbleEl);
+    const bw = bubbleEl.offsetWidth, bh = bubbleEl.offsetHeight;
+    const cx = r.left + r.width / 2;
+    const left = Math.max(8, Math.min(innerWidth - bw - 8, cx - bw / 2));
+    const above = r.top - bh - 16 > 8;
     bubbleEl.style.left = left + "px";
-    bubbleEl.style.top = r.top - cr.top - 14 + "px";
+    bubbleEl.style.top = (above ? r.top - bh - 14 : r.bottom + 14) + "px";
+    bubbleEl.style.setProperty("--tail-x", Math.max(16, Math.min(bw - 16, cx - left)) + "px");
+    if (!above) bubbleEl.classList.add("below");
     const me = bubbleEl;
     bubbleTimer = setTimeout(() => { me.classList.add("out"); setTimeout(() => me.remove(), 300); }, 2200);
   }
@@ -193,7 +207,6 @@
     if (opened.has(d)) { openSheet(d); return; }
     el.classList.add("opening");
     el.classList.remove("today");
-    el.querySelector(".tag")?.remove();
     if (navigator.vibrate) navigator.vibrate([30, 40, 60]);
     const r = el.getBoundingClientRect();
     setTimeout(() => {
@@ -244,10 +257,15 @@
   addEventListener("keydown", e => { if (e.key === "Escape" && sheet.classList.contains("show")) closeSheet(); });
 
   // ---------- Start ----------
+  buildLights();
   buildDoors();
   updateStatus();
-  let lastW = innerWidth;
-  addEventListener("resize", () => { if (Math.abs(innerWidth - lastW) > 30) { lastW = innerWidth; buildDoors(); } });
+  let lastW = innerWidth, lastH = innerHeight;
+  addEventListener("resize", () => {
+    if (Math.abs(innerWidth - lastW) > 30 || Math.abs(innerHeight - lastH) > 80) {
+      lastW = innerWidth; lastH = innerHeight; buildLights(); buildDoors();
+    }
+  });
 
   // Mitternacht (Berlin) überschreiten, ohne neu zu laden
   setInterval(() => {
@@ -259,8 +277,7 @@
   const h = parseInt(location.hash.slice(1), 10);
   if (h >= 1 && h <= 24) {
     setTimeout(() => {
-      doorEls[h].scrollIntoView({ block: "center", behavior: "smooth" });
-      setTimeout(() => onDoor(h), 500);
-    }, 600);
+      onDoor(h);
+    }, 700);
   }
 })();
