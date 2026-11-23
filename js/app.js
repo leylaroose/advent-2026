@@ -27,15 +27,26 @@
 
   // ---------- Gespeicherter Zustand ----------
   const KEY = "advent26-opened";
+  const KEY_CLEAR = "advent26-cleared";
   // ?reset=1 setzt alle geöffneten Level zurück (zum Testen)
   if (params.has("reset")) {
-    try { localStorage.removeItem(KEY); } catch (e) {}
+    try { localStorage.removeItem(KEY); localStorage.removeItem(KEY_CLEAR); } catch (e) {}
     params.delete("reset");
     const q = params.toString();
     history.replaceState(null, "", location.pathname + (q ? "?" + q : "") + location.hash);
   }
   let opened = new Set();
   try { opened = new Set(JSON.parse(localStorage.getItem(KEY) || "[]")); } catch (e) {}
+  let cleared = new Set();
+  try { cleared = new Set(JSON.parse(localStorage.getItem(KEY_CLEAR) || "[]")); } catch (e) {}
+  function markCleared(d) {
+    if (cleared.has(d)) return;
+    cleared.add(d);
+    try { localStorage.setItem(KEY_CLEAR, JSON.stringify([...cleared])); } catch (e) {}
+    const el = doorEls[d];
+    if (el) { el.classList.add("cleared"); el.setAttribute("aria-label", `Level ${d}, geschafft`); }
+    updateStatus();
+  }
   function markOpened(d) {
     opened.add(d);
     try { localStorage.setItem(KEY, JSON.stringify([...opened])); } catch (e) {}
@@ -151,10 +162,11 @@
       b.dataset.pattern = m.style.p;
       b.style.cssText = `--x:${x}px;--y:${y}px;--size:${size}px;--rot:${m.rot}deg;--dur:${m.dur}s;--delay:${m.delay}s;--c1:${m.style.c1};--c2:${m.style.c2};--n:${m.style.n}`;
       const bands = m.ribbon ? `<span class="band"></span>${m.ribbon === "vh" ? '<span class="band h"></span>' : ""}` : "";
-      b.innerHTML = `<span class="box"><span class="inside"><span class="clear">CLEAR</span><span class="star-in"></span><span class="num-small">${d}</span></span><span class="lid">${bands}<span class="lvl">LVL</span><span class="num">${d}</span></span></span>`;
+      b.innerHTML = `<span class="box"><span class="inside"><span class="clear">CLEAR</span><span class="star-in"></span><span class="play">▶</span><span class="play-txt">PLAY</span><span class="num-small">${d}</span></span><span class="lid">${bands}<span class="lvl">LVL</span><span class="num">${d}</span></span></span>`;
       const openable = isOpenable(d);
-      b.setAttribute("aria-label", `Level ${d}, ${opened.has(d) ? "geschafft" : openable ? "bereit" : "gesperrt"}`);
+      b.setAttribute("aria-label", `Level ${d}, ${cleared.has(d) ? "geschafft" : opened.has(d) ? "offen" : openable ? "bereit" : "gesperrt"}`);
       if (opened.has(d)) b.classList.add("opened");
+      if (cleared.has(d)) b.classList.add("cleared");
       if (d === td && !opened.has(d)) b.classList.add("today");
       b.addEventListener("click", () => onDoor(d));
       cal.appendChild(b);
@@ -173,7 +185,7 @@
     else if (td && missed) s.textContent = `Noch ${missed} Level zum Nachholen 👀`;
     else if (td) s.textContent = "Level geschafft! Morgen geht's weiter 🎄";
     else s.textContent = "Frohe Weihnachten, Player 1! 🎄";
-    const n = opened.size;
+    const n = cleared.size;
     $("#xpText").textContent = `${n}/24`;
     requestAnimationFrame(() => { $("#xpFill").style.width = (n / 24 * 100) + "%"; });
   }
@@ -247,7 +259,7 @@
     void sheet.offsetWidth;
     sheet.classList.remove("show"); void sheet.offsetWidth;
     sheet.classList.add("show");
-    cleanup = render(body, d, data, { year: YEAR }) || null;
+    cleanup = render(body, d, data, { year: YEAR, complete: () => markCleared(d) }) || null;
     if (location.hash !== "#" + d) history.replaceState(null, "", location.pathname + location.search + "#" + d);
   }
   function closeSheet() {

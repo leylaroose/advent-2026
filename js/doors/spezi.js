@@ -121,7 +121,7 @@
     </g>
   </svg>`;
 
-  window.DOOR_TYPES.spezi = function (el, day, data) {
+  window.DOOR_TYPES.spezi = function (el, day, data, api) {
     if (!document.getElementById("spz-css")) {
       const s = document.createElement("style"); s.id = "spz-css"; s.textContent = css; document.head.appendChild(s);
     }
@@ -235,6 +235,7 @@
 
     function blow() {
       done = true;
+      if (api && api.complete) api.complete();
       removeEventListener("devicemotion", onMotion);
       bottle.classList.remove("jiggle");
       bottle.classList.add("blown");
@@ -264,7 +265,7 @@
     }
 
     root.querySelector(".spz-again").addEventListener("click", () => {
-      window.DOOR_TYPES.spezi(el, day, data);
+      window.DOOR_TYPES.spezi(el, day, data, api);
     });
 
     return () => removeEventListener("devicemotion", onMotion);

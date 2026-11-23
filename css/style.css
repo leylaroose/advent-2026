@@ -257,10 +257,28 @@ body {
 
 /* Öffnen und offen */
 .door.opening { z-index: 6; }
-.door.opening .lid { transform: rotateY(-105deg); opacity: 0; }
+.door.opening .lid, .door.opened .lid { transform: scaleX(.2); }
+.door.opening .lid { transition: transform .7s cubic-bezier(.3,1.5,.5,1); }
+.door.opened .lid .num, .door.opened .lid .lvl, .door.opened .lid .band.h { opacity: 0; transition: opacity .2s; }
 .door.opening .box { animation: popOpen .6s cubic-bezier(.3,1.6,.5,1); }
 @keyframes popOpen { 0% { transform: scale(1); } 40% { transform: scale(1.18) rotate(-4deg); } 100% { transform: scale(1.04); } }
-.door.opened .lid { display: none; }
+.door.cleared .lid { display: none; }
+/* Innenseite: offen = PLAY, geschafft = Stern + CLEAR */
+.inside .clear, .inside .star-in { display: none; }
+.door.cleared .inside .clear, .door.cleared .inside .star-in { display: block; }
+.door.cleared .inside .play, .door.cleared .inside .play-txt { display: none; }
+.inside .play {
+  width: 40%; aspect-ratio: 1; display: grid; place-items: center; margin-left: 14%;
+  font-size: calc(var(--size) * .2); color: var(--ink); background: var(--lime); border: 2.5px solid var(--ink); border-radius: 50%;
+  box-shadow: 2px 2px 0 var(--ink); animation: playPulse 1s ease-in-out infinite;
+}
+@keyframes playPulse { 0%,100% { scale: 1; } 50% { scale: 1.15; } }
+.inside .play-txt {
+  position: absolute; left: 22%; right: 0; bottom: 11%; text-align: center; font-family: var(--pixel-font);
+  font-size: max(6px, calc(var(--size) * .08)); color: var(--forest); animation: blinkTxt 1s steps(2) infinite;
+}
+@keyframes blinkTxt { 50% { opacity: .25; } }
+.door.opened:not(.cleared) .num-small { display: none; }
 
 /* Gesperrt */
 .door.nope .box { animation: nope .5s ease-in-out; }
