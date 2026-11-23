@@ -16,7 +16,7 @@ window.ADVENT = {
   pill: "JANS",
   title: ["Road to", "Christmas"],
   signature: "mit Liebe gecodet von Claude & Leyla",
-  signoff: "💚 Deine Leyla",
+  signoff: "Leyla ❤️",
 
   days: {
     1: {
@@ -49,30 +49,27 @@ window.ADVENT = {
         { name: "Kuschelig", label: "MAX", max: true },
         { name: "Sternekoch", label: "★★★", percent: 100 },
         { name: "Spezi-süchtig", label: "24/24", percent: 100 },
-        { name: "Salzbrezel-verliebt", label: "100 %", percent: 100 },
-        { name: "Schoko-immun", label: "✓", percent: 100 },
-        { name: "Grind-erprobt", label: "∞", percent: 100 }
+        { name: "Salzbrezel-verliebt", label: "100 %", percent: 100 }
       ],
-      special: "Macht jeden Tag von Leyla besser",
-      outro: "Ich würde keinen anderen Player wählen.",
-      note: "[PLATZHALTER: ein, zwei Sätze von dir, z. B. warum du so froh bist, dass aus Kollegen mehr wurde]"
+      special: "Heilt Leylas schlechte Laune per Umarmung (Cooldown: 0 Sekunden)",
+      note: "Ich würde keinen anderen Player wählen als dich."
     },
 
     3: {
       type: "coaster",
-      title: "Europa-Park-Tag!",
+      title: "It's Rollercoaster Time!",
       teaser: "Heute geht's nach Rust!",
-      intro: "Heute fahren wir in den Europa-Park! Zum Aufwärmen: Sammle 10 Sterne und Glühwein. Tipp aufs Bild zum Springen.",
-      goal: 10,
+      intro: "Sammle 5 Glühwein und 3 Sterne als Einstimmung auf den Europa-Park. Tippen = springen.",
+      need: { "🍷": 5, "⭐": 3 },
       missionTitle: "Deine Mission für heute",
-      missionSub: "Direkt im Park abhaken. Wenn alles erledigt ist, wartet eine Überraschung.",
+      missionSub: "Antippen zum Abhaken, direkt im Park. Wenn alles erledigt ist, wartet eine Überraschung.",
       mission: [
         { icon: "🍷", text: "Den besten Glühwein im Park küren" },
         { icon: "📸", text: "Foto im Nordischen Winterdorf vor dem Weihnachtsbaum" },
         { icon: "⛸️", text: "Eine Eisshow anschauen" },
         { icon: "🎡", text: "Riesenrad fahren, wenn es dunkel ist" }
       ],
-      missionReward: "Mission erfüllt, my love! [PLATZHALTER: deine Nachricht für den Abend im Park]"
+      missionReward: "Mission erfüllt, my love! Ich hoffe, wir setzen die Tradition mit unseren Europa-Park-Besuchen fort, bis wir alt und schrumpelig sind. Obwohl, das bist du ja schon. Haha 😜"
     },
 
     4: {

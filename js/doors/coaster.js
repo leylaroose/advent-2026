@@ -20,21 +20,25 @@
     transition: background .25s, transform .12s; }
   .cst-item:active { transform: translate(2px, 3px); box-shadow: 1px 1px 0 var(--ink); }
   .cst-item .ico { font-size: 28px; flex: none; }
-  .cst-item .box { flex: none; margin-left: auto; width: 32px; height: 32px; border: 3px solid var(--ink); border-radius: 9px; display: grid; place-items: center;
+  .cst-item .cst-check { flex: none; margin-left: auto; width: 32px; height: 32px; border: 3px solid var(--ink); border-radius: 9px; display: grid; place-items: center;
     font-size: 20px; background: #fff; }
   .cst-item.done { background: var(--lime); }
-  .cst-item.done .box { background: var(--leaf); color: #fff; animation: popOk .4s cubic-bezier(.3,1.7,.5,1); }
+  .cst-item.done .cst-check { background: var(--leaf); color: #fff; animation: popOk .4s cubic-bezier(.3,1.7,.5,1); }
   .cst-item.done .txt { opacity: .75; }
   .cst-prog { font-family: var(--pixel-font); font-size: 10px; text-align: center; color: var(--forest); margin: 8px 0; }
   `);
 
   window.DOOR_TYPES.coaster = function (el, day, data, api) {
-    const GOAL = data.goal || 10;
+    const NEED = data.need || { "🍷": 5, "⭐": 3 };
+    const KINDS = Object.keys(NEED);
+    const got = {};
+    const scoreTxt = () => KINDS.map(k => `${k} ${Math.min(got[k] || 0, NEED[k])}/${NEED[k]}`).join("  ");
+    const isDone = () => KINDS.every(k => (got[k] || 0) >= NEED[k]);
     el.innerHTML = `
       <p class="lead">${data.intro || ""}</p>
       <div class="cst-wrap">
         <canvas></canvas>
-        <div class="cst-name">DOBI-EXPRESS</div><div class="cst-hud"><span class="cst-score">★ 0/${GOAL}</span><span class="cst-time">⏱ 40</span></div>
+        <div class="cst-name">DOBI-EXPRESS</div><div class="cst-hud"><span class="cst-score">${scoreTxt()}</span><span class="cst-time">⏱ 40</span></div>
         <div class="cst-tap" hidden>TIPPEN = SPRINGEN</div>
         <div class="cst-start"><button class="btn">🎢 Einsteigen!</button></div>
       </div>
@@ -46,24 +50,22 @@
     const DPR = Math.min(devicePixelRatio || 1, 2);
     let W = 0, H = 300;
     function fit() {
-      // Spielfeld füllt den sichtbaren Platz bis zum unteren Rand
-      const sh = el.closest(".sheet");
-      const slide = sh ? new DOMMatrix(getComputedStyle(sh).transform).m42 : 0; // Einblend-Bewegung herausrechnen
-      const top = cv.getBoundingClientRect().top - slide;
-      const avail = innerHeight - top - 22;
-      H = Math.round(Math.max(320, Math.min(620, avail)));
+      // passt auf den Handy-Bildschirm: nicht höher als breit, nicht höher als der sichtbare Platz erlaubt
+      const vh = (window.visualViewport && visualViewport.height) || innerHeight;
+      W = cv.clientWidth;
+      H = Math.round(Math.max(260, Math.min(W * 1.05, vh - 330, 440)));
       cv.style.height = H + "px";
-      W = cv.clientWidth; cv.width = W * DPR; cv.height = H * DPR; ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+      cv.width = W * DPR; cv.height = H * DPR; ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
       if (!running) cy = track(cartX() + scroll);
     }
-    W = cv.clientWidth; cv.width = W * DPR; cv.height = H * DPR; ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
-    const fitT = setTimeout(fit, 30);
+    const fitT = 0;
 
     const track = wx => H * 0.68 + Math.sin(wx * 0.009) * 46 + Math.sin(wx * 0.023 + 1) * 20; // Welt-Koordinate
     let scroll = 0, speed = 3.2, running = false, over = false, raf = 0, frame = 0;
     const TIME = data.time || 40; let left = TIME, tStart = 0;
     const cartX = () => W * 0.28;
     let cy = track(cartX()), vy = 0, grounded = true;
+    fit();
     let items = [], pops = [], score = 0;
     const stars = Array.from({ length: 40 }, () => ({ x: Math.random(), y: Math.random() * 0.55, r: Math.random() * 1.6 + .4, t: Math.random() * 6 }));
 
@@ -76,7 +78,7 @@
     function spawn() {
       const wx = scroll + W + 30;
       const high = Math.random() < 0.55;
-      items.push({ wx, y: track(wx) - (high ? 60 + Math.random() * 30 : 24), kind: Math.random() < 0.5 ? "⭐" : "🍷", bob: Math.random() * 6 });
+      items.push({ wx, y: track(wx) - (high ? 60 + Math.random() * 30 : 24), kind: Math.random() < 0.6 ? KINDS[0] : KINDS[1], bob: Math.random() * 6 });
     }
 
     function drawWheel(t) {
@@ -161,9 +163,10 @@
           if (!it.got && Math.abs(sx - cartX()) < 28 && Math.abs(it.y - (cy - 20)) < 32) {
             it.got = true; score++;
             pops.push({ x: sx, y: it.y, life: 40 });
-            el.querySelector(".cst-score").textContent = `★ ${score}/${GOAL}`;
+            got[it.kind] = (got[it.kind] || 0) + 1;
+            el.querySelector(".cst-score").textContent = scoreTxt();
             if (navigator.vibrate) navigator.vibrate(18);
-            if (score >= GOAL) win();
+            if (isDone()) win();
           }
         }
         items = items.filter(it => !it.got && it.wx - scroll > -40);
@@ -183,7 +186,8 @@
       fit();
       scroll = 0; speed = 3.2; items = []; pops = []; score = 0; vy = 0; grounded = true; cy = track(cartX());
       left = TIME; tStart = performance.now();
-      el.querySelector(".cst-score").textContent = `★ 0/${GOAL}`;
+      KINDS.forEach(k => { got[k] = 0; });
+      el.querySelector(".cst-score").textContent = scoreTxt();
       el.querySelector(".cst-time").textContent = `⏱ ${TIME}`;
       wrap.querySelector(".cst-tap").hidden = false;
       running = true;
@@ -194,7 +198,7 @@
       wrap.querySelector(".cst-tap").hidden = true;
       const ov = document.createElement("div");
       ov.className = "cst-over";
-      ov.innerHTML = `<p>ZEIT UM!<br>★ ${score}/${GOAL}</p><button class="btn">🔁 Nochmal</button>`;
+      ov.innerHTML = `<p>ZEIT UM!<br>${scoreTxt()}</p><button class="btn">🔁 Nochmal</button>`;
       ov.querySelector("button").addEventListener("click", e => { e.stopPropagation(); ov.remove(); startRun(); });
       wrap.appendChild(ov);
       if (navigator.vibrate) navigator.vibrate([40, 40, 40]);
@@ -218,7 +222,7 @@
         <div class="cst-mission adv-pop" style="animation-delay:.5s">
           <h3>${data.missionTitle || "Deine Mission für heute"}</h3>
           <p class="cst-sub">${data.missionSub || ""}</p>
-          ${list.map((m, i) => `<button class="cst-item ${saved.includes(i) ? "done" : ""}" data-i="${i}"><span class="ico">${m.icon}</span><span class="txt">${m.text}</span><span class="box">${saved.includes(i) ? "✓" : ""}</span></button>`).join("")}
+          ${list.map((m, i) => `<button class="cst-item ${saved.includes(i) ? "done" : ""}" data-i="${i}"><span class="ico">${m.icon}</span><span class="txt">${m.text}</span><span class="cst-check">${saved.includes(i) ? "✓" : ""}</span></button>`).join("")}
           <p class="cst-prog"></p>
           <div class="cst-reward"></div>
           ${ADV.backBtn()}
@@ -240,7 +244,7 @@
       after.querySelectorAll(".cst-item").forEach(b => b.addEventListener("click", () => {
         b.classList.toggle("done");
         const on = b.classList.contains("done");
-        b.querySelector(".box").textContent = on ? "✓" : "";
+        b.querySelector(".cst-check").textContent = on ? "✓" : "";
         if (on) { const r = b.getBoundingClientRect(); FX.burst(r.right - 30, r.top + r.height / 2, { count: 24, speed: 7, size: 8, life: 70 }); if (navigator.vibrate) navigator.vibrate(20); }
         ADV.save("mission-" + day, [...after.querySelectorAll(".cst-item.done")].map(x => +x.dataset.i));
         update(true);
