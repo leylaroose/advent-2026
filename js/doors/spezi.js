@@ -41,7 +41,22 @@
   .spz-hint b { display: inline-block; animation: hop 1s ease-in-out infinite; }
     .spz-reveal { display: none; margin-top: 8px; }
   .spz.done .spz-reveal { display: block; }
-  .spz.done .spz-controls { display: none; }
+  .spz.done .spz-controls, .spz.done .spz-intro { display: none; }
+  .spz-stage { transition: height .6s cubic-bezier(.5,0,.3,1), opacity .4s; }
+  .spz.gone .spz-stage { height: 0; opacity: 0; margin: 0; }
+  .spz-banner { font-family: var(--pixel-font); font-size: 17px; line-height: 1.5; color: var(--lime); background: var(--ink);
+    border: 3px solid var(--ink); border-radius: 10px; padding: 12px 10px; margin: 6px auto 8px; box-shadow: 4px 5px 0 var(--leaf);
+    text-shadow: 2px 2px 0 #13573a; opacity: 0; animation: bannerIn .8s cubic-bezier(.3,1.7,.5,1) .1s forwards, bannerPulse 1.2s steps(2) 1s infinite; }
+  .spz-banner small { display: block; font-size: 9px; color: var(--gold); margin-top: 6px; letter-spacing: .1em; }
+  @keyframes bannerIn { from { opacity: 0; transform: scale(2.4) rotate(-8deg); } to { opacity: 1; transform: none; } }
+  @keyframes bannerPulse { 50% { color: #fff5df; } }
+  .spz-loot { position: relative; margin: 18px 0 0; text-align: left; background: var(--lime); border: 3.5px solid var(--ink); border-radius: 18px;
+    padding: 14px 14px 16px 86px; box-shadow: var(--shadow); rotate: -1.5deg; opacity: 0; animation: lineIn .7s cubic-bezier(.3,1.6,.5,1) forwards; }
+  .spz-loot .tag { font-family: var(--pixel-font); font-size: 8.5px; color: var(--forest); letter-spacing: .04em; }
+  .spz-loot .what { font-family: var(--display); font-weight: 700; font-size: 25px; line-height: 1.1; margin: 6px 0 4px; color: var(--ink); }
+  .spz-loot .where { font-weight: 800; font-size: 16px; }
+  .spz-loot .ico { position: absolute; left: 12px; top: 50%; translate: 0 -50%; width: 62px; height: 62px; display: grid; place-items: center;
+    font-size: 38px; background: #fff; border: 3px solid var(--ink); border-radius: 14px; box-shadow: 2px 3px 0 var(--ink); animation: fridge 1.2s ease-in-out infinite; }
   .spz-line { font-family: var(--display); font-weight: 700; font-size: 26px; line-height: 1.15; margin: 12px 0; opacity: 0; color: var(--forest);
     animation: lineIn .7s cubic-bezier(.3,1.6,.5,1) forwards; }
   .spz-line.big { font-size: 32px; color: var(--ink); background: var(--lime); border: 3.5px solid var(--ink); border-radius: 20px; padding: 14px 12px; box-shadow: var(--shadow); rotate: -2deg; }
@@ -122,8 +137,15 @@
           <p class="spz-hint"></p>
         </div>
         <div class="spz-reveal">
-          ${(data.lines || []).map((l, i, arr) => `<p class="spz-line ${i === arr.length - 1 ? "big" : ""}" style="animation-delay:${0.2 + i * 0.9}s">${l}${i === arr.length - 1 ? '<br><span class="spz-fridge">🧊</span>' : ""}</p>`).join("")}
-          <button class="btn secondary spz-again" style="opacity:0;animation:lineIn .6s ${0.4 + (data.lines || []).length * 0.9}s forwards">🔁 Nochmal schütteln</button>
+          <div class="spz-banner">LEVEL 1<br>GESCHAFFT!<small>★ ★ ★</small></div>
+          ${(data.lines || []).map((l, i) => `<p class="spz-line" style="animation-delay:${0.9 + i * 0.9}s">${l}</p>`).join("")}
+          <div class="spz-loot" style="animation-delay:${0.9 + (data.lines || []).length * 0.9}s">
+            <span class="ico">${data.rewardIcon || "🧊"}</span>
+            <div class="tag">BELOHNUNG FREIGESCHALTET</div>
+            <div class="what">${data.reward || ""}</div>
+            <div class="where">${data.rewardWhere || ""}</div>
+          </div>
+          <button class="btn secondary spz-again" style="opacity:0;animation:lineIn .6s ${1.5 + (data.lines || []).length * 0.9}s forwards">🔁 Nochmal schütteln</button>
         </div>
       </div>`;
 
@@ -230,8 +252,14 @@
         FX.rain(140);
       }, 350);
       setTimeout(() => {
-        root.classList.add("done");
-        root.querySelector(".spz-reveal").scrollIntoView({ behavior: "smooth", block: "start" });
+        root.classList.add("gone");
+        setTimeout(() => {
+          root.classList.add("done");
+          const body = root.closest(".sheet-body");
+          if (body) body.scrollTo({ top: 0, behavior: "smooth" });
+          const r = root.querySelector(".spz-banner").getBoundingClientRect();
+          FX.burst(r.left + r.width / 2, r.top + r.height / 2, { count: 60, shapes: ["star"], colors: ["#ffc83d", "#c9f07a", "#fff5df"], speed: 12, size: 14 });
+        }, 550);
       }, 1300);
     }
 

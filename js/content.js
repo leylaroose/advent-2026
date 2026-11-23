@@ -25,9 +25,11 @@ window.ADVENT = {
       intro: "Tipp auf die Flasche und dann: Handy schütteln, bis sie aufgeht!",
       lines: [
         "Letztes Jahr gab's 24 davon.",
-        "Dieses Jahr wird's digital.",
-        "Schau mal in den Kühlschrank."
-      ]
+        "Dieses Jahr wird's digital."
+      ],
+      rewardIcon: "🧊",
+      reward: "1× Spezi, eiskalt",
+      rewardWhere: "Abholort: dein Kühlschrank. Los, nachschauen!"
     },
     2: { type: "bald", title: "Ein Foto von uns", teaser: "[PLATZHALTER Teaser]" },
     3: { type: "bald", title: "Europa-Park-Tag", teaser: "Heute geht's nach Rust!" },

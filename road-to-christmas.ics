@@ -1,0 +1,361 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//advent-2026//DE
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:Road to Christmas
+X-WR-TIMEZONE:Europe/Berlin
+BEGIN:VTIMEZONE
+TZID:Europe/Berlin
+BEGIN:DAYLIGHT
+TZOFFSETFROM:+0100
+TZOFFSETTO:+0200
+TZNAME:CEST
+DTSTART:19700329T020000
+RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=-1SU
+END:DAYLIGHT
+BEGIN:STANDARD
+TZOFFSETFROM:+0200
+TZOFFSETTO:+0100
+TZNAME:CET
+DTSTART:19701025T030000
+RRULE:FREQ=YEARLY;BYMONTH=10;BYDAY=-1SU
+END:STANDARD
+END:VTIMEZONE
+BEGIN:VEVENT
+UID:daily-quest-1@advent-2026
+DTSTAMP:20261123T120000Z
+DTSTART;TZID=Europe/Berlin:20261201T071000
+DTEND;TZID=Europe/Berlin:20261201T071500
+SUMMARY:🎮 Daily Quest: Level 1
+DESCRIPTION:Road to Christmas: Level 1 ist bereit. Los geht's: https://leylaroose.github.io/advent-2026/#1
+URL:https://leylaroose.github.io/advent-2026/#1
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:🎮 Daily Quest: Level 1
+TRIGGER:PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:daily-quest-2@advent-2026
+DTSTAMP:20261123T120000Z
+DTSTART;TZID=Europe/Berlin:20261202T071000
+DTEND;TZID=Europe/Berlin:20261202T071500
+SUMMARY:🎮 Daily Quest: Level 2
+DESCRIPTION:Road to Christmas: Level 2 ist bereit. Los geht's: https://leylaroose.github.io/advent-2026/#2
+URL:https://leylaroose.github.io/advent-2026/#2
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:🎮 Daily Quest: Level 2
+TRIGGER:PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:daily-quest-3@advent-2026
+DTSTAMP:20261123T120000Z
+DTSTART;TZID=Europe/Berlin:20261203T071000
+DTEND;TZID=Europe/Berlin:20261203T071500
+SUMMARY:🎮 Daily Quest: Level 3
+DESCRIPTION:Road to Christmas: Level 3 ist bereit. Los geht's: https://leylaroose.github.io/advent-2026/#3
+URL:https://leylaroose.github.io/advent-2026/#3
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:🎮 Daily Quest: Level 3
+TRIGGER:PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:daily-quest-4@advent-2026
+DTSTAMP:20261123T120000Z
+DTSTART;TZID=Europe/Berlin:20261204T071000
+DTEND;TZID=Europe/Berlin:20261204T071500
+SUMMARY:🎮 Daily Quest: Level 4
+DESCRIPTION:Road to Christmas: Level 4 ist bereit. Los geht's: https://leylaroose.github.io/advent-2026/#4
+URL:https://leylaroose.github.io/advent-2026/#4
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:🎮 Daily Quest: Level 4
+TRIGGER:PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:daily-quest-5@advent-2026
+DTSTAMP:20261123T120000Z
+DTSTART;TZID=Europe/Berlin:20261205T071000
+DTEND;TZID=Europe/Berlin:20261205T071500
+SUMMARY:🎮 Daily Quest: Level 5
+DESCRIPTION:Road to Christmas: Level 5 ist bereit. Los geht's: https://leylaroose.github.io/advent-2026/#5
+URL:https://leylaroose.github.io/advent-2026/#5
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:🎮 Daily Quest: Level 5
+TRIGGER:PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:daily-quest-6@advent-2026
+DTSTAMP:20261123T120000Z
+DTSTART;TZID=Europe/Berlin:20261206T071000
+DTEND;TZID=Europe/Berlin:20261206T071500
+SUMMARY:🎮 Daily Quest: Level 6
+DESCRIPTION:Road to Christmas: Level 6 ist bereit. Los geht's: https://leylaroose.github.io/advent-2026/#6
+URL:https://leylaroose.github.io/advent-2026/#6
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:🎮 Daily Quest: Level 6
+TRIGGER:PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:daily-quest-7@advent-2026
+DTSTAMP:20261123T120000Z
+DTSTART;TZID=Europe/Berlin:20261207T071000
+DTEND;TZID=Europe/Berlin:20261207T071500
+SUMMARY:🎮 Daily Quest: Level 7
+DESCRIPTION:Road to Christmas: Level 7 ist bereit. Los geht's: https://leylaroose.github.io/advent-2026/#7
+URL:https://leylaroose.github.io/advent-2026/#7
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:🎮 Daily Quest: Level 7
+TRIGGER:PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:daily-quest-8@advent-2026
+DTSTAMP:20261123T120000Z
+DTSTART;TZID=Europe/Berlin:20261208T071000
+DTEND;TZID=Europe/Berlin:20261208T071500
+SUMMARY:🎮 Daily Quest: Level 8
+DESCRIPTION:Road to Christmas: Level 8 ist bereit. Los geht's: https://leylaroose.github.io/advent-2026/#8
+URL:https://leylaroose.github.io/advent-2026/#8
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:🎮 Daily Quest: Level 8
+TRIGGER:PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:daily-quest-9@advent-2026
+DTSTAMP:20261123T120000Z
+DTSTART;TZID=Europe/Berlin:20261209T071000
+DTEND;TZID=Europe/Berlin:20261209T071500
+SUMMARY:🎮 Daily Quest: Level 9
+DESCRIPTION:Road to Christmas: Level 9 ist bereit. Los geht's: https://leylaroose.github.io/advent-2026/#9
+URL:https://leylaroose.github.io/advent-2026/#9
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:🎮 Daily Quest: Level 9
+TRIGGER:PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:daily-quest-10@advent-2026
+DTSTAMP:20261123T120000Z
+DTSTART;TZID=Europe/Berlin:20261210T071000
+DTEND;TZID=Europe/Berlin:20261210T071500
+SUMMARY:🎮 Daily Quest: Level 10
+DESCRIPTION:Road to Christmas: Level 10 ist bereit. Los geht's: https://leylaroose.github.io/advent-2026/#10
+URL:https://leylaroose.github.io/advent-2026/#10
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:🎮 Daily Quest: Level 10
+TRIGGER:PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:daily-quest-11@advent-2026
+DTSTAMP:20261123T120000Z
+DTSTART;TZID=Europe/Berlin:20261211T071000
+DTEND;TZID=Europe/Berlin:20261211T071500
+SUMMARY:🎮 Daily Quest: Level 11
+DESCRIPTION:Road to Christmas: Level 11 ist bereit. Los geht's: https://leylaroose.github.io/advent-2026/#11
+URL:https://leylaroose.github.io/advent-2026/#11
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:🎮 Daily Quest: Level 11
+TRIGGER:PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:daily-quest-12@advent-2026
+DTSTAMP:20261123T120000Z
+DTSTART;TZID=Europe/Berlin:20261212T071000
+DTEND;TZID=Europe/Berlin:20261212T071500
+SUMMARY:🎮 Daily Quest: Level 12
+DESCRIPTION:Road to Christmas: Level 12 ist bereit. Los geht's: https://leylaroose.github.io/advent-2026/#12
+URL:https://leylaroose.github.io/advent-2026/#12
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:🎮 Daily Quest: Level 12
+TRIGGER:PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:daily-quest-13@advent-2026
+DTSTAMP:20261123T120000Z
+DTSTART;TZID=Europe/Berlin:20261213T071000
+DTEND;TZID=Europe/Berlin:20261213T071500
+SUMMARY:🎮 Daily Quest: Level 13
+DESCRIPTION:Road to Christmas: Level 13 ist bereit. Los geht's: https://leylaroose.github.io/advent-2026/#13
+URL:https://leylaroose.github.io/advent-2026/#13
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:🎮 Daily Quest: Level 13
+TRIGGER:PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:daily-quest-14@advent-2026
+DTSTAMP:20261123T120000Z
+DTSTART;TZID=Europe/Berlin:20261214T071000
+DTEND;TZID=Europe/Berlin:20261214T071500
+SUMMARY:🎮 Daily Quest: Level 14
+DESCRIPTION:Road to Christmas: Level 14 ist bereit. Los geht's: https://leylaroose.github.io/advent-2026/#14
+URL:https://leylaroose.github.io/advent-2026/#14
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:🎮 Daily Quest: Level 14
+TRIGGER:PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:daily-quest-15@advent-2026
+DTSTAMP:20261123T120000Z
+DTSTART;TZID=Europe/Berlin:20261215T071000
+DTEND;TZID=Europe/Berlin:20261215T071500
+SUMMARY:🎮 Daily Quest: Level 15
+DESCRIPTION:Road to Christmas: Level 15 ist bereit. Los geht's: https://leylaroose.github.io/advent-2026/#15
+URL:https://leylaroose.github.io/advent-2026/#15
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:🎮 Daily Quest: Level 15
+TRIGGER:PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:daily-quest-16@advent-2026
+DTSTAMP:20261123T120000Z
+DTSTART;TZID=Europe/Berlin:20261216T071000
+DTEND;TZID=Europe/Berlin:20261216T071500
+SUMMARY:🎮 Daily Quest: Level 16
+DESCRIPTION:Road to Christmas: Level 16 ist bereit. Los geht's: https://leylaroose.github.io/advent-2026/#16
+URL:https://leylaroose.github.io/advent-2026/#16
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:🎮 Daily Quest: Level 16
+TRIGGER:PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:daily-quest-17@advent-2026
+DTSTAMP:20261123T120000Z
+DTSTART;TZID=Europe/Berlin:20261217T071000
+DTEND;TZID=Europe/Berlin:20261217T071500
+SUMMARY:🎮 Daily Quest: Level 17
+DESCRIPTION:Road to Christmas: Level 17 ist bereit. Los geht's: https://leylaroose.github.io/advent-2026/#17
+URL:https://leylaroose.github.io/advent-2026/#17
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:🎮 Daily Quest: Level 17
+TRIGGER:PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:daily-quest-18@advent-2026
+DTSTAMP:20261123T120000Z
+DTSTART;TZID=Europe/Berlin:20261218T071000
+DTEND;TZID=Europe/Berlin:20261218T071500
+SUMMARY:🎮 Daily Quest: Level 18
+DESCRIPTION:Road to Christmas: Level 18 ist bereit. Los geht's: https://leylaroose.github.io/advent-2026/#18
+URL:https://leylaroose.github.io/advent-2026/#18
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:🎮 Daily Quest: Level 18
+TRIGGER:PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:daily-quest-19@advent-2026
+DTSTAMP:20261123T120000Z
+DTSTART;TZID=Europe/Berlin:20261219T071000
+DTEND;TZID=Europe/Berlin:20261219T071500
+SUMMARY:🎮 Daily Quest: Level 19
+DESCRIPTION:Road to Christmas: Level 19 ist bereit. Los geht's: https://leylaroose.github.io/advent-2026/#19
+URL:https://leylaroose.github.io/advent-2026/#19
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:🎮 Daily Quest: Level 19
+TRIGGER:PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:daily-quest-20@advent-2026
+DTSTAMP:20261123T120000Z
+DTSTART;TZID=Europe/Berlin:20261220T071000
+DTEND;TZID=Europe/Berlin:20261220T071500
+SUMMARY:🎮 Daily Quest: Level 20
+DESCRIPTION:Road to Christmas: Level 20 ist bereit. Los geht's: https://leylaroose.github.io/advent-2026/#20
+URL:https://leylaroose.github.io/advent-2026/#20
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:🎮 Daily Quest: Level 20
+TRIGGER:PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:daily-quest-21@advent-2026
+DTSTAMP:20261123T120000Z
+DTSTART;TZID=Europe/Berlin:20261221T071000
+DTEND;TZID=Europe/Berlin:20261221T071500
+SUMMARY:🎮 Daily Quest: Level 21
+DESCRIPTION:Road to Christmas: Level 21 ist bereit. Los geht's: https://leylaroose.github.io/advent-2026/#21
+URL:https://leylaroose.github.io/advent-2026/#21
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:🎮 Daily Quest: Level 21
+TRIGGER:PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:daily-quest-22@advent-2026
+DTSTAMP:20261123T120000Z
+DTSTART;TZID=Europe/Berlin:20261222T071000
+DTEND;TZID=Europe/Berlin:20261222T071500
+SUMMARY:🎮 Daily Quest: Level 22
+DESCRIPTION:Road to Christmas: Level 22 ist bereit. Los geht's: https://leylaroose.github.io/advent-2026/#22
+URL:https://leylaroose.github.io/advent-2026/#22
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:🎮 Daily Quest: Level 22
+TRIGGER:PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:daily-quest-23@advent-2026
+DTSTAMP:20261123T120000Z
+DTSTART;TZID=Europe/Berlin:20261223T071000
+DTEND;TZID=Europe/Berlin:20261223T071500
+SUMMARY:🎮 Daily Quest: Level 23
+DESCRIPTION:Road to Christmas: Level 23 ist bereit. Los geht's: https://leylaroose.github.io/advent-2026/#23
+URL:https://leylaroose.github.io/advent-2026/#23
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:🎮 Daily Quest: Level 23
+TRIGGER:PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:daily-quest-24@advent-2026
+DTSTAMP:20261123T120000Z
+DTSTART;TZID=Europe/Berlin:20261224T071000
+DTEND;TZID=Europe/Berlin:20261224T071500
+SUMMARY:🎮 Daily Quest: Level 24 (Finale!)
+DESCRIPTION:Road to Christmas: Level 24 ist bereit. Los geht's: https://leylaroose.github.io/advent-2026/#24
+URL:https://leylaroose.github.io/advent-2026/#24
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:🎮 Daily Quest: Level 24 (Finale!)
+TRIGGER:PT0M
+END:VALARM
+END:VEVENT
+END:VCALENDAR
