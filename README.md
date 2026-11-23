@@ -6,4 +6,3 @@ Statische Seite für GitHub Pages. Keine Abhängigkeiten, kein Build.
 - Vorschau mit anderem Datum: `?datum=2026-12-05` an die URL hängen
 - Direkt ein Türchen öffnen: `#5` an die URL hängen
 - Fortschritt zurücksetzen: `?reset=1` an die URL hängen
-- Testmodus (alle Level offen, Reset-Knopf): `?test=1`

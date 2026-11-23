@@ -18,12 +18,13 @@
   const unlockDate = d => `${YEAR}-12-${pad(d)}`;
   let today = berlinToday();
   const sleepsUntil = d => daysBetween(today, unlockDate(d));
-  // ?test=1: alle Level offen (nur zum Ausprobieren, nicht für Jan)
-  const TEST = params.has("test");
-  const isOpenable = d => TEST || sleepsUntil(d) <= 0;
+  // Vorschau-Phase: bis einschließlich 29.11. sind alle Level offen (zum Durchspielen).
+  // Ab dem 30.11. gilt automatisch wieder: ein Level pro Tag.
+  const PREVIEW = !params.has("datum") && berlinToday() < `${YEAR}-11-30`;
+  const isOpenable = d => PREVIEW || sleepsUntil(d) <= 0;
   const sleepText = n => n === 1 ? "Noch 1 Mal schlafen 😴" : `Noch ${n} Mal schlafen 😴`;
   const todayDay = () => {
-    if (TEST) return null;
+    if (PREVIEW) { for (let d = 1; d <= 24; d++) if (!cleared.has(d)) return d; return null; }
     const n = daysBetween(`${YEAR}-12-01`, today);
     return n >= 0 && n < 24 ? n + 1 : null;
   };
@@ -48,6 +49,7 @@
     try { localStorage.setItem(KEY_CLEAR, JSON.stringify([...cleared])); } catch (e) {}
     const el = doorEls[d];
     if (el) { el.classList.add("cleared"); el.setAttribute("aria-label", `Level ${d}, geschafft`); }
+    if (PREVIEW) buildDoors();
     updateStatus();
   }
   function markOpened(d) {
@@ -179,18 +181,11 @@
 
   function updateStatus() {
     const s = $("#status");
-    if (TEST) {
-      s.textContent = "🧪 Testmodus: alle Level offen";
-      const n0 = cleared.size;
-      $("#xpText").textContent = `${n0}/24`;
-      requestAnimationFrame(() => { $("#xpFill").style.width = (n0 / 24 * 100) + "%"; });
-      return;
-    }
     const first = sleepsUntil(1);
     const td = todayDay();
     let missed = 0;
     for (let d = 1; d <= 24; d++) if (isOpenable(d) && !opened.has(d) && d !== td) missed++;
-    if (first > 0) s.textContent = first === 1 ? "Noch 1 Mal schlafen bis Level 1! 🎮" : `Noch ${first} Mal schlafen bis Level 1! 🎮`;
+    if (first > 0 && !PREVIEW) s.textContent = first === 1 ? "Noch 1 Mal schlafen bis Level 1! 🎮" : `Noch ${first} Mal schlafen bis Level 1! 🎮`;
     else if (td && !opened.has(td)) s.textContent = `Findest du Level ${td}? 👀`;
     else if (td && missed) s.textContent = `Noch ${missed} Level zum Nachholen 👀`;
     else if (td) s.textContent = "Level geschafft! Morgen geht's weiter 🎄";
@@ -289,17 +284,6 @@
   buildLights();
   buildDoors();
   updateStatus();
-  if (TEST) {
-    const t = document.createElement("button");
-    t.className = "test-reset";
-    t.textContent = "🧪 TEST · Reset";
-    t.addEventListener("click", () => {
-      try { localStorage.removeItem(KEY); localStorage.removeItem(KEY_CLEAR);
-        Object.keys(localStorage).filter(k => k.startsWith("advent26-")).forEach(k => localStorage.removeItem(k)); } catch (e) {}
-      opened = new Set(); cleared = new Set(); buildDoors(); updateStatus();
-    });
-    document.body.appendChild(t);
-  }
   let lastW = innerWidth, lastH = innerHeight;
   addEventListener("resize", () => {
     if (Math.abs(innerWidth - lastW) > 30) {
