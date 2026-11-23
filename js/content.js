@@ -253,29 +253,47 @@ window.ADVENT = {
     },
 
     13: {
-      type: "quiz",
-      title: "Wahr oder falsch?",
-      teaser: "Wie gut kennst du mich wirklich?",
-      intro: "Ein paar Aussagen über mich. Wahr oder falsch?",
-      questions: [
-        { q: "Ich brauche ewig, um mich fertig zu machen.", a: ["Wahr", "Falsch"], correct: 1, shuffle: false, note: "Ich bin schnell! Du musst nie lange warten. 😌" },
-        { q: "Ich werde beim Tennis manchmal motzig.", a: ["Wahr", "Falsch"], correct: 0, shuffle: false, note: "Ertappt. 😤🎾" },
-        { q: "Mein Lieblingsessen ist Salat.", a: ["Wahr", "Falsch"], correct: 1, shuffle: false, note: "Pizza und Nudeln, bitte. 🍕🍝" },
-        { q: "[PLATZHALTER: Aussage über dich]", a: ["Wahr", "Falsch"], correct: 0, shuffle: false, note: "[PLATZHALTER: Auflösung]" },
-        { q: "[PLATZHALTER: Aussage über dich]", a: ["Wahr", "Falsch"], correct: 1, shuffle: false, note: "[PLATZHALTER: Auflösung]" },
-        { q: "[PLATZHALTER: Aussage über dich]", a: ["Wahr", "Falsch"], correct: 0, shuffle: false, note: "[PLATZHALTER: Auflösung]" },
-        { q: "Ich liebe dich.", a: ["Wahr", "Falsch"], all: true, shuffle: false, note: "Die einzige Aussage, bei der es nur eine Antwort gibt. 💚" }
-      ],
-      ranks: [
-        { min: 7, text: "Du kennst mich in- und auswendig! 🏆" },
-        { min: 4, text: "Nicht schlecht! 💪" },
-        { min: 0, text: "Hmm, da müssen wir nochmal ran. 😏" }
-      ],
-      endTitle: "DURCHSCHAUT!",
-      outro: "Du kennst mich einfach. 💚"
+      type: "tennis",
+      title: "Tennis gegen Leyla",
+      teaser: "Heute geht's auf den Platz. Gegen mich. 🎾",
+      intro: "Matchball! Schlag mich im Tennis: Wer zuerst 5 Punkte hat, gewinnt.",
+      how: "Zieh deinen grünen Schläger unten mit dem Finger hin und her und spiel den Ball zurück. Triffst du ihn am Rand, fliegt er schräg.",
+      face: "img/grinch-leyla.jpg",
+      points: 5,
+      aiSpeed: 0.9,  // wie schnell Leyla läuft (höher = schwerer)
+      aiError: 1.5,  // wie ungenau Leyla zielt (höher = leichter)
+      taunts: {
+        start: "Na, traust du dich? Ich bin heute in Topform. 🎾",
+        janPoint: ["Das war im Aus! 😤", "Netzroller zählt nicht!", "Ich war abgelenkt!", "Der Wind!!", "Ich hab die Sonne in den Augen! 😤", "Grrr."],
+        leylaPoint: ["Ass! 😎", "Zu langsam, my love!", "Hehe.", "Das nennt man Technik."],
+        leylaWins: "Haha! Revanche gefällig? 😎",
+        final: "Okay... du hast gewonnen. Aber nur heute. 😤💚"
+      },
+      outro: "Spiel, Satz und Sieg!",
+      note: "[PLATZHALTER: deine Nachricht, z. B. Du darfst mir ab jetzt beim Tennis Tipps geben. Vielleicht.]"
     },
 
-    14: { type: "bald", title: "Hör mal", teaser: "Heute gibt's was auf die Ohren." },
+    14: {
+      type: "chef",
+      title: "Sternekoch Jan",
+      teaser: "Heute wird gekocht. Zumindest auf dem Handy. 👨‍🍳",
+      intro: "Koch mir mein Lieblingsessen! Fang die Zutaten mit der Pfanne.",
+      how: "Zieh die Pfanne mit dem Finger hin und her. Fang alle Zutaten, die oben stehen. Aber Finger weg von Schokolade und Socken! Du hast 3 Leben.",
+      need: [
+        { icon: "🍝", n: 3 },
+        { icon: "🍅", n: 3 },
+        { icon: "🧀", n: 2 },
+        { icon: "🌿", n: 2 }
+      ],
+      bad: ["🍫", "🧦"],
+      lives: 3,
+      dish: "🍝",
+      dishName: "PASTA À LA JAN",
+      endTitle: "STERNEKOCH!",
+      outro: "Drei Sterne für den Koch! ⭐⭐⭐",
+      note: "[PLATZHALTER: deine Nachricht, z. B. Niemand kocht so gut wie du.]"
+    },
+
     15: { type: "bald", title: "Geschenke stapeln", teaser: "Ruhige Hand gefragt!" },
     16: { type: "bald", title: "Ein Foto von uns", teaser: "Heute gibt's ein Lieblingsfoto." },
     17: { type: "bald", title: "Heute kochen wir", teaser: "Heute Abend wird gekocht!" },
