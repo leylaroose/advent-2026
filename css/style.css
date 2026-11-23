@@ -27,21 +27,21 @@ body {
 }
 body.sheet-open { overflow: hidden; }
 
-/* ---------- Eine Bildschirmseite ---------- */
-.scene {
-  position: relative; overflow: hidden;
-  height: 100vh; height: 100svh; min-height: 540px;
+/* ---------- Seite ---------- */
+body {
   background:
-    radial-gradient(120% 50% at 50% 0%, #1d7a4f 0%, transparent 60%),
+    radial-gradient(120% 40% at 50% 0%, #1d7a4f 0%, transparent 60%),
     var(--pine);
+  min-height: 100vh;
 }
+:root { --pixel-font: "Press Start 2P", ui-monospace, monospace; }
 
 /* ---------- Hintergrund ---------- */
 #snow, #fx { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; }
-#snow { z-index: 2; }
+#snow { z-index: 1; }
 #fx { z-index: 100; }
 .sky {
-  position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
   background-image:
     radial-gradient(circle, rgba(166,232,191,.35) 2px, transparent 2.5px),
     radial-gradient(circle, rgba(255,200,61,.25) 1.5px, transparent 2px);
@@ -58,40 +58,16 @@ body.sheet-open { overflow: hidden; }
 @keyframes twinkle { 0%,100% { opacity: .25; scale: .7; } 50% { opacity: 1; scale: 1.15; } }
 @keyframes spin { to { rotate: 360deg; } }
 
-.fields { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
-.field-a {
-  position: absolute; left: 0; top: 0; width: 60%; height: 62%;
-  background:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64'%3E%3Cg stroke='%23d9f3e3' stroke-width='2.5' stroke-linecap='round' opacity='.5'%3E%3Cpath d='M16 6v20M6 16h20M9 9l14 14M23 9L9 23'/%3E%3C/g%3E%3Ccircle cx='48' cy='46' r='3' fill='%230b3d27' opacity='.5'/%3E%3C/svg%3E"),
-    #1f7a4c;
-  clip-path: polygon(0 0, 100% 0, 90% 32%, 100% 64%, 76% 100%, 0 90%);
-  animation: fieldDrift 30s linear infinite;
-}
-@keyframes fieldDrift { to { background-position: 64px 128px, 0 0; } }
-.field-b {
-  position: absolute; left: 0; right: 0; bottom: 0; height: 30%;
-  background: repeating-linear-gradient(-45deg, #bfeccf 0 16px, #a6e8bf 16px 32px);
-  background-size: 45.25px 45.25px;
-  clip-path: polygon(0 18px, 4% 0, 8% 18px, 12% 0, 16% 18px, 20% 0, 24% 18px, 28% 0, 32% 18px, 36% 0, 40% 18px, 44% 0, 48% 18px, 52% 0, 56% 18px, 60% 0, 64% 18px, 68% 0, 72% 18px, 76% 0, 80% 18px, 84% 0, 88% 18px, 92% 0, 96% 18px, 100% 0, 100% 100%, 0 100%);
-  animation: candy 4s linear infinite;
-}
-@keyframes candy { to { background-position: 45.25px 0; } }
-
-.hills { position: absolute; left: 0; right: 0; bottom: 0; height: 92px; z-index: 2; pointer-events: none; }
-.hills svg { position: absolute; left: 0; bottom: 0; width: 100%; height: 70px; }
-.trees { position: absolute; inset: 0; }
-.tree { position: absolute; bottom: var(--b); left: var(--l); width: var(--w); transform-origin: 50% 100%; animation: sway var(--d) ease-in-out infinite; animation-delay: var(--delay); }
-@keyframes sway { 0%,100% { rotate: -4deg; } 50% { rotate: 4deg; } }
-.sign {
-  position: absolute; z-index: 3; left: 0; right: 0; bottom: max(8px, env(safe-area-inset-bottom)); margin: 0; text-align: center;
-  font-family: var(--display); font-weight: 600; color: var(--forest); font-size: 13px; pointer-events: none;
-}
-
 /* ---------- Kopf: Band, Schleife, Lichterkette ---------- */
-.top { position: absolute; left: 0; right: 0; top: 0; z-index: 4; height: 96px; pointer-events: none; }
-.ribbon { position: absolute; left: 0; top: 14px; width: 100%; height: 28px; border-block: 3px solid var(--ink); box-sizing: content-box; }
+.top { position: relative; z-index: 3; }
+.ribbon {
+  position: absolute; left: 0; right: 0; top: 16px; height: 30px; background: var(--red);
+  border-block: 3px solid var(--ink);
+  background-image: linear-gradient(#ff9a9a 0 0), linear-gradient(#b8282e 0 0);
+  background-size: 100% 3px; background-repeat: no-repeat; background-position: 0 5px, 0 19px;
+}
 .bow {
-  position: absolute; left: 50%; top: -6px; width: 128px; translate: -50% 0;
+  position: absolute; left: 50%; top: -4px; width: 150px; translate: -50% 0; z-index: 2;
   filter: drop-shadow(3px 4px 0 var(--ink));
   transform-origin: 50% 30%;
   animation: bowBob 3.2s ease-in-out infinite;
@@ -107,48 +83,79 @@ body.sheet-open { overflow: hidden; }
 @keyframes loopR { 0%,100% { transform: rotate(0); } 50% { transform: rotate(9deg) scale(1.05); } }
 @keyframes tail { 0%,100% { transform: rotate(-4deg); } 50% { transform: rotate(5deg); } }
 
-.lights { position: absolute; left: 0; right: 0; top: 44px; height: 60px; }
+.lights { position: absolute; left: 0; right: 0; top: 50px; height: 50px; pointer-events: none; }
 .lights svg { position: absolute; left: 0; top: 0; width: 100%; height: 30px; overflow: visible; }
 .bulb {
-  position: absolute; width: 11px; height: 16px; border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  position: absolute; width: 12px; height: 17px; border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
   border: 2.5px solid var(--ink); background: var(--c);
   animation: blink var(--d) steps(1) infinite; animation-delay: var(--delay);
 }
-.bulb::before { content: ""; position: absolute; top: -6px; left: 0; width: 6px; height: 5px; background: var(--ink); border-radius: 2px; }
-@keyframes blink { 0%,100% { filter: brightness(1.15); box-shadow: 0 0 12px 3px var(--c); } 50% { filter: brightness(.55); box-shadow: none; } }
+.bulb::before { content: ""; position: absolute; top: -6px; left: 0.5px; width: 6px; height: 5px; background: var(--ink); border-radius: 2px; }
+@keyframes blink { 0%,100% { filter: brightness(1.15); box-shadow: 0 0 14px 4px var(--c); } 50% { filter: brightness(.55); box-shadow: none; } }
 
-/* ---------- Kalenderfläche ---------- */
-.calendar {
-  position: absolute; z-index: 3;
-  left: 0; right: 0; margin: 0 auto; max-width: 520px;
-  top: 92px; bottom: calc(30px + env(safe-area-inset-bottom));
-}
-
-.hero {
-  position: absolute; left: 0; right: 0; text-align: center; pointer-events: none; z-index: 1;
-  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px;
-}
+.hero { text-align: center; padding: 118px 16px 4px; position: relative; display: flex; flex-direction: column; align-items: center; }
 .pill {
-  display: inline-block; font-family: var(--display); font-weight: 700; font-size: 11px; letter-spacing: .14em;
-  text-transform: uppercase; color: var(--ink); background: var(--lime);
-  border: 2.5px solid var(--ink); border-radius: 999px; padding: 3px 11px; box-shadow: 2px 2px 0 var(--ink);
+  display: inline-block; font-family: var(--pixel-font); font-size: 11px; letter-spacing: .06em;
+  color: var(--ink); background: var(--lime);
+  border: 3px solid var(--ink); border-radius: 8px; padding: 7px 11px 6px; box-shadow: 3px 3px 0 var(--ink);
   animation: pillWiggle 2.6s ease-in-out infinite;
 }
 @keyframes pillWiggle { 0%,100% { rotate: -4deg; } 50% { rotate: 3deg; } }
 .title {
-  margin: 0; font-family: var(--display); font-weight: 700; font-size: var(--title-size, 44px); line-height: 1;
+  margin: 10px 0 2px; font-family: var(--display); font-weight: 700; font-size: clamp(46px, 14.5vw, 76px); line-height: .92;
   color: var(--cream); -webkit-text-stroke: 3px var(--ink); paint-order: stroke fill;
-  text-shadow: 3px 4px 0 var(--ink); white-space: nowrap;
+  text-shadow: 4px 5px 0 var(--ink);
 }
-.title span { display: inline-block; animation: hop 2.4s ease-in-out infinite; }
-.title span.accent { color: var(--lime); }
-.title span:nth-child(2) { animation-delay: .25s; }
-.title span:nth-child(3) { animation-delay: .5s; }
-@keyframes hop { 0%,100% { transform: translateY(0) rotate(-2deg); } 50% { transform: translateY(-5px) rotate(2deg); } }
+.title .line { display: block; }
+.title span.w { display: inline-block; animation: hop 2.4s ease-in-out infinite; }
+.title span.w:nth-child(2) { animation-delay: .25s; }
+.title .accent { color: var(--lime); }
+.title .accent .w { animation-delay: .5s; }
+@keyframes hop { 0%,100% { transform: translateY(0) rotate(-2deg); } 50% { transform: translateY(-6px) rotate(2deg); } }
+
+.hud { width: min(280px, 82%); margin-top: 12px; }
+.hud-row { display: flex; justify-content: space-between; font-family: var(--pixel-font); font-size: 10px; color: var(--lime); text-shadow: 2px 2px 0 var(--ink); margin-bottom: 6px; }
+.xp { height: 18px; background: #0a2418; border: 3px solid var(--ink); border-radius: 6px; box-shadow: 3px 3px 0 var(--ink), inset 0 0 0 2px #1d6b48; overflow: hidden; }
+.xp-fill {
+  height: 100%; width: 0%; background: repeating-linear-gradient(90deg, var(--lime) 0 10px, #a5d957 10px 12px);
+  box-shadow: inset 0 3px 0 rgba(255,255,255,.45); transition: width 1s cubic-bezier(.3,1.4,.5,1);
+}
 .status {
-  margin: 2px 0 0; font-weight: 900; font-size: 12.5px; color: var(--ink);
-  background: var(--cream); border: 2.5px solid var(--ink); border-radius: 12px; padding: 4px 10px;
-  box-shadow: 2px 3px 0 var(--ink); rotate: 1.5deg; max-width: 92%;
+  display: inline-block; margin: 14px auto 0; font-weight: 900; font-size: 15px; color: var(--ink);
+  background: var(--cream); border: 3px solid var(--ink); border-radius: 14px; padding: 8px 14px;
+  box-shadow: var(--shadow); rotate: 1.5deg; max-width: 92%;
+}
+
+/* ---------- Kalenderfläche + Farbfelder ---------- */
+.board { position: relative; z-index: 2; margin-top: 18px; }
+.fields { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+.field-a {
+  position: absolute; left: 0; top: 0; width: 62%; height: 58%;
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64'%3E%3Cg stroke='%23d9f3e3' stroke-width='2.5' stroke-linecap='round' opacity='.5'%3E%3Cpath d='M16 6v20M6 16h20M9 9l14 14M23 9L9 23'/%3E%3C/g%3E%3Ccircle cx='48' cy='46' r='3' fill='%230b3d27' opacity='.5'/%3E%3C/svg%3E"),
+    #1f7a4c;
+  clip-path: polygon(0 0, 100% 0, 90% 30%, 100% 62%, 78% 100%, 0 90%);
+  animation: fieldDrift 30s linear infinite;
+}
+@keyframes fieldDrift { to { background-position: 64px 128px, 0 0; } }
+.field-b {
+  position: absolute; left: 0; right: 0; bottom: 0; height: 34%;
+  background: repeating-linear-gradient(-45deg, #bfeccf 0 16px, #a6e8bf 16px 32px);
+  background-size: 45.25px 45.25px;
+  clip-path: polygon(0 18px, 4% 0, 8% 18px, 12% 0, 16% 18px, 20% 0, 24% 18px, 28% 0, 32% 18px, 36% 0, 40% 18px, 44% 0, 48% 18px, 52% 0, 56% 18px, 60% 0, 64% 18px, 68% 0, 72% 18px, 76% 0, 80% 18px, 84% 0, 88% 18px, 92% 0, 96% 18px, 100% 0, 100% 100%, 0 100%);
+  animation: candy 4s linear infinite;
+}
+@keyframes candy { to { background-position: 45.25px 0; } }
+.calendar { position: relative; z-index: 2; margin: 0 auto; width: min(100%, 520px); }
+
+.hills { position: relative; z-index: 3; height: 140px; margin-top: 6px; }
+.hills svg { position: absolute; left: 0; bottom: 0; width: 100%; height: 110px; }
+.trees { position: absolute; inset: 0; }
+.tree { position: absolute; bottom: var(--b); left: var(--l); width: var(--w); transform-origin: 50% 100%; animation: sway var(--d) ease-in-out infinite; animation-delay: var(--delay); }
+@keyframes sway { 0%,100% { rotate: -4deg; } 50% { rotate: 4deg; } }
+.sign {
+  position: absolute; left: 0; right: 0; bottom: calc(12px + env(safe-area-inset-bottom)); margin: 0; text-align: center;
+  font-family: var(--display); font-weight: 600; color: var(--forest); font-size: 14px;
 }
 
 /* ---------- Türchen ---------- */
@@ -180,7 +187,7 @@ body.sheet-open { overflow: hidden; }
   animation: spin 9s linear infinite;
 }
 .num-small {
-  position: absolute; bottom: 9%; right: 12%; font-family: var(--display); font-weight: 700; color: var(--forest);
+  position: absolute; bottom: 10%; right: 12%; font-family: var(--display); font-weight: 700; color: var(--forest);
   font-size: calc(var(--size) * .22); line-height: 1;
 }
 .lid {
@@ -217,6 +224,17 @@ body.sheet-open { overflow: hidden; }
   text-shadow: calc(var(--size) * .03) calc(var(--size) * .04) 0 var(--ink);
 }
 
+.lvl {
+  position: absolute; z-index: 2; top: 11%; left: 0; right: 0; text-align: center;
+  font-family: var(--pixel-font); font-size: max(6px, calc(var(--size) * .085)); color: var(--n, var(--cream));
+  text-shadow: 1px 1px 0 var(--ink), -1px -1px 0 var(--ink), 1px -1px 0 var(--ink), -1px 1px 0 var(--ink);
+  letter-spacing: .05em;
+}
+.num { margin-top: 8%; }
+.clear {
+  position: absolute; left: 50%; top: 12%; translate: -50% 0; font-family: var(--pixel-font); font-size: max(6px, calc(var(--size) * .085));
+  color: var(--forest); letter-spacing: .05em;
+}
 /* Heute: kein Schild, nur mehr Bewegung, damit Suchen Spaß macht */
 .door.today { animation: wobble var(--dur) ease-in-out infinite, wantsOut 3.2s ease-in-out infinite; z-index: 4; }
 @keyframes wantsOut {
@@ -273,7 +291,7 @@ body.sheet-open { overflow: hidden; }
 .sheet[hidden] { display: none; }
 .sheet-head { display: flex; align-items: center; justify-content: space-between; padding: 14px 14px 0; }
 .sheet-day {
-  font-family: var(--display); font-weight: 700; font-size: 12px; letter-spacing: .1em; text-transform: uppercase;
+  font-family: var(--pixel-font); font-size: 10px; letter-spacing: .04em;
   background: var(--lime); border: 3px solid var(--ink); border-radius: 999px; padding: 5px 12px; box-shadow: 3px 3px 0 var(--ink); rotate: -2deg;
 }
 .close {

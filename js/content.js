@@ -12,9 +12,9 @@ window.ADVENT = {
   year: 2026,
   recipient: "Jan",
   from: "Leyla",
-  // Überschrift auf der Startseite (letztes Wort wird hellgrün)
-  title: ["Für", "Jan"],
-  pill: "Advent 2026",
+  // Überschrift auf der Startseite: jede Zeile ein Eintrag (letzte Zeile wird hellgrün)
+  pill: "JANS",
+  title: ["Road to", "Christmas"],
   signature: "mit Liebe gecodet von Claude & Leyla",
 
   days: {

@@ -5,52 +5,50 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#0b3d27">
   <meta name="robots" content="noindex, nofollow">
-  <title>Advent 2026</title>
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎁</text></svg>">
+  <title>Road to Christmas</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎮</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@600;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@600;800;900&family=Press+Start+2P&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css?v=4">
 </head>
 <body>
-  <div class="scene" id="scene">
-    <div class="sky" aria-hidden="true"></div>
-    <div class="fields" aria-hidden="true"><div class="field-a"></div><div class="field-b"></div></div>
-    <canvas id="snow" aria-hidden="true"></canvas>
+  <canvas id="snow" aria-hidden="true"></canvas>
+  <div class="sky" aria-hidden="true"></div>
 
-    <div class="hills" aria-hidden="true">
-      <svg viewBox="0 0 400 90" preserveAspectRatio="none">
-        <path d="M0 40 Q60 10 120 34 T250 28 T400 34 L400 90 L0 90Z" fill="#d9f3e3" stroke="var(--ink)" stroke-width="3"/>
-        <path d="M0 62 Q90 42 190 60 T400 56 L400 90 L0 90Z" fill="#fff" stroke="var(--ink)" stroke-width="3"/>
+  <header class="top">
+    <div class="ribbon" aria-hidden="true"></div>
+    <div class="lights" aria-hidden="true"></div>
+    <svg class="bow" viewBox="0 0 220 170" aria-hidden="true">
+      <g class="tail tail-l"><path d="M100 72 L58 160 L78 150 L86 168 L112 80 Z" fill="var(--red)" stroke="var(--ink)" stroke-width="5" stroke-linejoin="round"/></g>
+      <g class="tail tail-r"><path d="M120 72 L162 160 L142 150 L134 168 L108 80 Z" fill="var(--red-dark)" stroke="var(--ink)" stroke-width="5" stroke-linejoin="round"/></g>
+      <g class="loop loop-l"><path d="M104 62 C70 10 12 6 14 46 C16 84 70 84 104 66 Z" fill="var(--red)" stroke="var(--ink)" stroke-width="5" stroke-linejoin="round"/><path d="M92 58 C66 30 34 28 32 46" fill="none" stroke="#ff9a9a" stroke-width="5" stroke-linecap="round" opacity=".8"/></g>
+      <g class="loop loop-r"><path d="M116 62 C150 10 208 6 206 46 C204 84 150 84 116 66 Z" fill="var(--red)" stroke="var(--ink)" stroke-width="5" stroke-linejoin="round"/><path d="M128 58 C154 30 186 28 188 46" fill="none" stroke="#ff9a9a" stroke-width="5" stroke-linecap="round" opacity=".8"/></g>
+      <rect x="94" y="46" width="32" height="34" rx="10" fill="var(--red-dark)" stroke="var(--ink)" stroke-width="5"/>
+    </svg>
+
+    <div class="hero">
+      <span class="pill" id="pill"></span>
+      <h1 class="title" id="title"></h1>
+      <div class="hud">
+        <div class="hud-row"><span>LEVEL</span><span id="xpText">0/24</span></div>
+        <div class="xp"><div class="xp-fill" id="xpFill"></div></div>
+      </div>
+      <p class="status" id="status"></p>
+    </div>
+  </header>
+
+  <div class="board">
+    <div class="fields" aria-hidden="true"><div class="field-a"></div><div class="field-b"></div></div>
+    <main class="calendar" id="calendar" aria-label="Adventskalender"></main>
+    <footer class="hills" aria-hidden="true">
+      <svg viewBox="0 0 400 110" preserveAspectRatio="none">
+        <path d="M0 40 Q60 10 120 34 T250 28 T400 34 L400 110 L0 110Z" fill="#d9f3e3" stroke="var(--ink)" stroke-width="3"/>
+        <path d="M0 70 Q90 46 190 66 T400 62 L400 110 L0 110Z" fill="#fff" stroke="var(--ink)" stroke-width="3"/>
       </svg>
       <div class="trees"></div>
-    </div>
-
-    <header class="top" aria-hidden="true">
-      <svg class="ribbon" viewBox="0 0 400 34" preserveAspectRatio="none">
-        <rect x="0" y="0" width="400" height="34" fill="var(--red)"/>
-        <rect x="0" y="6" width="400" height="3" fill="#ff9a9a" opacity=".55"/>
-        <rect x="0" y="25" width="400" height="3" fill="#b8282e" opacity=".55"/>
-      </svg>
-      <div class="lights"></div>
-      <svg class="bow" viewBox="0 0 220 170">
-        <g class="tail tail-l"><path d="M100 72 L58 160 L78 150 L86 168 L112 80 Z" fill="var(--red)" stroke="var(--ink)" stroke-width="5" stroke-linejoin="round"/></g>
-        <g class="tail tail-r"><path d="M120 72 L162 160 L142 150 L134 168 L108 80 Z" fill="var(--red-dark)" stroke="var(--ink)" stroke-width="5" stroke-linejoin="round"/></g>
-        <g class="loop loop-l"><path d="M104 62 C70 10 12 6 14 46 C16 84 70 84 104 66 Z" fill="var(--red)" stroke="var(--ink)" stroke-width="5" stroke-linejoin="round"/><path d="M92 58 C66 30 34 28 32 46" fill="none" stroke="#ff9a9a" stroke-width="5" stroke-linecap="round" opacity=".8"/></g>
-        <g class="loop loop-r"><path d="M116 62 C150 10 208 6 206 46 C204 84 150 84 116 66 Z" fill="var(--red)" stroke="var(--ink)" stroke-width="5" stroke-linejoin="round"/><path d="M128 58 C154 30 186 28 188 46" fill="none" stroke="#ff9a9a" stroke-width="5" stroke-linecap="round" opacity=".8"/></g>
-        <rect x="94" y="46" width="32" height="34" rx="10" fill="var(--red-dark)" stroke="var(--ink)" stroke-width="5"/>
-      </svg>
-    </header>
-
-    <main class="calendar" id="calendar" aria-label="Adventskalender">
-      <div class="hero" id="hero">
-        <span class="pill" id="pill">Advent 2026</span>
-        <h1 class="title" id="title"></h1>
-        <p class="status" id="status"></p>
-      </div>
-    </main>
-
-    <p class="sign" id="sign"></p>
+      <p class="sign" id="sign"></p>
+    </footer>
   </div>
 
   <div class="scrim" id="scrim"></div>
@@ -65,10 +63,10 @@
 
   <canvas id="fx" aria-hidden="true"></canvas>
 
-  <script src="js/content.js"></script>
-  <script src="js/fx.js"></script>
-  <script src="js/doors/basic.js"></script>
-  <script src="js/doors/spezi.js"></script>
-  <script src="js/app.js"></script>
+  <script src="js/content.js?v=4"></script>
+  <script src="js/fx.js?v=4"></script>
+  <script src="js/doors/basic.js?v=4"></script>
+  <script src="js/doors/spezi.js?v=4"></script>
+  <script src="js/app.js?v=4"></script>
 </body>
 </html>

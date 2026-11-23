@@ -57,13 +57,13 @@
   function buildLights() {
     const W = innerWidth;
     const nb = Math.max(8, Math.round(W / 36));
-    const sagAt = t => Math.sin(t * Math.PI) * 18 + 4;
+    const sagAt = t => Math.sin(t * Math.PI) * 20 + 4;
     let d = `M 0 ${sagAt(0)}`;
     for (let i = 1; i <= 40; i++) { const t = i / 40; d += ` L ${t * W} ${sagAt(t)}`; }
     let html = `<svg viewBox="0 0 ${W} 30" preserveAspectRatio="none"><path d="${d}" fill="none" stroke="#0a2418" stroke-width="2.5"/></svg>`;
     for (let i = 0; i < nb; i++) {
       const t = (i + 0.5) / nb;
-      if (Math.abs(t - 0.5) < 0.09) continue; // Platz für die Schleife
+      if (Math.abs(t - 0.5) < 0.1) continue; // Platz für die Schleife
       html += `<i class="bulb" style="left:${t * W - 5.5}px;top:${sagAt(t) + 4}px;--c:${bulbColors[i % bulbColors.length]};--d:${0.9 + (i % 3) * 0.35}s;--delay:${-(i * 0.27)}s;rotate:${(t - 0.5) * -36}deg"></i>`;
     }
     lights.innerHTML = html;
@@ -71,7 +71,7 @@
 
   const trees = $(".trees");
   const treeSVG = c => `<svg viewBox="0 0 60 90"><path d="M30 2 L50 34 H40 L56 58 H42 L58 80 H2 L18 58 H4 L20 34 H10 Z" fill="${c}" stroke="#0a2418" stroke-width="3.5" stroke-linejoin="round"/><rect x="25" y="79" width="10" height="10" fill="#7a4a21" stroke="#0a2418" stroke-width="3"/><circle cx="30" cy="4" r="5" fill="#ffc83d" stroke="#0a2418" stroke-width="2.5"/></svg>`;
-  [[2, 26, 30], [11, 20, 22], [80, 24, 28], [91, 18, 34], [60, 14, 18]].forEach(([l, b, w], i) => {
+  [[3, 60, 40], [14, 52, 30], [76, 58, 36], [88, 46, 48], [55, 44, 24]].forEach(([l, b, w], i) => {
     const t = document.createElement("div");
     t.className = "tree";
     t.style.cssText = `--l:${l}%;--b:${b}px;--w:${w}px;--d:${2.6 + i * 0.4}s;--delay:${-i * 0.7}s`;
@@ -79,10 +79,11 @@
     trees.appendChild(t);
   });
 
-  // Überschrift: Wörter, das letzte in Akzentfarbe
-  const words = A.title || ["Für", A.recipient];
-  $("#title").innerHTML = words.map((w, i) => `<span${i === words.length - 1 ? ' class="accent"' : ""}>${w}</span>`).join(" ");
-  if (A.pill) $("#pill").textContent = A.pill;
+  // Überschrift: jede Zeile ein Eintrag, die letzte in Akzentfarbe
+  const lines = A.title || ["Für", A.recipient];
+  $("#title").innerHTML = lines.map((l, i) =>
+    `<span class="line${i === lines.length - 1 ? " accent" : ""}">${l.split(" ").map(w => `<span class="w">${w}</span>`).join(" ")}</span>`).join("");
+  $("#pill").textContent = A.pill || "";
   $("#sign").textContent = A.signature;
 
   // ---------- Türchen verteilen ----------
@@ -93,7 +94,7 @@
     { c1: "#e8414a", c2: "#f06a71", n: "#fff5df", p: "stripes" },
     { c1: "#a6e8bf", c2: "#8fd8ab", n: "#13573a", p: "vstripes" },
     { c1: "#c9f07a", c2: "#b4df60", n: "#13573a", p: "dots" },
-    { c1: "#0b3d27", c2: "#2f9e5b", n: "#ffc83d", p: "stars" },
+    { c1: "#fff5df", c2: "#ffc83d", n: "#13573a", p: "stars" },
     { c1: "#ffc83d", c2: "#ffd970", n: "#b9252e", p: "hstripes" },
     { c1: "#fff5df", c2: "#f5b7ba", n: "#e8414a", p: "check" },
     { c1: "#2f9e5b", c2: "#278a4f", n: "#fff5df", p: "zigzag" },
@@ -110,7 +111,7 @@
     doorMeta[d] = {
       idx,
       style: STYLES[(d * 7) % STYLES.length],
-      scale: big ? 0.84 : 0.66 + rnd() * 0.14,
+      scale: big ? 0.8 : 0.6 + rnd() * 0.14,
       jx: rnd(), jy: rnd(),
       rot: (rnd() - 0.5) * (big ? 8 : 14),
       dur: 2.2 + rnd() * 1.6,
@@ -124,33 +125,28 @@
   const doorEls = {};
   function buildDoors() {
     cal.querySelectorAll(".door").forEach(e => e.remove());
-    const W = cal.clientWidth, H = cal.clientHeight;
-    const PAD = 10;
-    const cols = 4, rows = 6;
-    const band = Math.max(92, Math.min(130, H * 0.2));
-    const rowH = (H - band) / rows;
-    const cellW = (W - PAD * 2) / cols;
+    const W = cal.clientWidth;
+    const PAD = 14;
+    const cols = 3, rows = 8;
+    const cellW = (W - PAD * 2) / cols, cellH = cellW * 0.96;
+    cal.style.height = rows * cellH + 24 + "px";
     const td = todayDay();
-    hero.style.top = 3 * rowH + "px";
-    hero.style.height = band + "px";
-    hero.style.setProperty("--title-size", Math.min(46, W * 0.115, band * 0.38) + "px");
     for (let d = 1; d <= 24; d++) {
       const m = doorMeta[d];
       const r = Math.floor(m.idx / cols), c = m.idx % cols;
-      const cell = Math.min(cellW, rowH);
-      const size = cell * m.scale;
-      const foot = size * 1.18; // Platz für Drehung + Wippen
+      const size = cellW * m.scale;
+      const foot = size * 1.2; // Platz für Drehung + Wippen
       const x = PAD + c * cellW + (cellW - size) / 2 + (m.jx - 0.5) * Math.max(0, cellW - foot);
-      const y = r * rowH + (r >= 3 ? band : 0) + (rowH - size) / 2 + (m.jy - 0.5) * Math.max(0, rowH - foot);
+      const y = 16 + r * cellH + (cellH - size) / 2 + (m.jy - 0.5) * Math.max(0, cellH - foot);
       const b = document.createElement("button");
       b.className = "door";
       b.dataset.day = d;
       b.dataset.pattern = m.style.p;
       b.style.cssText = `--x:${x}px;--y:${y}px;--size:${size}px;--rot:${m.rot}deg;--dur:${m.dur}s;--delay:${m.delay}s;--c1:${m.style.c1};--c2:${m.style.c2};--n:${m.style.n}`;
       const bands = m.ribbon ? `<span class="band"></span>${m.ribbon === "vh" ? '<span class="band h"></span>' : ""}` : "";
-      b.innerHTML = `<span class="box"><span class="inside"><span class="star-in"></span><span class="num-small">${d}</span></span><span class="lid">${bands}<span class="num">${d}</span></span></span>`;
+      b.innerHTML = `<span class="box"><span class="inside"><span class="clear">CLEAR</span><span class="star-in"></span><span class="num-small">${d}</span></span><span class="lid">${bands}<span class="lvl">LVL</span><span class="num">${d}</span></span></span>`;
       const openable = isOpenable(d);
-      b.setAttribute("aria-label", `Türchen ${d}, ${opened.has(d) ? "offen" : openable ? "bereit" : "noch zu"}`);
+      b.setAttribute("aria-label", `Level ${d}, ${opened.has(d) ? "geschafft" : openable ? "bereit" : "gesperrt"}`);
       if (opened.has(d)) b.classList.add("opened");
       if (d === td && !opened.has(d)) b.classList.add("today");
       b.addEventListener("click", () => onDoor(d));
@@ -165,11 +161,14 @@
     const td = todayDay();
     let missed = 0;
     for (let d = 1; d <= 24; d++) if (isOpenable(d) && !opened.has(d) && d !== td) missed++;
-    if (first > 0) s.textContent = first === 1 ? "Noch 1 Mal schlafen bis zum ersten Türchen!" : `Noch ${first} Mal schlafen bis zum ersten Türchen!`;
-    else if (td && !opened.has(td)) s.textContent = `Wo versteckt sich Türchen ${td}? 👀`;
-    else if (td && missed) s.textContent = `Da sind noch ${missed} zum Nachholen 👀`;
-    else if (td) s.textContent = "Morgen gibt's das nächste 🎄";
-    else s.textContent = "Frohe Weihnachten! 🎄";
+    if (first > 0) s.textContent = first === 1 ? "Noch 1 Mal schlafen bis Level 1! 🎮" : `Noch ${first} Mal schlafen bis Level 1! 🎮`;
+    else if (td && !opened.has(td)) s.textContent = `Level ${td} ist frei! Wo ist es? 👀`;
+    else if (td && missed) s.textContent = `Noch ${missed} Level zum Nachholen 👀`;
+    else if (td) s.textContent = "Level geschafft! Morgen geht's weiter 🎄";
+    else s.textContent = "Frohe Weihnachten, Player 1! 🎄";
+    const n = opened.size;
+    $("#xpText").textContent = `${n}/24`;
+    requestAnimationFrame(() => { $("#xpFill").style.width = (n / 24 * 100) + "%"; });
   }
 
   // ---------- Interaktion ----------
@@ -199,7 +198,7 @@
     if (!isOpenable(d)) {
       el.classList.remove("nope"); void el.offsetWidth; el.classList.add("nope");
       if (navigator.vibrate) navigator.vibrate(40);
-      showBubble(d, sleepText(sleepsUntil(d)));
+      showBubble(d, "🔒 " + sleepText(sleepsUntil(d)));
       const r = el.getBoundingClientRect();
       FX.burst(r.left + r.width / 2, r.top + r.height / 2, { count: 14, colors: ["#ffffff", "#dff5ea"], shapes: ["circle"], speed: 5, gravity: 0.08, size: 7, life: 60 });
       return;
@@ -228,7 +227,7 @@
   function openSheet(d) {
     const data = A.days[d] || { type: "bald", title: `Türchen ${d}` };
     const wd = WD[new Date(toUTC(unlockDate(d))).getUTCDay()];
-    $("#sheetDay").textContent = `Türchen ${d} · ${wd}, ${d}. Dez`;
+    $("#sheetDay").textContent = `LEVEL ${d} · ${wd.slice(0, 2).toUpperCase()} ${d}.12.`;
     $("#sheetTitle").textContent = data.title;
     const body = $("#sheetBody");
     body.innerHTML = "";
@@ -262,7 +261,7 @@
   updateStatus();
   let lastW = innerWidth, lastH = innerHeight;
   addEventListener("resize", () => {
-    if (Math.abs(innerWidth - lastW) > 30 || Math.abs(innerHeight - lastH) > 80) {
+    if (Math.abs(innerWidth - lastW) > 30) {
       lastW = innerWidth; lastH = innerHeight; buildLights(); buildDoors();
     }
   });
@@ -277,7 +276,8 @@
   const h = parseInt(location.hash.slice(1), 10);
   if (h >= 1 && h <= 24) {
     setTimeout(() => {
-      onDoor(h);
-    }, 700);
+      doorEls[h].scrollIntoView({ block: "center", behavior: "smooth" });
+      setTimeout(() => onDoor(h), 500);
+    }, 600);
   }
 })();
