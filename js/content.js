@@ -139,15 +139,15 @@ window.ADVENT = {
       type: "zoom",
       title: "Zoom-Rätsel",
       teaser: "Heute musst du ganz genau hinschauen.",
-      intro: "Was ist auf den Fotos? Je weniger du rauszoomst, desto mehr Sterne gibt's.",
+      intro: "4 Fotos aus unserer Wohnung, ganz nah rangezoomt. Was ist das und wo ist es? Je weniger du rauszoomst, desto mehr Sterne.",
       rounds: [
-        // [PLATZHALTER: eigene Fotos; x/y = Stelle in Prozent, auf die gezoomt wird]
-        { img: "img/platzhalter-zoom-1.svg", x: 50, y: 58, q: "Was ist das?", a: ["Dein Controller", "Eine Fernbedienung", "Ein Toaster"], correct: 0, solution: "Dein Controller!" },
-        { img: "img/platzhalter-zoom-2.svg", x: 50, y: 55, q: "Und das?", a: ["Eine Kaffeetasse", "Ein Blumentopf", "Ein Spezi-Glas"], correct: 0, solution: "Kaffee, natürlich." },
-        { img: "img/platzhalter-zoom-3.svg", x: 50, y: 50, q: "Und zum Schluss?", a: ["Ein Weihnachtsbaum", "Brokkoli", "Ein Tannenzapfen"], correct: 0, solution: "Oh Tannenbaum!" }
+        // x/y = Stelle in Prozent, auf die am Anfang gezoomt wird
+        { img: "img/zoom-messer.jpg", x: 48, y: 30, q: "Was ist das und wo hängt es?", a: ["Die Messerleiste in der Küche", "Die Säge im Keller", "Der Kamm im Bad"], correct: 0, solution: "Die Messerleiste in der Küche!" },
+        { img: "img/zoom-pflanze.jpg", x: 48, y: 42, q: "Und was ist das?", a: ["Die Pflanze im Schlafzimmer", "Der Kaktus im Büro", "Der Brokkoli im Kühlschrank"], correct: 0, solution: "Die Pflanze im Schlafzimmer!" },
+        { img: "img/zoom-kranz.jpg", x: 51, y: 47, q: "Und das hier?", a: ["Der Adventskranz im Esszimmer", "Ein Tannenzapfen im Wald", "Der Weihnachtsbaum auf dem Balkon"], correct: 0, solution: "Unser Adventskranz im Esszimmer! 🕯️" },
+        { img: "img/zoom-stuhl.jpg", x: 60, y: 57, q: "Und zum Schluss?", a: ["Ein Stuhl im Esszimmer", "Das Sofa im Wohnzimmer", "Der Bürostuhl im Arbeitszimmer"], correct: 0, solution: "Ein Stuhl im Esszimmer!" }
       ],
-      outro: "Adlerauge! 🦅",
-      note: "[PLATZHALTER: optionaler Satz]"
+      outro: "Adlerauge! 🦅"
     },
 
     8: { type: "bald", title: "Emoji-Kino", teaser: "Heute wird geraten: Welcher Film ist das?" },
