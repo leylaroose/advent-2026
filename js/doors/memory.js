@@ -10,6 +10,7 @@
   .mem-back { background: var(--leaf); background-image: repeating-linear-gradient(-45deg, #3fb56c 0 6px, transparent 6px 13px); }
   .mem-back::after { content: "?"; font-family: var(--pixel-font); font-size: 16px; color: var(--cream); text-shadow: 2px 2px 0 var(--ink); }
   .mem-front { background: #fff; transform: rotateY(180deg); font-size: clamp(28px, 9vw, 40px); }
+  .mem-front img { width: 100%; height: 100%; object-fit: cover; border-radius: 9px; }
   .mem-card.done .mem-front { background: var(--lime); animation: popOk .5s ease-in-out; }
   .mem-cap { min-height: 2.6em; text-align: center; font-family: var(--display); font-weight: 600; font-size: 18px; color: var(--forest); margin: 12px 0 0; }
   .mem-cap.pop { animation: popOk .4s cubic-bezier(.3,1.7,.5,1); }
@@ -21,7 +22,7 @@
     el.innerHTML = `
       <p class="lead">${data.intro || ""}</p>
       <div class="adv-hud"><span class="mem-found">PAARE: 0/${pairs.length}</span><span class="mem-moves">ZÜGE: 0</span></div>
-      <div class="mem-grid">${deck.map((k, i) => `<button class="mem-card" data-k="${k}" data-i="${i}" aria-label="Karte"><span class="mem-face mem-back"></span><span class="mem-face mem-front">${pairs[k].icon}</span></button>`).join("")}</div>
+      <div class="mem-grid">${deck.map((k, i) => `<button class="mem-card" data-k="${k}" data-i="${i}" aria-label="Karte"><span class="mem-face mem-back"></span><span class="mem-face mem-front">${pairs[k].img ? `<img src="${pairs[k].img}" alt="">` : pairs[k].icon}</span></button>`).join("")}</div>
       <p class="mem-cap">Finde die Paare!</p>
       <div class="mem-after"></div>`;
     const cards = [...el.querySelectorAll(".mem-card")], cap = el.querySelector(".mem-cap");

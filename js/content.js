@@ -162,11 +162,10 @@ window.ADVENT = {
         { q: "🔨⚡👱‍♂️🌈", big: true, a: ["Iron Man", "Thor", "Captain America", "Doctor Strange"], correct: 1 },
         { q: "🦝🌳🚀🎶📼", big: true, a: ["Avatar", "Star Wars", "Guardians of the Galaxy", "Ant-Man"], correct: 2, note: "I am Groot. 🌳" },
         { q: "🧤💎💎💎💎💎💎🫰", big: true, a: ["Avengers: Infinity War", "Black Panther", "Spider-Man: No Way Home", "Thor: Ragnarok"], correct: 0, note: "*snap* 🫰" },
-        { q: "👦🏠✈️🪤🎄", big: true, a: ["Der Grinch", "Tatsächlich... Liebe", "Kevin – Allein zu Haus", "Buddy der Weihnachtself"], correct: 2 },
-        { q: "🧝‍♂️🍝🍁🗽🎅", big: true, a: ["Kevin – Allein in New York", "Buddy der Weihnachtself", "Der Polarexpress", "Santa Clause"], correct: 1, note: "Spaghetti mit Ahornsirup. 🍝" }
+        { q: "👦🏠✈️🪤🎄", big: true, a: ["Der Grinch", "Tatsächlich... Liebe", "Kevin – Allein zu Haus", "Der Polarexpress"], correct: 2 }
       ],
       ranks: [
-        { min: 7, text: "Volle Punktzahl! Cineast! 🎬" },
+        { min: 6, text: "Volle Punktzahl! Cineast! 🎬" },
         { min: 4, text: "Solide! 🍿" },
         { min: 0, text: "Okay, wir haben einen Filmabend nötig. 😄" }
       ],
@@ -179,6 +178,7 @@ window.ADVENT = {
       title: "Unser Memory",
       teaser: "Heute brauchst du ein gutes Gedächtnis.",
       intro: "8 Paare aus unserem Jahr. Finde sie alle!",
+      // Optional statt Emoji ein Foto: { img: "img/memory-1.jpg", text: "..." }
       pairs: [
         { icon: "🥤", text: "Spezi: dein Lebenselixier." },
         { icon: "💻", text: "Teams: wo alles anfing." },
@@ -186,7 +186,7 @@ window.ADVENT = {
         { icon: "🎢", text: "Europa-Park: Tradition!" },
         { icon: "🍝", text: "Nudeln. Und Pizza. Beides." },
         { icon: "🥨", text: "Salzbrezeln statt Schokolade." },
-        { icon: "🎮", text: "Grind, grind, grind." },
+        { icon: "🖥️", text: "Zocken am PC." },
         { icon: "🎾", text: "Tennis (und motzige Leyla 😤)." }
       ],
       outro: "Gutes Gedächtnis! Mit dir merk ich mir einfach alles gern. 💚"
@@ -194,13 +194,12 @@ window.ADVENT = {
 
     10: {
       type: "wordle",
-      title: "Wort des Tages",
+      title: "Wordle",
       teaser: "Fünf Buchstaben, sechs Versuche.",
-      intro: "Errate das Wort des Tages: 5 Buchstaben, 6 Versuche. Grün = richtig, gelb = falscher Platz. Kleiner Tipp: Es hat mit morgen zu tun. 👀",
+      intro: "Das Wordle des Tages, diesmal mit einem <b>englischen</b> Wort: 5 Buchstaben, 6 Versuche. Grün = richtiger Platz, gelb = Buchstabe kommt vor, aber woanders. Kleiner Tipp: Es hat mit morgen zu tun. 👀",
       solution: "EXILE",
       winMsg: "EXILE! Na, klingelt's? 👀",
-      outro: "Morgen erscheint etwas, worauf du lange gewartet hast...",
-      note: "Bereite dich schon mal mental vor. Morgen wird gegrindet. 🎮"
+      outro: "Morgen erscheint etwas, worauf du lange gewartet hast..."
     },
 
     11: {
@@ -215,16 +214,14 @@ window.ADVENT = {
         props: ["Gegenstandsstufe: <b>100</b>", "Benötigt: <b>Jan, Level 99</b>"],
         mods: [
           "+100% Zocken ohne schlechtes Gewissen",
-          "Immun gegen Haushalt für 24 Stunden",
+          "Immun gegen Haushalt für 48 Stunden",
           "+5 auf alle Spezi-Resistenzen",
-          "Erhöht Grind-Geschwindigkeit um 300%",
-          "Kann von Leyla nicht unterbrochen werden (bis 22 Uhr)",
+          "Kann von Leyla nicht unterbrochen werden",
           "[PLATZHALTER: Inhalt des Korbs als Mod, z. B. +1 Snack-Vorrat]"
         ],
         flavor: "Wer den Korb öffnet, kehrt erst nach dem Endgame zurück."
       },
       where: "[PLATZHALTER: Wo steht der echte Korb? z. B. Fundort: hinter dem Sofa im Wohnzimmer]",
-      outro: "Viel Spaß beim Grinden, Exile! 🎮",
       note: "Heute Abend gehört der PC dir. Ich bring dir Snacks. 💚"
     },
 
@@ -232,8 +229,10 @@ window.ADVENT = {
       type: "poe",
       title: "Path of Advent",
       teaser: "Die Weihnachtsmonster greifen an!",
-      intro: "60 Sekunden Weihnachtsmonster wegtippen, Beute sammeln, dann wartet der Boss. Bist du bereit, Exile?",
-      time: 60,
+      intro: "Die Weihnachtsmonster wollen an die Geschenke! Bist du bereit, Jan?",
+      how: "Tipp die Monster an, bevor sie unten bei den Geschenken ankommen. Manche brauchen mehrere Treffer. Du hast 5 Leben. Halte 30 Sekunden durch, dann kommt der Boss.",
+      time: 30,
+      lives: 5,
       mobs: [
         { icon: "🍪", hp: 1 },
         { icon: "🧝", hp: 2 },
@@ -247,9 +246,9 @@ window.ADVENT = {
         { name: "Zimtstern des Göttlichen", color: "#c9f07a" },
         { name: "Lebkuchen-Splitter", color: "#c8c8c8" }
       ],
-      boss: { icon: "👹", name: "Krampus, Schrecken der Adventszeit", hp: 40, intro: "DER BODEN BEBT...<br>KRAMPUS ERSCHEINT!" },
+      boss: { icon: "👹", name: "Krampus, Schrecken der Adventszeit", hp: 30, intro: "DER BODEN BEBT...<br>KRAMPUS ERSCHEINT!", how: "Tipp ihn so oft an, wie du kannst!" },
       bossLoot: [{ name: "Spezi des Spiegels", color: "#7fd7ff", count: 1 }],
-      outro: "Krampus ist besiegt, und Weihnachten ist sicher!",
+      outro: "Weihnachten ist sicher!",
       note: "[PLATZHALTER: deine Nachricht als Belohnung]"
     },
 

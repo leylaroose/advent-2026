@@ -15,7 +15,8 @@
   .wdl-kr { display: flex; gap: 4px; justify-content: center; }
   .wdl-k { flex: 1; max-width: 38px; height: 48px; border: 2.5px solid var(--ink); border-radius: 8px; background: #fff; font-family: var(--display); font-weight: 700;
     font-size: 17px; color: var(--ink); box-shadow: 1px 2px 0 var(--ink); padding: 0; cursor: pointer; touch-action: manipulation; }
-  .wdl-k.wide { max-width: 62px; font-size: 12px; }
+  .wdl-k.wide { max-width: 56px; font-size: 18px; }
+  .wdl-k.wdl-enter { max-width: 100%; height: 46px; font-size: 17px; background: var(--lime); }
   .wdl-k:active { transform: translateY(2px); box-shadow: none; }
   .wdl-k.g { background: var(--leaf); color: #fff; } .wdl-k.y { background: #e0a91f; color: #fff; } .wdl-k.x { background: #7d8f85; color: #fff; }
   `);
@@ -28,8 +29,9 @@
       <div class="wdl-board">${Array.from({ length: TRIES }, () => `<div class="wdl-row">${"<div class='wdl-tile'></div>".repeat(N)}</div>`).join("")}</div>
       <p class="wdl-msg"></p>
       <div class="wdl-kb">
-        ${["QWERTZUIOP", "ASDFGHJKL", "<YXCVBNM>"].map(r => `<div class="wdl-kr">${[...r].map(k =>
-          k === "<" ? `<button class="wdl-k wide" data-k="ENTER">ENTER</button>` : k === ">" ? `<button class="wdl-k wide" data-k="DEL">⌫</button>` : `<button class="wdl-k" data-k="${k}">${k}</button>`).join("")}</div>`).join("")}
+        ${["QWERTZUIOP", "ASDFGHJKL", "YXCVBNM>"].map(r => `<div class="wdl-kr">${[...r].map(k =>
+          k === ">" ? `<button class="wdl-k wide" data-k="DEL" aria-label="Löschen">⌫</button>` : `<button class="wdl-k" data-k="${k}">${k}</button>`).join("")}</div>`).join("")}
+        <div class="wdl-kr"><button class="wdl-k wdl-enter" data-k="ENTER">✓ Wort prüfen</button></div>
       </div>
       <div class="wdl-after"></div>`;
     const rows = [...el.querySelectorAll(".wdl-row")], msg = el.querySelector(".wdl-msg");
@@ -56,6 +58,7 @@
         busy = false;
         if (won) {
           over = true; msg.textContent = data.winMsg || "Geschafft!";
+          el.querySelector(".wdl-kb").remove();
           ADV.finish(el.querySelector(".wdl-after"), day, data, api);
         } else if (row === TRIES - 1) {
           over = true; msg.innerHTML = `Das Wort war <b>${SOL}</b>.`;

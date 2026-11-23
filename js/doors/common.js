@@ -8,8 +8,8 @@ window.ADV = {
     s.id = id; s.textContent = text; document.head.appendChild(s);
   },
   /** Pixel-Banner "LEVEL X GESCHAFFT!" */
-  banner(day, title = "GESCHAFFT!") {
-    return `<div class="adv-banner">LEVEL ${day}<br>${title}<small>★ ★ ★</small></div>`;
+  banner(day, title = "GESCHAFFT!", sub = "") {
+    return `<div class="adv-banner">LEVEL ${day}<br>${title}<small>★ ★ ★</small>${sub ? `<span class="adv-banner-sub">${sub}</span>` : ""}</div>`;
   },
   /** Konfetti + Sterne von einem Element aus */
   celebrate(el, big = true) {
@@ -36,10 +36,10 @@ window.ADV = {
   finish(el, day, data, api, opts = {}) {
     const wrap = document.createElement("div");
     wrap.className = "adv-finish";
-    wrap.innerHTML = `${ADV.banner(day, opts.title)}
-      ${data.outro ? `<p class="adv-msg adv-pop" style="animation-delay:.6s">${data.outro}</p>` : ""}
-      ${data.note ? `<div class="adv-note adv-pop" style="animation-delay:1.2s">${data.note}<span class="from">${window.ADVENT.signoff || ""}</span></div>` : ""}
-      ${ADV.backBtn(1.8)}`;
+    // nur zwei Elemente: Banner (mit kurzem Satz) + Nachricht von Leyla
+    wrap.innerHTML = `${ADV.banner(day, opts.title, data.outro)}
+      ${data.note ? `<div class="adv-note adv-note-final adv-pop" style="animation-delay:.9s">${data.note}<span class="from">${window.ADVENT.signoff || ""}</span></div>` : ""}
+      ${ADV.backBtn(data.note ? 1.5 : .9)}`;
     el.appendChild(wrap);
     if (api && api.complete) api.complete();
     setTimeout(() => {

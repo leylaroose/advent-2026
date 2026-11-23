@@ -356,6 +356,9 @@ body {
   border: 3px solid var(--ink); border-radius: 10px; padding: 12px 10px; margin: 10px auto; box-shadow: 4px 5px 0 var(--leaf);
   text-shadow: 2px 2px 0 #13573a; animation: bannerIn .8s cubic-bezier(.3,1.7,.5,1) both, bannerPulse 1.2s steps(2) 1s infinite; }
 .adv-banner small { display: block; font-size: 9px; color: var(--gold); margin-top: 6px; letter-spacing: .1em; }
+.adv-banner-sub { display: block; margin-top: 12px; padding-top: 12px; border-top: 2px dashed #2f6e4c; font-family: var(--display); font-weight: 600;
+  font-size: 19px; line-height: 1.3; color: var(--cream); text-shadow: none; letter-spacing: 0; animation: none; }
+.adv-note-final { margin-top: 26px; }
 @keyframes bannerIn { from { opacity: 0; transform: scale(2.4) rotate(-8deg); } to { opacity: 1; transform: none; } }
 @keyframes bannerPulse { 50% { color: #fff5df; } }
 .adv-pop { animation: lineIn .7s cubic-bezier(.3,1.6,.5,1) both; }
@@ -376,4 +379,4 @@ body {
 .adv-center { text-align: center; }
 .adv-big-emoji { font-size: 76px; display: inline-block; animation: hop 1.6s ease-in-out infinite; }
 
-.adv-back { margin: 22px auto 0; }
+.adv-back { margin: 26px auto 0; }
