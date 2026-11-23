@@ -259,7 +259,7 @@
     void sheet.offsetWidth;
     sheet.classList.remove("show"); void sheet.offsetWidth;
     sheet.classList.add("show");
-    cleanup = render(body, d, data, { year: YEAR, complete: () => markCleared(d) }) || null;
+    cleanup = render(body, d, data, { year: YEAR, cleared: cleared.has(d), complete: () => markCleared(d) }) || null;
     if (location.hash !== "#" + d) history.replaceState(null, "", location.pathname + location.search + "#" + d);
   }
   function closeSheet() {

@@ -1,0 +1,47 @@
+/* Gemeinsame Helfer für alle Level */
+window.DOOR_TYPES = window.DOOR_TYPES || {};
+window.ADV = {
+  /** CSS eines Level-Typs einmalig einfügen */
+  css(id, text) {
+    if (document.getElementById(id)) return;
+    const s = document.createElement("style");
+    s.id = id; s.textContent = text; document.head.appendChild(s);
+  },
+  /** Pixel-Banner "LEVEL X GESCHAFFT!" */
+  banner(day, title = "GESCHAFFT!") {
+    return `<div class="adv-banner">LEVEL ${day}<br>${title}<small>★ ★ ★</small></div>`;
+  },
+  /** Konfetti + Sterne von einem Element aus */
+  celebrate(el, big = true) {
+    const r = (el || document.body).getBoundingClientRect();
+    const x = r.left + r.width / 2, y = r.top + Math.min(r.height / 2, 200);
+    FX.burst(x, y, { count: big ? 150 : 60, speed: 15 });
+    FX.burst(x, y, { count: 30, shapes: ["star"], colors: ["#ffc83d", "#c9f07a", "#fff5df"], speed: 11, size: 15 });
+    if (big) FX.rain(90);
+    if (navigator.vibrate) navigator.vibrate([60, 40, 120]);
+  },
+  shuffle(a) {
+    a = a.slice();
+    for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; }
+    return a;
+  },
+  /** Kleiner Speicher pro Level (z. B. Checklisten) */
+  load(key, fallback) { try { return JSON.parse(localStorage.getItem("advent26-" + key)) ?? fallback; } catch (e) { return fallback; } },
+  save(key, val) { try { localStorage.setItem("advent26-" + key, JSON.stringify(val)); } catch (e) {} },
+  /** Abschluss-Block: Banner, Nachricht, optional Notiz von Leyla */
+  finish(el, day, data, api, opts = {}) {
+    const wrap = document.createElement("div");
+    wrap.className = "adv-finish";
+    wrap.innerHTML = `${ADV.banner(day, opts.title)}
+      ${data.outro ? `<p class="adv-msg adv-pop" style="animation-delay:.6s">${data.outro}</p>` : ""}
+      ${data.note ? `<div class="adv-note adv-pop" style="animation-delay:1.2s">${data.note}<span class="from">${window.ADVENT.signoff || ""}</span></div>` : ""}`;
+    el.appendChild(wrap);
+    if (api && api.complete) api.complete();
+    setTimeout(() => {
+      const body = el.closest(".sheet-body");
+      if (body) body.scrollTo({ top: wrap.getBoundingClientRect().top - body.getBoundingClientRect().top + body.scrollTop - 10, behavior: "smooth" });
+      ADV.celebrate(wrap.querySelector(".adv-banner"));
+    }, 80);
+    return wrap;
+  }
+};

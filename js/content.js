@@ -5,7 +5,7 @@
   [PLATZHALTER] = muss noch von Leyla gefüllt werden.
 
   Vorschau mit anderem Datum: an die Adresse ?datum=2026-12-05 anhängen
-  (z. B. https://leylaroose.github.io/advent-2026/?datum=2026-12-24)
+  Fortschritt zurücksetzen:   &reset=1 anhängen
   ============================================================
 */
 window.ADVENT = {
@@ -16,6 +16,7 @@ window.ADVENT = {
   pill: "JANS",
   title: ["Road to", "Christmas"],
   signature: "mit Liebe gecodet von Claude & Leyla",
+  signoff: "💚 Deine Leyla",
 
   days: {
     1: {
@@ -31,28 +32,129 @@ window.ADVENT = {
       reward: "1× Spezi, eiskalt",
       rewardWhere: "Abholort: dein Kühlschrank. Los, nachschauen!"
     },
-    2: { type: "bald", title: "Ein Foto von uns", teaser: "[PLATZHALTER Teaser]" },
-    3: { type: "bald", title: "Europa-Park-Tag", teaser: "Heute geht's nach Rust!" },
-    4: { type: "bald", title: "Schiebepuzzle", teaser: "[PLATZHALTER Teaser]" },
-    5: { type: "bald", title: "Wie gut kennst du uns?", teaser: "[PLATZHALTER Teaser]" },
-    6: { type: "bald", title: "Nikolaus", teaser: "[PLATZHALTER Teaser]" },
-    7: { type: "bald", title: "Zoom-Rätsel", teaser: "[PLATZHALTER Teaser]" },
-    8: { type: "bald", title: "Ein Foto von uns", teaser: "[PLATZHALTER Teaser]" },
-    9: { type: "bald", title: "Emoji-Kino", teaser: "[PLATZHALTER Teaser]" },
-    10: { type: "bald", title: "Wörtchen des Tages", teaser: "[PLATZHALTER Teaser]" },
-    11: { type: "bald", title: "Loot-Drop!", teaser: "[PLATZHALTER Teaser]" },
-    12: { type: "bald", title: "Path of Advent", teaser: "[PLATZHALTER Teaser]" },
-    13: { type: "bald", title: "Foto-Memory", teaser: "[PLATZHALTER Teaser]" },
-    14: { type: "bald", title: "Hör mal", teaser: "[PLATZHALTER Teaser]" },
-    15: { type: "bald", title: "Wahr oder falsch?", teaser: "[PLATZHALTER Teaser]" },
-    16: { type: "bald", title: "Ein Foto von uns", teaser: "[PLATZHALTER Teaser]" },
-    17: { type: "bald", title: "Schneeflocken fangen", teaser: "[PLATZHALTER Teaser]" },
-    18: { type: "bald", title: "Wir machen frei", teaser: "[PLATZHALTER Teaser]" },
-    19: { type: "bald", title: "Puzzle, aber schwer", teaser: "[PLATZHALTER Teaser]" },
-    20: { type: "bald", title: "Unser Song", teaser: "[PLATZHALTER Teaser]" },
-    21: { type: "bald", title: "Ein Foto von uns", teaser: "[PLATZHALTER Teaser]" },
-    22: { type: "bald", title: "Heute kochen wir", teaser: "[PLATZHALTER Teaser]" },
-    23: { type: "bald", title: "Das Codeschloss", teaser: "[PLATZHALTER Teaser]" },
-    24: { type: "bald", title: "Jan & Leyla Wrapped 2026", teaser: "[PLATZHALTER Teaser]" }
+
+    2: {
+      type: "charakter",
+      title: "Dein Charakterbogen",
+      teaser: "Heute wird dein Charakter enthüllt.",
+      intro: "Jeder gute Held hat einen Charakterbogen. Hier ist deiner:",
+      avatar: "😎",
+      name: "JAN",
+      classLine: "KLASSE: BESTER FREUND · LVL 99",
+      stats: [
+        { name: "Liebevoll", value: 100, max: true },
+        { name: "Supportive", value: 100, max: true },
+        { name: "Kindness", label: "MAX", max: true },
+        { name: "Bester-Freund-Faktor", value: 100, max: true },
+        { name: "Spezi-Toleranz", label: "24/24", percent: 100 },
+        { name: "Schoko-Resistenz", label: "IMMUN", percent: 100 },
+        { name: "Pizza- & Nudel-Kompatibilität", label: "100 %", percent: 100 },
+        { name: "Geduld, wenn Leyla sich fertig macht", value: 87, percent: 87 }
+      ],
+      special: "Macht jeden Tag von Leyla besser",
+      outro: "Ich würde keinen anderen Player wählen.",
+      note: "[PLATZHALTER: ein, zwei Sätze von dir, z. B. warum du so froh bist, dass aus Kollegen mehr wurde]"
+    },
+
+    3: {
+      type: "coaster",
+      title: "Europa-Park-Tag!",
+      teaser: "Heute geht's nach Rust!",
+      intro: "Heute fahren wir in den Europa-Park! Zum Aufwärmen: Sammle 10 Sterne und Glühwein. Tipp aufs Bild zum Springen.",
+      goal: 10,
+      missionTitle: "Deine Mission für heute",
+      missionSub: "Direkt im Park abhaken. Wenn alles erledigt ist, wartet eine Überraschung.",
+      mission: [
+        { icon: "🍷", text: "Den besten Glühwein im Park küren" },
+        { icon: "📸", text: "Foto im Nordischen Winterdorf vor dem Weihnachtsbaum" },
+        { icon: "⛸️", text: "Eine Eisshow anschauen" },
+        { icon: "🎡", text: "Riesenrad fahren, wenn es dunkel ist" }
+      ],
+      missionReward: "Mission erfüllt, my love! [PLATZHALTER: deine Nachricht für den Abend im Park]"
+    },
+
+    4: {
+      type: "slide",
+      title: "Schiebepuzzle",
+      teaser: "Heute musst du ein bisschen schieben.",
+      intro: "Schieb die Teile an die richtige Stelle: Tipp auf ein Teil neben der Lücke.",
+      image: "img/platzhalter-puzzle.svg", // [PLATZHALTER: Foto von euch]
+      grid: 3,
+      outro: "Perfekt zusammengesetzt. Genau wie wir.",
+      note: "[PLATZHALTER: Satz zum Foto]"
+    },
+
+    5: {
+      type: "quiz",
+      title: "Wie gut kennst du uns?",
+      teaser: "Heute wird's ein Quiz. Bist du bereit?",
+      intro: "7 Fragen über uns. Mal sehen, ob du aufgepasst hast.",
+      questions: [
+        { q: "Wo war unser erstes Date?", a: ["In einem Comedy-Keller in der Innenstadt", "Im Kino", "Auf dem Weihnachtsmarkt", "Beim Bowling"], correct: 0, note: "Lachen verbindet. 😄" },
+        { q: "Wo haben wir angefangen, uns zu schreiben?", a: ["In Teams", "Auf WhatsApp", "Auf Instagram", "Per Brieftaube"], correct: 0, note: "Romantik über Firmen-Software. 💼" },
+        { q: "Was waren wir, bevor wir zusammengekommen sind?", a: ["Kollegen und Freunde", "Fremde", "Nachbarn", "Erzfeinde"], correct: 0 },
+        { q: "Was ist mein Lieblingsessen?", a: ["Pizza", "Nudeln", "Beides, natürlich", "Salat"], correct: 2, note: "Pizza UND Nudeln. Man muss sich nicht entscheiden. 🍕🍝" },
+        { q: "Was war dein Adventskalender letztes Jahr?", a: ["24 Spezis mit Partyhütchen", "24 Schoko-Nikoläuse", "24 Paar Socken", "Ein ganz normaler Schokokalender"], correct: 0, note: "Schokolade? Bei dir? Niemals. 😉" },
+        { q: "Was ist unser Insider?", a: ["Unser Handschlag", "Ein geheimes Codewort", "Ein Tanz", "Ein Lied"], correct: 0 },
+        { q: "Was mag ich am meisten an dir?", a: ["Dass du so kind bist", "Dass du immer supportive bist", "Dass du so liebevoll bist", "Dass du mein bester Freund bist"], all: true, shuffle: false, note: "Hier gibt's keine falsche Antwort. Es ist alles davon." }
+      ],
+      ranks: [
+        { min: 7, text: "Volle Punktzahl! Beziehungs-Profi. 🏆" },
+        { min: 5, text: "Starke Leistung! 💪" },
+        { min: 0, text: "Okay, wir müssen definitiv mehr Zeit miteinander verbringen. 😏" }
+      ],
+      endTitle: "BESTANDEN!",
+      outro: "Quiz bestanden, Blödijan. 💚"
+    },
+
+    6: {
+      type: "find",
+      title: "Der Nikolaus war da!",
+      teaser: "Ho ho ho! Heute Nacht war jemand in der Wohnung.",
+      icon: "boot",
+      intro: "Ho ho ho! Heute Nacht hat jemand etwas für dich versteckt. Keine Sorge: keine Schokolade. 🥨",
+      hints: [
+        "[PLATZHALTER Hinweis 1: z. B. Dort, wo dein Tag morgens anfängt...]",
+        "[PLATZHALTER Hinweis 2]",
+        "[PLATZHALTER Hinweis 3: fast schon die Lösung]"
+      ],
+      foundLabel: "🥨 Gefunden!",
+      endTitle: "GEFUNDEN!",
+      outro: "Frohen Nikolaus, mein Süßer!",
+      note: "[PLATZHALTER: kleiner Nikolaus-Gruß]"
+    },
+
+    7: {
+      type: "zoom",
+      title: "Zoom-Rätsel",
+      teaser: "Heute musst du ganz genau hinschauen.",
+      intro: "Was ist auf den Fotos? Je weniger du rauszoomst, desto mehr Sterne gibt's.",
+      rounds: [
+        // [PLATZHALTER: eigene Fotos; x/y = Stelle in Prozent, auf die gezoomt wird]
+        { img: "img/platzhalter-zoom-1.svg", x: 50, y: 58, q: "Was ist das?", a: ["Dein Controller", "Eine Fernbedienung", "Ein Toaster"], correct: 0, solution: "Dein Controller!" },
+        { img: "img/platzhalter-zoom-2.svg", x: 50, y: 55, q: "Und das?", a: ["Eine Kaffeetasse", "Ein Blumentopf", "Ein Spezi-Glas"], correct: 0, solution: "Kaffee, natürlich." },
+        { img: "img/platzhalter-zoom-3.svg", x: 50, y: 50, q: "Und zum Schluss?", a: ["Ein Weihnachtsbaum", "Brokkoli", "Ein Tannenzapfen"], correct: 0, solution: "Oh Tannenbaum!" }
+      ],
+      outro: "Adlerauge! 🦅",
+      note: "[PLATZHALTER: optionaler Satz]"
+    },
+
+    8: { type: "bald", title: "Emoji-Kino", teaser: "Heute wird geraten: Welcher Film ist das?" },
+    9: { type: "bald", title: "Memory", teaser: "Heute brauchst du ein gutes Gedächtnis." },
+    10: { type: "bald", title: "Wort des Tages", teaser: "Fünf Buchstaben, sechs Versuche." },
+    11: { type: "bald", title: "Loot-Drop!", teaser: "Heute droppt etwas Legendäres." },
+    12: { type: "bald", title: "Path of Advent", teaser: "Die Weihnachtsmonster greifen an!" },
+    13: { type: "bald", title: "Wahr oder falsch?", teaser: "Wie gut kennst du mich wirklich?" },
+    14: { type: "bald", title: "Hör mal", teaser: "Heute gibt's was auf die Ohren." },
+    15: { type: "bald", title: "Geschenke stapeln", teaser: "Ruhige Hand gefragt!" },
+    16: { type: "bald", title: "Ein Foto von uns", teaser: "Heute gibt's ein Lieblingsfoto." },
+    17: { type: "bald", title: "Heute kochen wir", teaser: "Heute Abend wird gekocht!" },
+    18: { type: "bald", title: "Ausflug: Weihnachtsmarkt", teaser: "Heute haben wir beide frei!" },
+    19: { type: "bald", title: "Schneeflocken fangen", teaser: "Es schneit! Fang so viele, wie du kannst." },
+    20: { type: "bald", title: "Das schwere Puzzle", teaser: "Heute wird's knifflig." },
+    21: { type: "bald", title: "Rentier-Rennen", teaser: "Die Rentiere sind los!" },
+    22: { type: "bald", title: "Unsere Playlist 2026", teaser: "Heute gibt's was zu hören." },
+    23: { type: "bald", title: "Das Codeschloss", teaser: "Nur noch ein Schloss bis zum Finale." },
+    24: { type: "bald", title: "Jan & Leyla Wrapped 2026", teaser: "Das Finale ist da!" }
   }
 };
