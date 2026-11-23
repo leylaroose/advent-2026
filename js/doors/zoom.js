@@ -1,12 +1,14 @@
 /* Zoom-Rätsel: stark rangezoomtes Foto, Schritt für Schritt rauszoomen, Lösung wählen */
 (function () {
   ADV.css("zm-css", `
-  .zm-frame { position: relative; width: min(100%, 340px); aspect-ratio: 1; margin: 4px auto 0; border: 3.5px solid var(--ink); border-radius: 18px;
+  .zm-frame { position: relative; width: min(100%, 300px, 36svh); aspect-ratio: 1; margin: 4px auto 0; border: 3.5px solid var(--ink); border-radius: 18px;
     overflow: hidden; box-shadow: var(--shadow); background: #0d3322; }
   .zm-frame img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .9s cubic-bezier(.3,1.2,.4,1); }
   .zm-lens { position: absolute; right: 10px; top: 10px; font-family: var(--pixel-font); font-size: 10px; color: #fff; background: rgba(10,36,24,.75);
     padding: 6px 8px; border-radius: 8px; border: 2px solid var(--ink); }
-  .zm-out { display: flex; margin: 12px auto 0; }
+  .zm-out { display: flex; margin: 12px auto 0; font-size: 15px; }
+  .zm-stage .adv-choices { gap: 8px; margin-top: 8px; }
+  .zm-stage .adv-choice { padding: 10px 14px; font-size: 17px; }
   .zm-sol { font-family: var(--display); font-weight: 700; font-size: 20px; color: var(--forest); text-align: center; margin: 10px 0 0; min-height: 1.2em; }
   `);
   const LEVELS = [7, 4, 2.2, 1];
@@ -34,10 +36,10 @@
       stage.innerHTML = `
         <div class="adv-hud"><span>RÄTSEL ${r + 1}/${rounds.length}</span><span>★ ${total}</span></div>
         <div class="zm-frame"><img src="${rd.img}" alt=""><span class="zm-lens"></span></div>
-        <button class="btn secondary zm-out">🔍 Rauszoomen (weniger Punkte)</button>
-        <p class="qz-q" style="font-family:var(--display);font-weight:700;font-size:22px;margin:14px 0 0">${rd.q || "Was ist das?"}</p>
+        <p class="qz-q" style="font-family:var(--display);font-weight:700;font-size:21px;margin:10px 0 0;text-align:center">${rd.q || "Was ist das?"} <span style="white-space:nowrap">👇 Tipp die Antwort an</span></p>
         <div class="adv-choices">${order.map(k => `<button class="adv-choice" data-k="${k}">${rd.a[k]}</button>`).join("")}</div>
-        <p class="zm-sol"></p>`;
+        <p class="zm-sol"></p>
+        <button class="btn secondary zm-out">🔍 Rauszoomen (weniger Punkte)</button>`;
       stage.querySelector(".zm-out").addEventListener("click", () => { if (z < LEVELS.length - 1) { z++; apply(); } });
       stage.querySelectorAll(".adv-choice").forEach(b => b.addEventListener("click", () => pick(+b.dataset.k, b)));
       requestAnimationFrame(apply);

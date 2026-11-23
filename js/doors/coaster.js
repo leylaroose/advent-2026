@@ -66,7 +66,8 @@
     const cartX = () => W * 0.28;
     let cy = track(cartX()), vy = 0, grounded = true;
     fit();
-    let items = [], pops = [], score = 0;
+    let items = [], pops = [], score = 0, spawnN = 0;
+    const PATTERN = [1, 0, 1, 2, 1, 1, 0, 2, 1, 1];
     const stars = Array.from({ length: 40 }, () => ({ x: Math.random(), y: Math.random() * 0.55, r: Math.random() * 1.6 + .4, t: Math.random() * 6 }));
 
     function jump() {
@@ -77,8 +78,9 @@
 
     function spawn() {
       const wx = scroll + W + 30;
-      const high = Math.random() < 0.55;
-      items.push({ wx, y: track(wx) - (high ? 60 + Math.random() * 30 : 24), kind: Math.random() < 0.6 ? KINDS[0] : KINDS[1], bob: Math.random() * 6 });
+      // fester Rhythmus: meist springen nötig (0 = auf der Schiene, 1 = Sprung, 2 = hoher Sprung)
+      const lvl = PATTERN[spawnN++ % PATTERN.length];
+      items.push({ wx, y: track(wx) - [22, 74 + Math.random() * 10, 96][lvl], kind: Math.random() < 0.6 ? KINDS[0] : KINDS[1], bob: Math.random() * 6 });
     }
 
     function drawWheel(t) {
@@ -160,7 +162,7 @@
         } else cy = ty;
         for (const it of items) {
           const sx = it.wx - scroll;
-          if (!it.got && Math.abs(sx - cartX()) < 28 && Math.abs(it.y - (cy - 20)) < 32) {
+          if (!it.got && Math.abs(sx - cartX()) < 28 && Math.abs(it.y - (cy - 20)) < 28) {
             it.got = true; score++;
             pops.push({ x: sx, y: it.y, life: 40 });
             got[it.kind] = (got[it.kind] || 0) + 1;
@@ -184,7 +186,7 @@
     });
     function startRun() {
       fit();
-      scroll = 0; speed = 3.2; items = []; pops = []; score = 0; vy = 0; grounded = true; cy = track(cartX());
+      scroll = 0; speed = 3.2; items = []; pops = []; score = 0; spawnN = 0; vy = 0; grounded = true; cy = track(cartX());
       left = TIME; tStart = performance.now();
       KINDS.forEach(k => { got[k] = 0; });
       el.querySelector(".cst-score").textContent = scoreTxt();

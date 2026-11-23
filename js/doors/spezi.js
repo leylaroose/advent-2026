@@ -67,7 +67,7 @@
   `;
 
   const bottleSVG = `
-  <svg class="spz-bottle" viewBox="-40 -80 240 540" aria-label="Spezi-Flasche mit Partyhütchen">
+  <svg class="spz-bottle" viewBox="-40 -80 240 540" aria-label="Spezi-Flasche mit Santa-Mütze">
     <defs>
       <linearGradient id="spzGlass" x1="0" x2="1">
         <stop offset="0" stop-color="#3a1805"/><stop offset=".35" stop-color="#7a3a10"/><stop offset=".6" stop-color="#5a280a"/><stop offset="1" stop-color="#2b1003"/>
@@ -106,18 +106,12 @@
       <path d="M62 60 H98 V72 L95 76 L91 72 L87 76 L83 72 L79 76 L75 72 L71 76 L67 72 L64 76 L62 72 Z" fill="#ffc83d" stroke="#0a2418" stroke-width="3.5" stroke-linejoin="round"/>
       <rect x="62" y="55" width="36" height="8" rx="3" fill="#ffe08a" stroke="#0a2418" stroke-width="3.5"/>
     </g>
-    <!-- Partyhütchen -->
+    <!-- Santa-Mütze -->
     <g class="spz-hat">
-      <path d="M50 58 L80 -38 L110 58 Z" fill="#2f9e5b" stroke="#0a2418" stroke-width="4.5" stroke-linejoin="round"/>
-      <path d="M60 26 L100 26 L104 38 L56 38 Z M70 -6 L90 -6 L93 4 L67 4 Z" fill="#c9f07a"/>
-      <circle cx="68" cy="48" r="4" fill="#ffc83d"/><circle cx="92" cy="50" r="4" fill="#e8414a"/><circle cx="80" cy="14" r="3.5" fill="#e8414a"/>
-      <path d="M50 58 L80 -38 L110 58 Z" fill="none" stroke="#0a2418" stroke-width="4.5" stroke-linejoin="round"/>
-      <path d="M44 60 Q80 70 116 60" fill="none" stroke="#e8414a" stroke-width="7" stroke-linecap="round"/>
-      <path d="M44 60 Q80 70 116 60" fill="none" stroke="#0a2418" stroke-width="2" stroke-linecap="round" opacity=".5"/>
-      <g transform="translate(80 -42)">
-        <circle r="13" fill="#ffc83d" stroke="#0a2418" stroke-width="4"/>
-        <path d="M-6 -4 L6 4 M-6 4 L6 -4 M0 -7 V7" stroke="#e8414a" stroke-width="3" stroke-linecap="round"/>
-      </g>
+      <path d="M50 56 C52 10 92 -30 132 -6 C118 -2 108 14 106 56 Z" fill="#e8414a" stroke="#0a2418" stroke-width="4.5" stroke-linejoin="round"/>
+      <path d="M62 50 C66 20 84 -2 108 -8" fill="none" stroke="#ff8a8a" stroke-width="5" stroke-linecap="round" opacity=".7"/>
+      <rect x="40" y="46" width="80" height="20" rx="10" fill="#fff" stroke="#0a2418" stroke-width="4.5"/>
+      <circle cx="134" cy="-8" r="13" fill="#fff" stroke="#0a2418" stroke-width="4.5"/>
     </g>
   </svg>`;
 

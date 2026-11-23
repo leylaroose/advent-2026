@@ -47,7 +47,7 @@ window.ADVENT = {
         { name: "Herzensgut", label: "MAX", max: true },
         { name: "Geduldig, auch wenn Leyla motzig und launisch ist", value: 100, max: true },
         { name: "Kuschelig", label: "MAX", max: true },
-        { name: "Sternekoch", label: "★★★", percent: 100 },
+        { name: "Sternekoch", label: "⭐⭐⭐", percent: 100 },
         { name: "Spezi-süchtig", label: "24/24", percent: 100 },
         { name: "Salzbrezel-verliebt", label: "100 %", percent: 100 }
       ],
@@ -101,11 +101,11 @@ window.ADVENT = {
       teaser: "Heute wird's ein Quiz. Bist du bereit?",
       intro: "7 Fragen über uns. Mal sehen, ob du aufgepasst hast.",
       questions: [
-        { q: "Wo war unser erstes Date?", a: ["In einem Comedy-Keller in der Innenstadt", "Im Kino", "Auf dem Weihnachtsmarkt", "Beim Bowling"], correct: 0, note: "Lachen verbindet. 😄" },
+        { q: "Wo war unser erstes Treffen?", a: ["In einem Comedy-Keller in der Innenstadt", "Im Kino", "Auf dem Weihnachtsmarkt", "Beim Bowling"], correct: 0, note: "Lachen verbindet. 😄" },
         { q: "Wo haben wir angefangen, uns zu schreiben?", a: ["In Teams", "Auf WhatsApp", "Auf Instagram", "Per Brieftaube"], correct: 0, note: "Romantik über Firmen-Software. 💼" },
         { q: "Was waren wir, bevor wir zusammengekommen sind?", a: ["Kollegen und Freunde", "Fremde", "Nachbarn", "Erzfeinde"], correct: 0 },
-        { q: "Was ist mein Lieblingsessen?", a: ["Pizza", "Nudeln", "Beides, natürlich", "Salat"], correct: 2, note: "Pizza UND Nudeln. Man muss sich nicht entscheiden. 🍕🍝" },
-        { q: "Was war dein Adventskalender letztes Jahr?", a: ["24 Spezis mit Partyhütchen", "24 Schoko-Nikoläuse", "24 Paar Socken", "Ein ganz normaler Schokokalender"], correct: 0, note: "Schokolade? Bei dir? Niemals. 😉" },
+        { q: "Was ist mein Lieblingsessen?", a: ["Nudeln", "Pizza", "Salat", "Alles, was Jan kocht"], correct: 3, note: "Alles, was du kochst, Sternekoch! 👨‍🍳" },
+        { q: "Was war dein Adventskalender letztes Jahr?", a: ["24 Spezis mit Santa-Hütchen", "24 Schoko-Nikoläuse", "24 Paar Socken", "Ein ganz normaler Schokokalender"], correct: 0, note: "Schokolade? Bei dir? Niemals. 😉" },
         { q: "Was ist unser Insider?", a: ["Unser Handschlag", "Ein geheimes Codewort", "Ein Tanz", "Ein Lied"], correct: 0 },
         { q: "Was mag ich am meisten an dir?", a: ["Dass du so kind bist", "Dass du immer supportive bist", "Dass du so liebevoll bist", "Dass du mein bester Freund bist"], all: true, shuffle: false, note: "Hier gibt's keine falsche Antwort. Es ist alles davon." }
       ],
