@@ -139,13 +139,14 @@ window.ADVENT = {
       type: "zoom",
       title: "Zoom-Rätsel",
       teaser: "Heute musst du ganz genau hinschauen.",
-      intro: "4 Fotos aus unserer Wohnung, ganz nah rangezoomt. Was ist das und wo ist es? Je weniger du rauszoomst, desto mehr Sterne.",
+      intro: "4 Fotos aus unserer Wohnung. Was ist das und wo ist das? Je weniger du rauszoomst, desto mehr Punkte bekommst du.",
       rounds: [
+        // Antworten erscheinen in genau dieser Reihenfolge; correct = Position der richtigen (0 = oben)
         // x/y = Stelle in Prozent, auf die am Anfang gezoomt wird
-        { img: "img/zoom-messer.jpg", x: 48, y: 30, q: "Was ist das und wo hängt es?", a: ["Die Messerleiste in der Küche", "Die Säge im Keller", "Der Kamm im Bad"], correct: 0, solution: "Die Messerleiste in der Küche!" },
-        { img: "img/zoom-pflanze.jpg", x: 48, y: 42, q: "Und was ist das?", a: ["Die Pflanze im Schlafzimmer", "Der Kaktus im Büro", "Der Brokkoli im Kühlschrank"], correct: 0, solution: "Die Pflanze im Schlafzimmer!" },
-        { img: "img/zoom-kranz.jpg", x: 51, y: 47, q: "Und das hier?", a: ["Der Adventskranz im Esszimmer", "Ein Tannenzapfen im Wald", "Der Weihnachtsbaum auf dem Balkon"], correct: 0, solution: "Unser Adventskranz im Esszimmer! 🕯️" },
-        { img: "img/zoom-stuhl.jpg", x: 60, y: 57, q: "Und zum Schluss?", a: ["Ein Stuhl im Esszimmer", "Das Sofa im Wohnzimmer", "Der Bürostuhl im Arbeitszimmer"], correct: 0, solution: "Ein Stuhl im Esszimmer!" }
+        { img: "img/zoom-messer.jpg", x: 48, y: 30, q: "Was ist das und wo ist das?", a: ["Die Säge im Keller", "Der Kamm im Bad", "Die Messerleiste in der Küche"], correct: 2, solution: "Die Messerleiste in der Küche!" },
+        { img: "img/zoom-pflanze.jpg", x: 48, y: 42, q: "Was ist das und wo ist das?", a: ["Die Pflanze in deinem Arbeitszimmer", "Die Pflanze im Schlafzimmer", "Der Brokkoli im Kühlschrank"], correct: 1, solution: "Die Pflanze im Schlafzimmer!" },
+        { img: "img/zoom-kranz.jpg", x: 51, y: 47, q: "Was ist das und wo ist das?", a: ["Ein Tannenzapfen im Wald", "Die Pflanze im Wohnzimmer", "Der Adventskranz im Esszimmer"], correct: 2, solution: "Unser Adventskranz im Esszimmer! 🕯️" },
+        { img: "img/zoom-stuhl.jpg", x: 60, y: 57, q: "Was ist das und wo ist das?", a: ["Das Sofa im Wohnzimmer", "Ein Stuhl im Esszimmer", "Der Bürostuhl in Leylas Arbeitszimmer"], correct: 1, solution: "Ein Stuhl im Esszimmer!" }
       ],
       outro: "Adlerauge! 🦅"
     },
