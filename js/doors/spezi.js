@@ -3,7 +3,7 @@
   const css = `
   .spz { text-align: center; padding-top: 4px; }
   .spz-intro { margin: 6px 0 0; }
-  .spz-stage { position: relative; height: clamp(250px, 46svh, 380px); margin: 4px auto 0; width: 100%; max-width: 320px; touch-action: manipulation; user-select: none; -webkit-user-select: none; }
+  .spz-stage { position: relative; height: clamp(280px, 52svh, 460px); margin: 4px auto 0; width: 100%; max-width: 320px; touch-action: manipulation; user-select: none; -webkit-user-select: none; }
   .spz-stage::before { /* Lichtkranz */
     content: ""; position: absolute; left: 50%; top: 46%; width: 300px; height: 300px; translate: -50% -50%;
     background: repeating-conic-gradient(rgba(255,200,61,.28) 0 10deg, transparent 10deg 20deg);

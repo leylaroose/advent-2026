@@ -4,6 +4,9 @@
   .cst-wrap { position: relative; margin-top: 8px; border: 3px solid var(--ink); border-radius: 18px; overflow: hidden; box-shadow: var(--shadow);
     background: #0b2a1c; touch-action: manipulation; user-select: none; -webkit-user-select: none; }
   .cst-wrap canvas { display: block; width: 100%; height: 300px; }
+  .cst-name { position: absolute; left: 0; right: 0; top: 30px; text-align: center; font-family: var(--pixel-font); font-size: 9px; color: rgba(201,240,122,.55); pointer-events: none; }
+  .cst-over { position: absolute; inset: 0; display: grid; place-items: center; align-content: center; gap: 14px; background: rgba(10,36,24,.7); text-align: center; }
+  .cst-over p { margin: 0; font-family: var(--pixel-font); font-size: 14px; color: var(--lime); line-height: 1.6; text-shadow: 2px 2px 0 var(--ink); }
   .cst-hud { position: absolute; left: 10px; right: 10px; top: 10px; display: flex; justify-content: space-between; pointer-events: none;
     font-family: var(--pixel-font); font-size: 11px; color: var(--lime); text-shadow: 2px 2px 0 var(--ink); }
   .cst-tap { position: absolute; left: 0; right: 0; bottom: 14px; text-align: center; pointer-events: none;
@@ -31,7 +34,7 @@
       <p class="lead">${data.intro || ""}</p>
       <div class="cst-wrap">
         <canvas></canvas>
-        <div class="cst-hud"><span class="cst-score">★ 0/${GOAL}</span><span>WODAN-EXPRESS</span></div>
+        <div class="cst-name">DOBI-EXPRESS</div><div class="cst-hud"><span class="cst-score">★ 0/${GOAL}</span><span class="cst-time">⏱ 40</span></div>
         <div class="cst-tap" hidden>TIPPEN = SPRINGEN</div>
         <div class="cst-start"><button class="btn">🎢 Einsteigen!</button></div>
       </div>
@@ -42,11 +45,23 @@
     const ctx = cv.getContext("2d");
     const DPR = Math.min(devicePixelRatio || 1, 2);
     let W = 0, H = 300;
-    function fit() { W = cv.clientWidth; cv.width = W * DPR; cv.height = H * DPR; ctx.setTransform(DPR, 0, 0, DPR, 0, 0); }
-    fit();
+    function fit() {
+      // Spielfeld füllt den sichtbaren Platz bis zum unteren Rand
+      const sh = el.closest(".sheet");
+      const slide = sh ? new DOMMatrix(getComputedStyle(sh).transform).m42 : 0; // Einblend-Bewegung herausrechnen
+      const top = cv.getBoundingClientRect().top - slide;
+      const avail = innerHeight - top - 22;
+      H = Math.round(Math.max(320, Math.min(620, avail)));
+      cv.style.height = H + "px";
+      W = cv.clientWidth; cv.width = W * DPR; cv.height = H * DPR; ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+      if (!running) cy = track(cartX() + scroll);
+    }
+    W = cv.clientWidth; cv.width = W * DPR; cv.height = H * DPR; ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    const fitT = setTimeout(fit, 30);
 
-    const track = x => H * 0.66 + Math.sin(x * 0.011) * 42 + Math.sin(x * 0.027 + 1) * 18;
+    const track = wx => H * 0.68 + Math.sin(wx * 0.009) * 46 + Math.sin(wx * 0.023 + 1) * 20; // Welt-Koordinate
     let scroll = 0, speed = 3.2, running = false, over = false, raf = 0, frame = 0;
+    const TIME = data.time || 40; let left = TIME, tStart = 0;
     const cartX = () => W * 0.28;
     let cy = track(cartX()), vy = 0, grounded = true;
     let items = [], pops = [], score = 0;
@@ -60,8 +75,8 @@
 
     function spawn() {
       const wx = scroll + W + 30;
-      const high = Math.random() < 0.6;
-      items.push({ wx, y: track(W + 30) - (high ? 85 + Math.random() * 40 : 26), kind: Math.random() < 0.5 ? "⭐" : "🍷", bob: Math.random() * 6 });
+      const high = Math.random() < 0.55;
+      items.push({ wx, y: track(wx) - (high ? 60 + Math.random() * 30 : 24), kind: Math.random() < 0.5 ? "⭐" : "🍷", bob: Math.random() * 6 });
     }
 
     function drawWheel(t) {
@@ -99,10 +114,10 @@
       }
       // Schienen + Stützen
       ctx.strokeStyle = "#0a2418"; ctx.lineWidth = 3;
-      for (let x = -((scroll) % 28); x < W + 28; x += 28) { ctx.beginPath(); ctx.moveTo(x, track(x) + 4); ctx.lineTo(x, H); ctx.stroke(); }
+      for (let x = -((scroll) % 28); x < W + 28; x += 28) { ctx.beginPath(); ctx.moveTo(x, track(x + scroll) + 4); ctx.lineTo(x, H); ctx.stroke(); }
       ctx.lineWidth = 6; ctx.strokeStyle = "#e8414a";
       ctx.beginPath();
-      for (let x = 0; x <= W; x += 6) { const y = track(x); x ? ctx.lineTo(x, y) : ctx.moveTo(x, y); }
+      for (let x = 0; x <= W; x += 6) { const y = track(x + scroll); x ? ctx.lineTo(x, y) : ctx.moveTo(x, y); }
       ctx.stroke();
       ctx.lineWidth = 2; ctx.strokeStyle = "#0a2418"; ctx.stroke();
       // Items
@@ -110,7 +125,7 @@
       for (const it of items) { const sx = it.wx - scroll; ctx.fillText(it.kind, sx, it.y + Math.sin(frame * 0.08 + it.bob) * 4); }
       // Wagen
       const x = cartX();
-      const ang = Math.atan2(track(x + 4) - track(x - 4), 8);
+      const ang = Math.atan2(track(x + scroll + 4) - track(x + scroll - 4), 8);
       ctx.save(); ctx.translate(x, cy - 14); ctx.rotate(grounded ? ang : ang * 0.4 + vy * 0.02);
       ctx.fillStyle = "#c9f07a"; ctx.strokeStyle = "#0a2418"; ctx.lineWidth = 3;
       ctx.beginPath(); ctx.roundRect(-24, -12, 48, 24, 7); ctx.fill(); ctx.stroke();
@@ -134,7 +149,9 @@
         scroll += speed;
         speed = Math.min(5.2, speed + 0.0015);
         if (frame % 62 === 0) spawn();
-        const ty = track(cartX());
+        const ty = track(cartX() + scroll);
+        const l = Math.max(0, Math.ceil(TIME - (performance.now() - tStart) / 1000));
+        if (l !== left) { left = l; el.querySelector(".cst-time").textContent = `⏱ ${l}`; if (l === 0) { timeUp(); } }
         if (!grounded) {
           vy += 0.42; cy += vy;
           if (cy >= ty) { cy = ty; vy = 0; grounded = true; }
@@ -160,9 +177,28 @@
     wrap.querySelector(".cst-start .btn").addEventListener("click", e => {
       e.stopPropagation();
       wrap.querySelector(".cst-start").remove();
+      startRun();
+    });
+    function startRun() {
+      fit();
+      scroll = 0; speed = 3.2; items = []; pops = []; score = 0; vy = 0; grounded = true; cy = track(cartX());
+      left = TIME; tStart = performance.now();
+      el.querySelector(".cst-score").textContent = `★ 0/${GOAL}`;
+      el.querySelector(".cst-time").textContent = `⏱ ${TIME}`;
       wrap.querySelector(".cst-tap").hidden = false;
       running = true;
-    });
+    }
+    function timeUp() {
+      if (!running) return;
+      running = false;
+      wrap.querySelector(".cst-tap").hidden = true;
+      const ov = document.createElement("div");
+      ov.className = "cst-over";
+      ov.innerHTML = `<p>ZEIT UM!<br>★ ${score}/${GOAL}</p><button class="btn">🔁 Nochmal</button>`;
+      ov.querySelector("button").addEventListener("click", e => { e.stopPropagation(); ov.remove(); startRun(); });
+      wrap.appendChild(ov);
+      if (navigator.vibrate) navigator.vibrate([40, 40, 40]);
+    }
     raf = requestAnimationFrame(step);
 
     function win() {
@@ -215,6 +251,6 @@
     // Schon geschafft? Dann direkt Mission zeigen, Spiel bleibt spielbar
     if (api && api.cleared) setTimeout(showMission, 0);
 
-    return () => { cancelAnimationFrame(raf); over = true; };
+    return () => { cancelAnimationFrame(raf); clearTimeout(fitT); over = true; };
   };
 })();
