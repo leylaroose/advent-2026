@@ -73,10 +73,10 @@ window.ADVENT = {
     },
 
     4: {
-      type: "slide",
-      title: "Schiebepuzzle",
-      teaser: "Heute musst du ein bisschen schieben.",
-      intro: "Schieb die Teile an die richtige Stelle: Tipp auf ein Teil neben der Lücke.",
+      type: "swap",
+      title: "Foto-Puzzle",
+      teaser: "Heute wird gepuzzelt.",
+      intro: "Tipp zwei Teile an, um sie zu tauschen (oder zieh eins aufs andere). Richtige Teile rasten ein.",
       image: "img/platzhalter-puzzle.svg", // [PLATZHALTER: Foto von euch]
       grid: 3,
       outro: "Perfekt zusammengesetzt. Genau wie wir.",
