@@ -16,8 +16,9 @@
   .chr-type::after { content: "▌"; animation: blinkTxt .8s steps(2) infinite; }
   .chr-type.done::after { content: ""; }
   .chr-h { font-family: var(--pixel-font); font-size: 9px; color: var(--mint); letter-spacing: .08em; margin: 18px 0 8px; }
-  .chr-stat { margin: 9px 0; opacity: 0; transform: translateX(-20px); transition: opacity .35s, transform .45s cubic-bezier(.3,1.6,.5,1); }
-  .chr-stat.on { opacity: 1; transform: none; }
+  .chr-stat { margin: 9px 0; }
+  .chr-stat.on { animation: statIn .5s cubic-bezier(.3,1.6,.5,1) both; }
+  @keyframes statIn { from { opacity: 0; transform: translateX(-24px) scale(.9); } to { opacity: 1; transform: none; } }
   .chr-stat-row { display: flex; justify-content: space-between; font-weight: 900; font-size: 14px; margin-bottom: 4px; }
   .chr-val { font-family: var(--pixel-font); font-size: 10px; color: var(--lime); }
   .chr-bar { height: 12px; background: #0d3322; border: 2px solid #2f9e5b; border-radius: 4px; overflow: hidden; }
@@ -27,12 +28,17 @@
   @keyframes maxGlow { 50% { filter: brightness(1.35); } }
   .chr-special { margin-top: 18px; background: linear-gradient(135deg, #ffc83d, #ffe08a); color: var(--ink); border: 3px solid var(--ink); border-radius: 14px;
     padding: 12px; text-align: center; box-shadow: 0 0 0 3px var(--gold), 0 0 26px rgba(255,200,61,.6); opacity: 0; transform: scale(.4); }
-  .chr-special.on { animation: specialIn .8s cubic-bezier(.3,1.7,.5,1) forwards; }
+  .chr-special { display: none; }
+  .chr-special.on { display: block; animation: specialIn .8s cubic-bezier(.3,1.7,.5,1) forwards; }
   @keyframes specialIn { to { opacity: 1; transform: none; } }
   .chr-special .lbl { font-family: var(--pixel-font); font-size: 9px; }
   .chr-special .txt { font-family: var(--display); font-weight: 700; font-size: 22px; margin-top: 6px; }
-  .chr-save { display: flex; margin: 18px auto 0; opacity: 0; }
-  .chr-save.on { animation: lineIn .6s cubic-bezier(.3,1.6,.5,1) forwards; }
+  .chr-save, .chr-next { display: flex; margin: 18px auto 0; opacity: 0; }
+  .chr-save { display: none; }
+  .chr-save.on { display: flex; animation: lineIn .6s cubic-bezier(.3,1.6,.5,1) forwards; }
+  .chr-next.on { animation: lineIn .6s cubic-bezier(.3,1.6,.5,1) forwards; }
+  .chr-stat { display: none; }
+  .chr-stat.on { display: block; }
   `);
 
   window.DOOR_TYPES.charakter = function (el, day, data, api) {
@@ -60,6 +66,7 @@
             <div class="txt">${data.special || ""}</div>
           </div>
         </div>
+        <button class="btn chr-next chr-save-like">▶ Nächster Wert (1/${(data.stats || []).length})</button>
         <button class="btn chr-save">💾 Charakter speichern</button>
       </div>`;
 
@@ -73,44 +80,50 @@
     let i = 0;
     const tick = () => {
       typeEl.textContent = cls.slice(0, ++i);
-      if (i < cls.length) later(tick, 45); else typeEl.classList.add("done");
+      if (i < cls.length) later(tick, 40); else typeEl.classList.add("done");
     };
     later(tick, 500);
 
-    // Werte nacheinander
+    // Werte einzeln per Tipp enthüllen
     const stats = [...root.querySelectorAll(".chr-stat")];
-    const start = 600 + cls.length * 45;
-    stats.forEach((st, k) => {
+    const nextBtn = root.querySelector(".chr-next");
+    let k = 0;
+    function reveal() {
+      const st = stats[k++];
+      st.classList.add("on");
+      const fill = st.querySelector(".chr-fill");
+      requestAnimationFrame(() => requestAnimationFrame(() => { fill.style.width = fill.dataset.w + "%"; }));
+      const v = st.querySelector(".chr-val");
+      const to = parseFloat(v.dataset.to);
+      if (v.dataset.label) { v.textContent = "..."; later(() => { v.textContent = v.dataset.label; }, 700); }
+      else if (!isNaN(to)) {
+        const t0 = performance.now();
+        const step = now => {
+          const p = Math.min(1, (now - t0) / 1000);
+          v.textContent = Math.round(to * (1 - Math.pow(1 - p, 3)));
+          if (p < 1) requestAnimationFrame(step);
+        };
+        requestAnimationFrame(step);
+      }
+      if (navigator.vibrate) navigator.vibrate(15);
       later(() => {
-        st.classList.add("on");
-        st.querySelector(".chr-fill").style.width = st.querySelector(".chr-fill").dataset.w + "%";
-        const v = st.querySelector(".chr-val");
-        const to = parseFloat(v.dataset.to);
-        if (v.dataset.label) { later(() => { v.textContent = v.dataset.label; }, 700); v.textContent = "..."; }
-        else if (!isNaN(to)) {
-          const t0 = performance.now();
-          const step = now => {
-            const p = Math.min(1, (now - t0) / 1000);
-            v.textContent = Math.round(to * (1 - Math.pow(1 - p, 3)));
-            if (p < 1) requestAnimationFrame(step);
-          };
-          requestAnimationFrame(step);
-        }
-        if (navigator.vibrate) navigator.vibrate(10);
         const r = st.getBoundingClientRect();
-        if (st.classList.contains("max")) FX.burst(r.right - 30, r.top + 10, { count: 14, shapes: ["star"], colors: ["#ffc83d", "#c9f07a"], speed: 6, size: 10, life: 60 });
-        st.scrollIntoView({ block: "nearest", behavior: "smooth" });
-      }, start + k * 750);
-    });
-
-    const after = start + stats.length * 750 + 600;
-    later(() => {
+        FX.burst(r.right - 30, r.top + 10, { count: st.classList.contains("max") ? 22 : 12, shapes: ["star"], colors: ["#ffc83d", "#c9f07a"], speed: 6, size: 10, life: 60 });
+      }, 500);
+      if (k < stats.length) nextBtn.textContent = `▶ Nächster Wert (${k + 1}/${stats.length})`;
+      else nextBtn.textContent = "★ Spezialfähigkeit enthüllen";
+      nextBtn.scrollIntoView({ block: "nearest", behavior: "smooth" });
+    }
+    nextBtn.addEventListener("click", () => {
+      if (k < stats.length) return reveal();
+      nextBtn.remove();
       const sp = root.querySelector(".chr-special");
       sp.classList.add("on");
       sp.scrollIntoView({ block: "center", behavior: "smooth" });
       ADV.celebrate(sp, false);
-    }, after);
-    later(() => root.querySelector(".chr-save").classList.add("on"), after + 900);
+      later(() => root.querySelector(".chr-save").classList.add("on"), 900);
+    });
+    later(() => nextBtn.classList.add("on"), 600 + cls.length * 40);
 
     root.querySelector(".chr-save").addEventListener("click", e => {
       e.currentTarget.remove();
