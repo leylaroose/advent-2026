@@ -1,6 +1,8 @@
 /* Tennis gegen Leyla: Pong von oben gesehen. Jan unten (Finger ziehen), Leyla oben. Wer zuerst X Punkte hat. */
 (function () {
   ADV.css("ten-css", `
+  .ten-photo { width: 120px; margin: 4px auto 0; border: 3px solid var(--ink); border-radius: 14px; overflow: hidden; box-shadow: 3px 4px 0 var(--ink); rotate: -3deg; }
+  .ten-photo img { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; display: block; }
   .ten-top { display: flex; align-items: center; gap: 12px; margin-top: 4px; }
   .ten-face { flex: none; width: 70px; height: 70px; border-radius: 50%; overflow: hidden; border: 3px solid var(--ink); box-shadow: 2px 3px 0 var(--ink); }
   .ten-face img { width: 100%; height: 100%; object-fit: cover; }
@@ -26,7 +28,7 @@
     const T = data.taunts || {};
     const pick = a => a[Math.floor(Math.random() * a.length)];
     el.innerHTML = `
-      <p class="lead">${data.intro || ""}</p>
+      ${data.photo ? `<div class="ten-photo"><img src="${data.photo}" alt=""></div>` : ""}<p class="lead">${data.intro || ""}</p>
       <div class="ten-top"><div class="ten-face"><img src="${data.face}" alt="Leyla"></div><div class="ten-say">${T.start || ""}</div></div>
       <div class="ten-wrap"><canvas></canvas>
         <div class="ten-score"><span>LEYLA<b class="sl">0</b></span><span>JAN<b class="sj">0</b></span></div>
@@ -46,6 +48,9 @@
     const PW = () => W * 0.26, PH = 12;
     let jan = { x: 0 }, ley = { x: 0 }, ball = null, sj = 0, sl = 0, running = false, raf = 0, last = 0, serveTo = 1, pause = 0;
     const timers = [];
+    const F = data.faces || {};
+    const faceImg = face.querySelector("img");
+    function setFace(k) { if (F[k]) faceImg.src = F[k]; }
     function talk(t, mad) {
       say.textContent = t; say.classList.remove("pop"); void say.offsetWidth; say.classList.add("pop");
       if (mad) { face.classList.remove("mad"); void face.offsetWidth; face.classList.add("mad"); }
@@ -66,8 +71,8 @@
     wrap.addEventListener("pointermove", e => { if (e.buttons || e.pointerType === "touch") move(e); });
 
     function point(janScored) {
-      if (janScored) { sj++; talk(pick(T.janPoint || ["Das war im Aus!"]), true); if (navigator.vibrate) navigator.vibrate(30); const r = cv.getBoundingClientRect(); FX.burst(r.left + r.width / 2, r.top + 30, { count: 40, speed: 9, size: 8, life: 70 }); }
-      else { sl++; talk(pick(T.leylaPoint || ["Ass! 😎"])); if (navigator.vibrate) navigator.vibrate([20, 30, 20]); }
+      if (janScored) { sj++; setFace("mad"); talk(pick(T.janPoint || ["Das war im Aus!"]), true); if (navigator.vibrate) navigator.vibrate(30); const r = cv.getBoundingClientRect(); FX.burst(r.left + r.width / 2, r.top + 30, { count: 40, speed: 9, size: 8, life: 70 }); }
+      else { sl++; setFace("smug"); talk(pick(T.leylaPoint || ["Ass! 😎"])); if (navigator.vibrate) navigator.vibrate([20, 30, 20]); }
       el.querySelector(".sj").textContent = sj; el.querySelector(".sl").textContent = sl;
       serveTo = janScored ? 1 : -1;
       if (sj >= WIN) return end(true);
@@ -78,12 +83,12 @@
       running = false; ball = null; draw();
       const o = document.createElement("div"); o.className = "ten-over";
       if (janWon) {
-        talk(T.final || "Okay... du hast gewonnen. 😤💚", true);
+        setFace("wow"); talk(T.final || "Okay... du hast gewonnen. 😤💚", true);
         o.innerHTML = `<p>SPIEL, SATZ<br>UND SIEG JAN!</p>`;
         wrap.appendChild(o);
         ADV.finish(el.querySelector(".ten-after"), day, data, api, { title: "MATCH<br>GEWONNEN!" });
       } else {
-        talk(T.leylaWins || "Haha! Revanche gefällig? 😎");
+        setFace("smug"); talk(T.leylaWins || "Haha! Revanche gefällig? 😎");
         o.innerHTML = `<p>LEYLA GEWINNT<br>${sl}:${sj}</p><button class="btn">🔁 Revanche</button>`;
         o.querySelector("button").addEventListener("click", () => { o.remove(); reset(); running = true; last = performance.now(); raf = requestAnimationFrame(loop); });
         wrap.appendChild(o);

@@ -175,21 +175,21 @@ window.ADVENT = {
 
     9: {
       type: "memory",
-      title: "Unser Memory",
-      teaser: "Heute brauchst du ein gutes Gedächtnis.",
-      intro: "8 Paare aus unserem Jahr. Finde sie alle!",
+      title: "Jans Küche",
+      teaser: "Heute geht es um deine Kochkünste. 👨‍🍳",
+      intro: "Alles, was du schon für mich gekocht hast. Jedes Gericht gibt es zweimal. Finde die Paare!",
       // Optional statt Emoji ein Foto: { img: "img/memory-1.jpg", text: "..." }
       pairs: [
-        { icon: "🥤", text: "Spezi: dein Lebenselixier." },
-        { icon: "💻", text: "Teams: wo alles anfing." },
-        { icon: "🎤", text: "Der Comedy-Keller: unser erstes Treffen." },
-        { icon: "🎢", text: "Europa-Park: Tradition!" },
-        { icon: "🍝", text: "Nudeln. Und Pizza. Beides." },
-        { icon: "🥨", text: "Salzbrezeln statt Schokolade." },
-        { icon: "🖥️", text: "Zocken am PC." },
-        { icon: "🎾", text: "Tennis (und motzige Leyla 😤)." }
+        { img: "img/essen-schmorbraten.jpg", text: "Schmorbraten mit Knödelwürfeln und Feldsalat. 🤤" },
+        { img: "img/essen-gulasch.jpg", text: "Gulasch mit Semmelknödeln." },
+        { img: "img/essen-bourguignon.jpg", text: "Bœuf bourguignon auf Bandnudeln. Très chic!" },
+        { img: "img/essen-carbonara.jpg", text: "Pasta! (Du weißt, wie man mich glücklich macht.) 🍝" },
+        { img: "img/essen-tacos.jpg", text: "Taco-Abend! 🌮" },
+        { img: "img/essen-fruehstueck.jpg", text: "Frühstück vom Sternekoch. ☕" },
+        { img: "img/essen-kofta.jpg", text: "Köfte mit Joghurt, Walnüssen und Fladenbrot." },
+        { img: "img/essen-weihnachten.jpg", text: "Weihnachtsessen mit Rotkohl und Knödeln. 🎄" }
       ],
-      outro: "Gutes Gedächtnis! Mit dir merk ich mir einfach alles gern. 💚"
+      outro: "Mein Lieblingsrestaurant? Unser Esstisch. 💚"
     },
 
     10: {
@@ -257,8 +257,10 @@ window.ADVENT = {
       title: "Tennis gegen Leyla",
       teaser: "Heute geht's auf den Platz. Gegen mich. 🎾",
       intro: "Matchball! Schlag mich im Tennis: Wer zuerst 5 Punkte hat, gewinnt.",
+      photo: "img/leyla-tennis.jpg",
       how: "Zieh deinen grünen Schläger unten mit dem Finger hin und her und spiel den Ball zurück. Triffst du ihn am Rand, fliegt er schräg.",
-      face: "img/grinch-leyla.jpg",
+      face: "img/leyla-grinsen.jpg",
+      faces: { mad: "img/leyla-motzig.jpg", smug: "img/leyla-grinsen.jpg", wow: "img/leyla-staunen.jpg" },
       points: 5,
       aiSpeed: 0.9,  // wie schnell Leyla läuft (höher = schwerer)
       aiError: 1.5,  // wie ungenau Leyla zielt (höher = leichter)
@@ -294,15 +296,212 @@ window.ADVENT = {
       note: "[PLATZHALTER: deine Nachricht, z. B. Niemand kocht so gut wie du.]"
     },
 
-    15: { type: "bald", title: "Geschenke stapeln", teaser: "Ruhige Hand gefragt!" },
-    16: { type: "bald", title: "Ein Foto von uns", teaser: "Heute gibt's ein Lieblingsfoto." },
-    17: { type: "bald", title: "Heute kochen wir", teaser: "Heute Abend wird gekocht!" },
-    18: { type: "bald", title: "Ausflug: Weihnachtsmarkt", teaser: "Heute haben wir beide frei!" },
-    19: { type: "bald", title: "Schneeflocken fangen", teaser: "Es schneit! Fang so viele, wie du kannst." },
-    20: { type: "bald", title: "Das schwere Puzzle", teaser: "Heute wird's knifflig." },
-    21: { type: "bald", title: "Rentier-Rennen", teaser: "Die Rentiere sind los!" },
-    22: { type: "bald", title: "Unsere Playlist 2026", teaser: "Heute gibt's was zu hören." },
-    23: { type: "bald", title: "Das Codeschloss", teaser: "Nur noch ein Schloss bis zum Finale." },
-    24: { type: "bald", title: "Jan & Leyla Wrapped 2026", teaser: "Das Finale ist da!" }
+    15: {
+      type: "stack",
+      title: "Geschenke-Turm",
+      teaser: "Heute brauchst du eine ruhige Hand. 🎁",
+      intro: "Der Weihnachtsmann braucht Hilfe beim Stapeln!",
+      how: "Das Geschenk schwingt oben hin und her. Tipp, um es fallen zu lassen. Triff den Turm! 8 Geschenke hoch, 3 dürfen danebengehen.",
+      goal: 8,
+      lives: 3,
+      endTitle: "TURM<br>GEBAUT!",
+      outro: "Stabil wie wir zwei. 💚",
+      note: "[PLATZHALTER: kurze Nachricht von dir]"
+    },
+
+    16: {
+      type: "scratch",
+      title: "Ein Lieblingsmoment",
+      teaser: "Heute taut etwas auf. ❄️",
+      intro: "Das Foto ist eingefroren. Rubbel das Eis weg!",
+      image: "img/uns-see.jpg",
+      caption: "[PLATZHALTER: Ort & Datum]",
+      endTitle: "AUFGETAUT!",
+      outro: "Einer meiner liebsten Momente mit dir.",
+      note: "[PLATZHALTER: Was du an diesem Tag/Foto so magst]"
+    },
+
+    17: {
+      type: "invite",
+      title: "Heute kochen wir!",
+      teaser: "Heute Abend ist die Küche geöffnet. 👨‍🍳",
+      intro: "Eine Einladung ist eingetroffen. Tipp auf den Umschlag!",
+      card: {
+        kicker: "RESTAURANT CHEZ JAN & LEYLA",
+        title: "Heute kochen wir zusammen",
+        sub: "Reservierung für 2 Personen. Dresscode: Jogginghose.",
+        rows: [
+          { k: "WANN", v: "Heute, [PLATZHALTER: Uhrzeit]" },
+          { k: "VORSPEISE", v: "[PLATZHALTER]" },
+          { k: "HAUPTGANG", v: "[PLATZHALTER: z. B. selbstgemachte Pasta]" },
+          { k: "DESSERT", v: "[PLATZHALTER: ohne Schokolade 😉]" },
+          { k: "KÜCHENCHEF", v: "Jan (natürlich) ⭐⭐⭐" },
+          { k: "SOUS-CHEF & VORKOSTERIN", v: "Leyla" }
+        ]
+      },
+      listTitle: "Die Küchen-Mission",
+      listSub: "Heute Abend abhaken:",
+      list: [
+        { icon: "🛒", text: "Zusammen einkaufen" },
+        { icon: "🎶", text: "Weihnachtsplaylist an" },
+        { icon: "🕯️", text: "Kerzen anzünden" },
+        { icon: "👨‍🍳", text: "Zusammen kochen (ohne Streit 😄)" },
+        { icon: "🥂", text: "Anstoßen" }
+      ],
+      note: "Danke für jeden Abend, an dem du für uns kochst. Heute koche ich mit. 💚"
+    },
+
+    18: {
+      type: "invite",
+      ticket: true,
+      title: "Ausflug!",
+      teaser: "Heute haben wir beide frei. 🎟️",
+      intro: "Wir haben heute beide frei. Und das bedeutet... Tipp aufs Ticket!",
+      card: {
+        kicker: "🎟️ EINTRITTSKARTE · 2 PERSONEN",
+        title: "Weihnachtsmarkt-Tag",
+        sub: "Nur gültig mit Leyla.",
+        rows: [
+          { k: "WO", v: "[PLATZHALTER: welcher Weihnachtsmarkt]" },
+          { k: "ABFAHRT", v: "[PLATZHALTER: Uhrzeit]" },
+          { k: "MITBRINGEN", v: "Mütze, Handschuhe, Hunger" }
+        ]
+      },
+      listTitle: "Weihnachtsmarkt-Bingo",
+      listSub: "Antippen, wenn erledigt. Volles Feld = Überraschung!",
+      listStyle: "bingo",
+      list: [
+        { icon: "🍷", text: "Glühwein" },
+        { icon: "🥨", text: "Salzbrezel" },
+        { icon: "🎡", text: "Riesenrad" },
+        { icon: "📸", text: "Selfie am Baum" },
+        { icon: "🌰", text: "Gebrannte Mandeln" },
+        { icon: "🎄", text: "Kugel kaufen" },
+        { icon: "🎅", text: "Nikolaus sichten" },
+        { icon: "🍄", text: "Flammkuchen" },
+        { icon: "💋", text: "Kuss unterm Mistelzweig" }
+      ],
+      note: "[PLATZHALTER: Nachricht für den Abend]"
+    },
+
+    19: {
+      type: "snow",
+      title: "Schneeflocken fangen",
+      teaser: "Es schneit! ❄️",
+      intro: "Es schneit! Fang genug Flocken für einen Schneemann.",
+      how: "Tipp die Schneeflocken an. Goldene zählen dreifach, Kohle zieht 3 ab. 40 Flocken in 30 Sekunden!",
+      goal: 40,
+      time: 30,
+      endTitle: "SCHNEEMANN<br>GEBAUT!",
+      outro: "Der schönste Schneemann der Welt. Fast so schön wie du.",
+      note: "[PLATZHALTER: kurze Nachricht]"
+    },
+
+    20: {
+      type: "globe",
+      title: "Unsere Schneekugel",
+      teaser: "Heute wird geschüttelt. Noch einmal. 🔮",
+      intro: "Heute ist mein letzter Tag in Karlsruhe vor Weihnachten. Schüttel die Schneekugel!",
+      image: "img/uns-weihnachtsmarkt.jpg",
+      base: "Jan & Leyla",
+      shakes: 6,
+      reunion: "", // [PLATZHALTER: Datum, an dem ihr euch wiederseht, z. B. "2026-12-27"] → zeigt einen Countdown
+      reunionText: "Tage, bis wir uns wiedersehen",
+      endTitle: "LET IT<br>SNOW!",
+      outro: "Ab morgen bin ich weg, aber nur kurz.",
+      note: "[PLATZHALTER: Abschiedsnachricht für die Tage, an denen du nicht da bist]"
+    },
+
+    21: {
+      type: "flappy",
+      title: "Flappy Rentier",
+      teaser: "Rudolph braucht deine Hilfe! 🦌",
+      intro: "Rudolph muss die Geschenke ausliefern. Hilf ihm über die Dächer!",
+      how: "Tippen = flattern. Flieg durch die Lücken zwischen den Schornsteinen. 10 Häuser schaffen!",
+      goal: 10,
+      endTitle: "ALLES<br>AUSGELIEFERT!",
+      outro: "Rudolph ist stolz auf dich.",
+      note: "[PLATZHALTER: Nachricht von unterwegs, z. B. Ich vermisse dich jetzt schon.]"
+    },
+
+    22: {
+      type: "quiz",
+      title: "Wo war das?",
+      teaser: "Heute geht's auf Zeitreise. 📸",
+      intro: "Eine Reise durch unser Jahr. Wo war das?",
+      questions: [
+        { img: "img/nashville-laylas.jpg", q: "Wo war das?", a: ["New Orleans", "Las Vegas", "Nashville"], correct: 2, shuffle: false, note: "Welcome to Nashville! Mit einer Bar, die (fast) so heißt wie ich. 🤠" },
+        { img: "img/nashville-chicken.jpg", q: "Und was haben wir hier gegessen?", a: ["BBQ Ribs", "Nashville Hot Chicken", "Burger"], correct: 1, shuffle: false, note: "Scharf. Sehr scharf. 🔥" },
+        { img: "img/europapark-atlantis.jpg", q: "In welcher Attraktion entstand dieses Foto?", a: ["Silver Star", "Abenteuer Atlantis", "Piraten in Batavia"], correct: 1, shuffle: false, note: "Dein Gesicht. 😂" },
+        { img: "img/sintra-pena.jpg", q: "Welches Schloss ist das?", a: ["Neuschwanstein", "Palácio da Pena in Sintra", "Alhambra"], correct: 1, shuffle: false, note: "Das bunteste Schloss der Welt. 🏰" },
+        { img: "img/lissabon-aussicht.jpg", q: "Und in welcher Stadt ist dieser Ausblick?", a: ["Porto", "Barcelona", "Lissabon"], correct: 2, shuffle: false, note: "Lissabon von oben. 🇵🇹" },
+        { img: "img/uns-pullis.jpg", q: "Wer hatte den hässlicheren Pulli?", a: ["Jan", "Leyla", "Beide gleich schlimm"], all: true, shuffle: false, note: "Ganz klar: unentschieden. 🎄" }
+      ],
+      ranks: [
+        { min: 6, text: "Perfektes Gedächtnis! 🏆" },
+        { min: 3, text: "Gut gemacht! 📸" },
+        { min: 0, text: "Wir müssen öfter Fotos anschauen. 😄" }
+      ],
+      endTitle: "ZEITREISE<br>BEENDET!",
+      outro: "Was für ein Jahr mit dir."
+    },
+
+    23: {
+      type: "lock",
+      title: "Das Codeschloss",
+      teaser: "Nur noch ein Schloss bis zum Finale. 🔐",
+      intro: "Morgen ist das Finale. Aber es ist abgeschlossen! Den Code kennst du aus den letzten Wochen.",
+      lockTitle: "FINALE GESPERRT",
+      hintTitle: "Die Hinweise:",
+      wheels: [
+        { hint: "Was hast du an Level 1 geschüttelt?", symbols: ["🎁", "☕", "🥤", "🍷"], answer: 2 },
+        { hint: "Wer hat an Level 4 Weihnachten geklaut?", symbols: ["🎅", "😤", "🦌", "⛄"], answer: 1 },
+        { hint: "Was haben wir an Level 13 gespielt?", symbols: ["⚽", "🏀", "⛸️", "🎾"], answer: 3 },
+        { hint: "Was hast du an Level 14 gekocht?", symbols: ["🍕", "🍝", "🥗", "🍔"], answer: 1 }
+      ],
+      endTitle: "SCHLOSS<br>GEKNACKT!",
+      outro: "Das Finale ist freigeschaltet. Morgen ist es so weit. 🎄"
+    },
+
+    24: {
+      type: "wrapped",
+      title: "Jan & Leyla Wrapped 2026",
+      teaser: "Das Finale ist da! 🎄",
+      intro: "Frohe Weihnachten, my love! Hier ist unser Jahr.",
+      kicker: "JAN & LEYLA",
+      cover: "Wrapped 2026",
+      slides: [
+        { type: "text", kicker: "WRAPPED 2026", title: "Was für ein Jahr.", text: "Lass uns zurückschauen. 💚", burst: true },
+        { type: "photo", img: "img/kind-jan-pirat.jpg", kicker: "PLAYER 1", title: "Jan, Pirat seit Tag 1 🏴‍☠️" },
+        { type: "photo", img: "img/kind-leyla-belle.jpg", kicker: "PLAYER 2", title: "Leyla, Prinzessin seit Tag 1 👑" },
+        { type: "text", title: "Und dann haben sich die beiden getroffen...", text: "Im Büro. Über Teams. 💻" },
+        { type: "photo", fit: "contain", img: "img/girlfriend.jpg", kicker: "DER MOMENT", title: "Jan + Leyla = 💑", text: "Du hast mich mit einer selbstgebauten Webseite gefragt. Jetzt kriegst du eine zurück. ❤️", burst: true },
+        { type: "photo", img: "img/spezi-kalender-2025.jpg", kicker: "LETZTES JAHR", title: "24 Spezis mit Santa-Hütchen 🎅", text: "Wer hätte gedacht, dass der dieses Jahr noch getoppt wird?" },
+        { type: "photo", img: "img/europapark-2025.jpg", title: "Europa-Park, Winter 2025" },
+        { type: "stat", kicker: "TOP-STAT", big: "[X]", title: "Europa-Park-Besuche", text: "[PLATZHALTER]" },
+        { type: "photo", img: "img/europapark-kuss.jpg", title: "Europa-Park im Winter", text: "Unsere Tradition." },
+        { type: "photo", img: "img/nashville-strasse.jpg", kicker: "REISE DES JAHRES", title: "Nashville 🤠", text: "Hot Chicken, Honky Tonks und wir." },
+        { type: "stat", kicker: "NEU GELERNT", big: "🔥", title: "Hot Chicken ist wirklich hot." },
+        { type: "photo", img: "img/essen-weihnachten.jpg", kicker: "KOCH DES JAHRES", title: "Jan ⭐⭐⭐", text: "Danke für jedes einzelne Essen." },
+        { type: "photo", img: "img/lissabon-selfie.jpg", kicker: "REISE DES JAHRES #2", title: "Lissabon 🇵🇹", text: "Rote Dächer, Miradouros und wir." },
+        { type: "photo", img: "img/sintra-pena.jpg", title: "Sintra", text: "Unser Märchenschloss." },
+        { type: "photo", img: "img/fotobox-kuss.jpg", title: "Fotobox im Time Out Market", text: "Beweisfoto. 💋" },
+        { type: "photo", img: "img/tennis-kuss.jpg", kicker: "SPORTART DES JAHRES", title: "Tennis 🎾", text: "Wer gewonnen hat? Egal. 😤💚" },
+        { type: "photo", img: "img/padel-kuss.jpg", title: "Und Padel.", text: "Auch egal." },
+        { type: "photo", img: "img/uns-weinberg.jpg", title: "Spaziergänge in den Weinbergen" },
+        { type: "photo", img: "img/uns-kuscheln.jpg", kicker: "LIEBLINGSORT", title: "Sofa. Mit dir." },
+        { type: "photo", img: "img/uns-wiese.jpg", kicker: "SOMMER 2026", title: "Goldene Stunde", text: "[PLATZHALTER]" },
+        { type: "photo", img: "img/uns-tanz.jpg", title: "Und dann wurde getanzt.", text: "[PLATZHALTER]" },
+        { type: "photo", img: "img/uns-wiese-kuss.jpg", title: "Du & ich", text: "[PLATZHALTER]" },
+        { type: "stat", kicker: "MEISTGETRUNKEN", big: "🥤", title: "Spezi", text: "[PLATZHALTER: geschätzte Anzahl] Flaschen. Mindestens." },
+        { type: "list", kicker: "TOP 5", title: "Unsere Momente", items: ["[PLATZHALTER]", "[PLATZHALTER]", "[PLATZHALTER]", "[PLATZHALTER]", "[PLATZHALTER]"] },
+        { type: "photo", img: "img/uns-weihnachtsmarkt.jpg", title: "Und jetzt: Weihnachten.", text: "Mit dir. 🎄" },
+        { type: "stat", kicker: "DEIN TOP-MENSCH 2026", big: "💚", title: "Leyla", text: "Und nächstes Jahr wieder.", burst: true },
+        { type: "letter", kicker: "EIN BRIEF FÜR DICH", paragraphs: ["Lieber Jan,", "[PLATZHALTER: dein Brief]", "[PLATZHALTER]"], sign: "Deine Leyla ❤️" }
+      ],
+      endTitle: "FROHE<br>WEIHNACHTEN!",
+      outro: "24 Level geschafft. Du bist der Beste.",
+      note: "[PLATZHALTER: optional der Reveal deines Weihnachtsgeschenks]"
+    }
   }
 };
