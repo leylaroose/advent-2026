@@ -2,6 +2,8 @@
 (function () {
   ADV.css("quiz-css", `
   .qz-q { font-family: var(--display); font-weight: 700; font-size: 24px; line-height: 1.15; color: var(--ink); margin: 6px 0 0; }
+  .qz-q.qz-big { font-size: clamp(40px, 13vw, 56px); text-align: center; letter-spacing: .06em; line-height: 1.3; margin: 10px 0 2px; animation: hop 2s ease-in-out infinite; }
+  .qz-sub { text-align: center; font-weight: 800; margin: 0; color: var(--leaf); }
   .qz-card { animation: riseIn .5s cubic-bezier(.3,1.5,.5,1) both; }
   .qz-fb { margin-top: 12px; font-weight: 800; font-size: 16px; min-height: 1.2em; }
   .qz-next { margin-top: 14px; }
@@ -26,7 +28,7 @@
       const order = q.shuffle === false ? q.a.map((_, k) => k) : ADV.shuffle(q.a.map((_, k) => k));
       stage.innerHTML = `<div class="qz-card">
         <div class="adv-hud"><span>FRAGE ${i + 1}/${qs.length}</span><span>★ ${score}</span></div>
-        <p class="qz-q">${q.q}</p>
+        <p class="qz-q ${q.big ? "qz-big" : ""}">${q.q}</p>${q.sub ? `<p class="qz-sub">${q.sub}</p>` : ""}
         <div class="adv-choices">${order.map(k => `<button class="adv-choice" data-k="${k}">${q.a[k]}</button>`).join("")}</div>
         <p class="qz-fb"></p></div>`;
       stage.querySelectorAll(".adv-choice").forEach(b => b.addEventListener("click", () => pick(+b.dataset.k, b)));

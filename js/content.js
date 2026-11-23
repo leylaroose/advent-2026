@@ -151,12 +151,131 @@ window.ADVENT = {
       outro: "Adlerauge! 🦅"
     },
 
-    8: { type: "bald", title: "Emoji-Kino", teaser: "Heute wird geraten: Welcher Film ist das?" },
-    9: { type: "bald", title: "Memory", teaser: "Heute brauchst du ein gutes Gedächtnis." },
-    10: { type: "bald", title: "Wort des Tages", teaser: "Fünf Buchstaben, sechs Versuche." },
-    11: { type: "bald", title: "Loot-Drop!", teaser: "Heute droppt etwas Legendäres." },
-    12: { type: "bald", title: "Path of Advent", teaser: "Die Weihnachtsmonster greifen an!" },
-    13: { type: "bald", title: "Wahr oder falsch?", teaser: "Wie gut kennst du mich wirklich?" },
+    8: {
+      type: "quiz",
+      title: "Emoji-Kino",
+      teaser: "Heute wird geraten: Welcher Film ist das?",
+      intro: "Popcorn bereit? 🍿 Welcher Film oder welche Serie steckt hinter den Emojis?",
+      questions: [
+        { q: "🧙‍♂️💍🌋👣", big: true, a: ["Der Hobbit", "Der Herr der Ringe", "Harry Potter", "Game of Thrones"], correct: 1 },
+        { q: "⚽🇺🇸🥨📋💛", big: true, sub: "Kleiner Tipp: Die haben wir zusammen geschaut.", a: ["Ted Lasso", "Bend It Like Beckham", "Schitt's Creek", "The Office"], correct: 0, note: "BELIEVE! 💛" },
+        { q: "🔨⚡👱‍♂️🌈", big: true, a: ["Iron Man", "Thor", "Captain America", "Doctor Strange"], correct: 1 },
+        { q: "🦝🌳🚀🎶📼", big: true, a: ["Avatar", "Star Wars", "Guardians of the Galaxy", "Ant-Man"], correct: 2, note: "I am Groot. 🌳" },
+        { q: "🧤💎💎💎💎💎💎🫰", big: true, a: ["Avengers: Infinity War", "Black Panther", "Spider-Man: No Way Home", "Thor: Ragnarok"], correct: 0, note: "*snap* 🫰" },
+        { q: "👦🏠✈️🪤🎄", big: true, a: ["Der Grinch", "Tatsächlich... Liebe", "Kevin – Allein zu Haus", "Buddy der Weihnachtself"], correct: 2 },
+        { q: "🧝‍♂️🍝🍁🗽🎅", big: true, a: ["Kevin – Allein in New York", "Buddy der Weihnachtself", "Der Polarexpress", "Santa Clause"], correct: 1, note: "Spaghetti mit Ahornsirup. 🍝" }
+      ],
+      ranks: [
+        { min: 7, text: "Volle Punktzahl! Cineast! 🎬" },
+        { min: 4, text: "Solide! 🍿" },
+        { min: 0, text: "Okay, wir haben einen Filmabend nötig. 😄" }
+      ],
+      endTitle: "ABSPANN!",
+      outro: "Nächster Filmabend: du suchst aus, ich mach Popcorn. 🍿"
+    },
+
+    9: {
+      type: "memory",
+      title: "Unser Memory",
+      teaser: "Heute brauchst du ein gutes Gedächtnis.",
+      intro: "8 Paare aus unserem Jahr. Finde sie alle!",
+      pairs: [
+        { icon: "🥤", text: "Spezi: dein Lebenselixier." },
+        { icon: "💻", text: "Teams: wo alles anfing." },
+        { icon: "🎤", text: "Der Comedy-Keller: unser erstes Treffen." },
+        { icon: "🎢", text: "Europa-Park: Tradition!" },
+        { icon: "🍝", text: "Nudeln. Und Pizza. Beides." },
+        { icon: "🥨", text: "Salzbrezeln statt Schokolade." },
+        { icon: "🎮", text: "Grind, grind, grind." },
+        { icon: "🎾", text: "Tennis (und motzige Leyla 😤)." }
+      ],
+      outro: "Gutes Gedächtnis! Mit dir merk ich mir einfach alles gern. 💚"
+    },
+
+    10: {
+      type: "wordle",
+      title: "Wort des Tages",
+      teaser: "Fünf Buchstaben, sechs Versuche.",
+      intro: "Errate das Wort des Tages: 5 Buchstaben, 6 Versuche. Grün = richtig, gelb = falscher Platz. Kleiner Tipp: Es hat mit morgen zu tun. 👀",
+      solution: "EXILE",
+      winMsg: "EXILE! Na, klingelt's? 👀",
+      outro: "Morgen erscheint etwas, worauf du lange gewartet hast...",
+      note: "Bereite dich schon mal mental vor. Morgen wird gegrindet. 🎮"
+    },
+
+    11: {
+      type: "loot",
+      title: "Loot-Drop!",
+      teaser: "Heute droppt etwas Legendäres.",
+      intro: "Heute erscheint Path of Exile 2 in Version 1.0. Und genau jetzt droppt etwas für dich...",
+      item: {
+        icon: "🧺",
+        name: "Korb des ewigen Grinds",
+        base: "Legendärer Geschenkkorb",
+        props: ["Gegenstandsstufe: <b>100</b>", "Benötigt: <b>Jan, Level 99</b>"],
+        mods: [
+          "+100% Zocken ohne schlechtes Gewissen",
+          "Immun gegen Haushalt für 24 Stunden",
+          "+5 auf alle Spezi-Resistenzen",
+          "Erhöht Grind-Geschwindigkeit um 300%",
+          "Kann von Leyla nicht unterbrochen werden (bis 22 Uhr)",
+          "[PLATZHALTER: Inhalt des Korbs als Mod, z. B. +1 Snack-Vorrat]"
+        ],
+        flavor: "Wer den Korb öffnet, kehrt erst nach dem Endgame zurück."
+      },
+      where: "[PLATZHALTER: Wo steht der echte Korb? z. B. Fundort: hinter dem Sofa im Wohnzimmer]",
+      outro: "Viel Spaß beim Grinden, Exile! 🎮",
+      note: "Heute Abend gehört der PC dir. Ich bring dir Snacks. 💚"
+    },
+
+    12: {
+      type: "poe",
+      title: "Path of Advent",
+      teaser: "Die Weihnachtsmonster greifen an!",
+      intro: "60 Sekunden Weihnachtsmonster wegtippen, Beute sammeln, dann wartet der Boss. Bist du bereit, Exile?",
+      time: 60,
+      mobs: [
+        { icon: "🍪", hp: 1 },
+        { icon: "🧝", hp: 2 },
+        { icon: "⛄", hp: 3 },
+        { icon: "🦌", hp: 2 }
+      ],
+      loot: [
+        { name: "Chaos-Plätzchen", color: "#d9c27a" },
+        { name: "Glühwein-Orb", color: "#e8414a" },
+        { name: "Spekulatius der Erhabenheit", color: "#ffd27a" },
+        { name: "Zimtstern des Göttlichen", color: "#c9f07a" },
+        { name: "Lebkuchen-Splitter", color: "#c8c8c8" }
+      ],
+      boss: { icon: "👹", name: "Krampus, Schrecken der Adventszeit", hp: 40, intro: "DER BODEN BEBT...<br>KRAMPUS ERSCHEINT!" },
+      bossLoot: [{ name: "Spezi des Spiegels", color: "#7fd7ff", count: 1 }],
+      outro: "Krampus ist besiegt, und Weihnachten ist sicher!",
+      note: "[PLATZHALTER: deine Nachricht als Belohnung]"
+    },
+
+    13: {
+      type: "quiz",
+      title: "Wahr oder falsch?",
+      teaser: "Wie gut kennst du mich wirklich?",
+      intro: "Ein paar Aussagen über mich. Wahr oder falsch?",
+      questions: [
+        { q: "Ich brauche ewig, um mich fertig zu machen.", a: ["Wahr", "Falsch"], correct: 1, shuffle: false, note: "Ich bin schnell! Du musst nie lange warten. 😌" },
+        { q: "Ich werde beim Tennis manchmal motzig.", a: ["Wahr", "Falsch"], correct: 0, shuffle: false, note: "Ertappt. 😤🎾" },
+        { q: "Mein Lieblingsessen ist Salat.", a: ["Wahr", "Falsch"], correct: 1, shuffle: false, note: "Pizza und Nudeln, bitte. 🍕🍝" },
+        { q: "[PLATZHALTER: Aussage über dich]", a: ["Wahr", "Falsch"], correct: 0, shuffle: false, note: "[PLATZHALTER: Auflösung]" },
+        { q: "[PLATZHALTER: Aussage über dich]", a: ["Wahr", "Falsch"], correct: 1, shuffle: false, note: "[PLATZHALTER: Auflösung]" },
+        { q: "[PLATZHALTER: Aussage über dich]", a: ["Wahr", "Falsch"], correct: 0, shuffle: false, note: "[PLATZHALTER: Auflösung]" },
+        { q: "Ich liebe dich.", a: ["Wahr", "Falsch"], all: true, shuffle: false, note: "Die einzige Aussage, bei der es nur eine Antwort gibt. 💚" }
+      ],
+      ranks: [
+        { min: 7, text: "Du kennst mich in- und auswendig! 🏆" },
+        { min: 4, text: "Nicht schlecht! 💪" },
+        { min: 0, text: "Hmm, da müssen wir nochmal ran. 😏" }
+      ],
+      endTitle: "DURCHSCHAUT!",
+      outro: "Du kennst mich einfach. 💚"
+    },
+
     14: { type: "bald", title: "Hör mal", teaser: "Heute gibt's was auf die Ohren." },
     15: { type: "bald", title: "Geschenke stapeln", teaser: "Ruhige Hand gefragt!" },
     16: { type: "bald", title: "Ein Foto von uns", teaser: "Heute gibt's ein Lieblingsfoto." },
