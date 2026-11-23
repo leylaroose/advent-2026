@@ -169,7 +169,7 @@
     let missed = 0;
     for (let d = 1; d <= 24; d++) if (isOpenable(d) && !opened.has(d) && d !== td) missed++;
     if (first > 0) s.textContent = first === 1 ? "Noch 1 Mal schlafen bis Level 1! 🎮" : `Noch ${first} Mal schlafen bis Level 1! 🎮`;
-    else if (td && !opened.has(td)) s.textContent = `Neues Level! Findest du Level ${td}? 👀`;
+    else if (td && !opened.has(td)) s.textContent = `Findest du Level ${td}? 👀`;
     else if (td && missed) s.textContent = `Noch ${missed} Level zum Nachholen 👀`;
     else if (td) s.textContent = "Level geschafft! Morgen geht's weiter 🎄";
     else s.textContent = "Frohe Weihnachten, Player 1! 🎄";
