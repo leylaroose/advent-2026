@@ -73,14 +73,26 @@ window.ADVENT = {
     },
 
     4: {
-      type: "swap",
-      title: "Foto-Puzzle",
-      teaser: "Heute wird gepuzzelt.",
-      intro: "Tipp zwei Teile an, um sie zu tauschen (oder zieh eins aufs andere). Richtige Teile rasten ein.",
-      image: "img/platzhalter-puzzle.svg", // [PLATZHALTER: Foto von euch]
-      grid: 3,
-      outro: "Perfekt zusammengesetzt. Genau wie wir.",
-      note: "[PLATZHALTER: Satz zum Foto]"
+      type: "ttt",
+      title: "Grinch-Duell",
+      teaser: "Grinch-Leyla hat Weihnachten geklaut!",
+      intro: "Grinch-Leyla hat Weihnachten geklaut! Schlag sie im Tic-Tac-Toe: Wer zuerst 2 Runden gewinnt.",
+      face: "", // [PLATZHALTER: grummeliges Selfie von Leyla, z. B. "img/grinch-leyla.jpg"]
+      grinchName: "GRINCH-LEYLA",
+      janMark: "🎄",
+      grinchMark: "😤",
+      mistakes: 0.35, // wie oft Grinch-Leyla unaufmerksam ist (0 = unschlagbar)
+      taunts: {
+        start: "Weihnachten gehört MIR! Na los, du fängst an.",
+        round: ["Nächste Runde. Diesmal mach ich dich fertig!", "Okay, jetzt wird's ernst.", "Ich war nur kurz abgelenkt. Weiter!"],
+        move: ["Hehe.", "Na, nervös?", "Pff.", "Das hast du nicht kommen sehen!", "Ich bin heute motzig UND schlau."],
+        janWins: ["Das war pures Glück!", "Grrr. Zufall!", "Ich hab dich gewinnen lassen. Absichtlich!"],
+        grinchWins: ["HA! Weihnachten bleibt bei mir!", "Zu leicht. 😤"],
+        draw: ["Unentschieden. Langweilig!", "Patt. Wir sind halt beide gut."],
+        final: "Na gut... du hast gewonnen. Hier hast du Weihnachten zurück. 💚"
+      },
+      outro: "Weihnachten ist gerettet!",
+      note: "Okay, du hast gewonnen. Aber nur, weil ich dich lieb hab. 😤💚"
     },
 
     5: {
