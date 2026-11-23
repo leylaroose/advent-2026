@@ -77,7 +77,7 @@ window.ADVENT = {
       title: "Grinch-Duell",
       teaser: "Grinch-Leyla hat Weihnachten geklaut!",
       intro: "Grinch-Leyla hat Weihnachten geklaut! Schlag sie im Tic-Tac-Toe: Wer zuerst 2 Runden gewinnt.",
-      face: "", // [PLATZHALTER: grummeliges Selfie von Leyla, z. B. "img/grinch-leyla.jpg"]
+      face: "img/grinch-leyla.jpg",
       grinchName: "GRINCH-LEYLA",
       janMark: "🎄",
       grinchMark: "😤",

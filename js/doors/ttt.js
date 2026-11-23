@@ -2,12 +2,14 @@
 (function () {
   ADV.css("ttt-css", `
   .ttt-top { display: flex; align-items: center; gap: 12px; margin-top: 6px; }
-  .ttt-ava { position: relative; flex: none; width: 92px; height: 104px; }
-  .ttt-face { position: absolute; left: 4px; bottom: 0; width: 84px; height: 84px; border-radius: 50%; overflow: hidden; border: 3.5px solid var(--ink);
+  .ttt-ava { position: relative; flex: none; width: 118px; height: 136px; }
+  .ttt-face { position: absolute; left: 2px; bottom: 0; width: 112px; height: 112px; border-radius: 50%; overflow: hidden; border: 3.5px solid var(--ink);
     background: #8bd17c; box-shadow: 3px 4px 0 var(--ink); }
-  .ttt-face img { width: 100%; height: 100%; object-fit: cover; filter: sepia(1) hue-rotate(55deg) saturate(2.6) brightness(.95) contrast(1.1); }
+  .ttt-face img { width: 100%; height: 100%; object-fit: cover; filter: brightness(1.08) contrast(1.05); }
+  .ttt-face::after { content: ""; position: absolute; inset: 0; background: #5fd04a; mix-blend-mode: color; opacity: .8; pointer-events: none; }
+  .ttt-face.raw::after { display: none; }
   .ttt-face img.raw { filter: none; }
-  .ttt-hat { position: absolute; left: 18px; top: -4px; width: 78px; transform: rotate(18deg); filter: drop-shadow(2px 3px 0 var(--ink)); }
+  .ttt-hat { position: absolute; left: 40px; top: -2px; width: 76px; transform: rotate(24deg); filter: drop-shadow(2px 3px 0 var(--ink)); }
   .ttt-ava.taunt { animation: tauntWob .5s ease-in-out 2; }
   @keyframes tauntWob { 0%,100% { rotate: 0deg; } 25% { rotate: -8deg; } 75% { rotate: 8deg; } }
   .ttt-say { position: relative; flex: 1; background: #fff; border: 3px solid var(--ink); border-radius: 16px; padding: 10px 12px; box-shadow: 3px 4px 0 var(--ink);
@@ -59,7 +61,7 @@
     el.innerHTML = `
       <p class="lead">${data.intro || ""}</p>
       <div class="ttt-top">
-        <div class="ttt-ava"><div class="ttt-face"><img src="${data.face || FACE}" class="${data.face ? "" : "raw"}" alt="Grinch-Leyla"></div>${HAT}</div>
+        <div class="ttt-ava"><div class="ttt-face ${data.face ? "" : "raw"}"><img src="${data.face || FACE}" alt="Grinch-Leyla"></div>${HAT}</div>
         <div class="ttt-say"></div>
       </div>
       <div class="ttt-score"><span>JAN ${J} <b class="sj">0</b></span><span>BEST OF 3</span><span><b class="sg">0</b> ${G} ${data.grinchName || "GRINCH-LEYLA"}</span></div>
