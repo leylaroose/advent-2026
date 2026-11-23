@@ -92,7 +92,7 @@ window.ADVENT = {
         final: "Na gut... du hast gewonnen. Hier hast du Weihnachten zurück. 💚"
       },
       outro: "Weihnachten ist gerettet!",
-      note: "Okay, du hast gewonnen. Aber nur, weil ich dich lieb hab. 😤💚"
+      note: "Okay, du hast gewonnen. Aber nur, weil ich dich liebe. 😤💚"
     },
 
     5: {
