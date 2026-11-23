@@ -185,6 +185,7 @@
           ${list.map((m, i) => `<button class="cst-item ${saved.includes(i) ? "done" : ""}" data-i="${i}"><span class="ico">${m.icon}</span><span class="txt">${m.text}</span><span class="box">${saved.includes(i) ? "✓" : ""}</span></button>`).join("")}
           <p class="cst-prog"></p>
           <div class="cst-reward"></div>
+          ${ADV.backBtn()}
         </div>`;
       const body = el.closest(".sheet-body");
       if (body) body.scrollTo({ top: after.getBoundingClientRect().top - body.getBoundingClientRect().top + body.scrollTop - 10, behavior: "smooth" });

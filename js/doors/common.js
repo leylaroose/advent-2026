@@ -20,6 +20,10 @@ window.ADV = {
     if (big) FX.rain(90);
     if (navigator.vibrate) navigator.vibrate([60, 40, 120]);
   },
+  /** Button zurück zur Übersicht */
+  backBtn(delay = 0) {
+    return `<div class="adv-center"><button class="btn adv-back adv-pop" style="animation-delay:${delay}s" onclick="window.closeLevel && window.closeLevel()">🎄 Zurück zur Übersicht</button></div>`;
+  },
   shuffle(a) {
     a = a.slice();
     for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; }
@@ -34,7 +38,8 @@ window.ADV = {
     wrap.className = "adv-finish";
     wrap.innerHTML = `${ADV.banner(day, opts.title)}
       ${data.outro ? `<p class="adv-msg adv-pop" style="animation-delay:.6s">${data.outro}</p>` : ""}
-      ${data.note ? `<div class="adv-note adv-pop" style="animation-delay:1.2s">${data.note}<span class="from">${window.ADVENT.signoff || ""}</span></div>` : ""}`;
+      ${data.note ? `<div class="adv-note adv-pop" style="animation-delay:1.2s">${data.note}<span class="from">${window.ADVENT.signoff || ""}</span></div>` : ""}
+      ${ADV.backBtn(1.8)}`;
     el.appendChild(wrap);
     if (api && api.complete) api.complete();
     setTimeout(() => {

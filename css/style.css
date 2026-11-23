@@ -371,3 +371,7 @@ body {
 @keyframes popOk { 50% { transform: scale(1.06); } }
 .adv-center { text-align: center; }
 .adv-big-emoji { font-size: 76px; display: inline-block; animation: hop 1.6s ease-in-out infinite; }
+
+.adv-back { margin: 22px auto 0; }
+.test-reset { position: fixed; z-index: 30; right: 12px; bottom: calc(12px + env(safe-area-inset-bottom)); font-family: var(--pixel-font); font-size: 9px;
+  color: var(--ink); background: var(--gold); border: 2.5px solid var(--ink); border-radius: 10px; padding: 9px 10px; box-shadow: 2px 3px 0 var(--ink); }

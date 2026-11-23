@@ -146,6 +146,7 @@
             <div class="where">${data.rewardWhere || ""}</div>
           </div>
           <button class="btn secondary spz-again" style="opacity:0;animation:lineIn .6s ${1.5 + (data.lines || []).length * 0.9}s forwards">🔁 Nochmal schütteln</button>
+          ${ADV.backBtn(2 + (data.lines || []).length * 0.9)}
         </div>
       </div>`;
 

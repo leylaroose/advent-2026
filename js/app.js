@@ -18,9 +18,12 @@
   const unlockDate = d => `${YEAR}-12-${pad(d)}`;
   let today = berlinToday();
   const sleepsUntil = d => daysBetween(today, unlockDate(d));
-  const isOpenable = d => sleepsUntil(d) <= 0;
+  // ?test=1: alle Level offen (nur zum Ausprobieren, nicht für Jan)
+  const TEST = params.has("test");
+  const isOpenable = d => TEST || sleepsUntil(d) <= 0;
   const sleepText = n => n === 1 ? "Noch 1 Mal schlafen 😴" : `Noch ${n} Mal schlafen 😴`;
   const todayDay = () => {
+    if (TEST) return null;
     const n = daysBetween(`${YEAR}-12-01`, today);
     return n >= 0 && n < 24 ? n + 1 : null;
   };
@@ -176,6 +179,13 @@
 
   function updateStatus() {
     const s = $("#status");
+    if (TEST) {
+      s.textContent = "🧪 Testmodus: alle Level offen";
+      const n0 = cleared.size;
+      $("#xpText").textContent = `${n0}/24`;
+      requestAnimationFrame(() => { $("#xpFill").style.width = (n0 / 24 * 100) + "%"; });
+      return;
+    }
     const first = sleepsUntil(1);
     const td = todayDay();
     let missed = 0;
@@ -262,6 +272,7 @@
     cleanup = render(body, d, data, { year: YEAR, cleared: cleared.has(d), complete: () => markCleared(d) }) || null;
     if (location.hash !== "#" + d) history.replaceState(null, "", location.pathname + location.search + "#" + d);
   }
+  window.closeLevel = () => closeSheet();
   function closeSheet() {
     sheet.classList.remove("show");
     scrim.classList.remove("show");
@@ -278,6 +289,17 @@
   buildLights();
   buildDoors();
   updateStatus();
+  if (TEST) {
+    const t = document.createElement("button");
+    t.className = "test-reset";
+    t.textContent = "🧪 TEST · Reset";
+    t.addEventListener("click", () => {
+      try { localStorage.removeItem(KEY); localStorage.removeItem(KEY_CLEAR);
+        Object.keys(localStorage).filter(k => k.startsWith("advent26-")).forEach(k => localStorage.removeItem(k)); } catch (e) {}
+      opened = new Set(); cleared = new Set(); buildDoors(); updateStatus();
+    });
+    document.body.appendChild(t);
+  }
   let lastW = innerWidth, lastH = innerHeight;
   addEventListener("resize", () => {
     if (Math.abs(innerWidth - lastW) > 30) {
