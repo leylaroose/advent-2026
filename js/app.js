@@ -27,6 +27,13 @@
 
   // ---------- Gespeicherter Zustand ----------
   const KEY = "advent26-opened";
+  // ?reset=1 setzt alle geöffneten Level zurück (zum Testen)
+  if (params.has("reset")) {
+    try { localStorage.removeItem(KEY); } catch (e) {}
+    params.delete("reset");
+    const q = params.toString();
+    history.replaceState(null, "", location.pathname + (q ? "?" + q : "") + location.hash);
+  }
   let opened = new Set();
   try { opened = new Set(JSON.parse(localStorage.getItem(KEY) || "[]")); } catch (e) {}
   function markOpened(d) {
