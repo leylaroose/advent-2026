@@ -39,6 +39,15 @@
     const q = params.toString();
     history.replaceState(null, "", location.pathname + (q ? "?" + q : "") + location.hash);
   }
+  // ?ab=10 (zum Testen): alle Level davor gelten als geschafft
+  if (params.has("ab")) {
+    const n = parseInt(params.get("ab"), 10) || 1;
+    const before = Array.from({ length: Math.max(0, n - 1) }, (_, i) => i + 1);
+    try { localStorage.setItem(KEY, JSON.stringify(before)); localStorage.setItem(KEY_CLEAR, JSON.stringify(before)); } catch (e) {}
+    params.delete("ab");
+    const q = params.toString();
+    history.replaceState(null, "", location.pathname + (q ? "?" + q : "") + location.hash);
+  }
   let opened = new Set();
   try { opened = new Set(JSON.parse(localStorage.getItem(KEY) || "[]")); } catch (e) {}
   let cleared = new Set();
