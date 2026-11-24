@@ -5,6 +5,9 @@
   .glb-ball { position: relative; aspect-ratio: 1; border-radius: 50%; overflow: hidden; border: 4px solid var(--ink); box-shadow: inset -14px -18px 30px rgba(255,255,255,.35), inset 10px 10px 30px rgba(0,0,0,.15), 4px 6px 0 var(--ink);
     background: #cfe9f5; cursor: pointer; }
   .glb-ball img { position: absolute; left: 12%; top: 14%; width: 76%; height: 76%; object-fit: cover; border-radius: 50%; }
+  .glb-frost { position: absolute; inset: 0; border-radius: 50%; background: radial-gradient(circle at 40% 35%, #ffffff, #dff2fb 60%, #bfe3f5); transition: opacity .4s;
+    display: grid; place-items: center; }
+  .glb-frost::after { content: "❄️"; font-size: 64px; opacity: .8; animation: spin 8s linear infinite; }
   .glb-ball canvas { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
   .glb-ball::after { content: ""; position: absolute; left: 16%; top: 10%; width: 28%; height: 16%; border-radius: 50%; background: rgba(255,255,255,.55); rotate: -30deg; filter: blur(2px); }
   .glb-base { width: 78%; height: 54px; margin: -10px auto 0; background: linear-gradient(#e8414a, #b9252e); border: 4px solid var(--ink); border-radius: 10px 10px 18px 18px;
@@ -22,7 +25,7 @@
   window.DOOR_TYPES.globe = function (el, day, data, api) {
     el.innerHTML = `
       <p class="lead">${data.intro || ""}</p>
-      <div class="glb"><div class="glb-ball"><img src="${data.image}" alt=""><canvas></canvas></div><div class="glb-base">${data.base || ""}</div></div>
+      <div class="glb"><div class="glb-ball"><img src="${data.image}" alt=""><div class="glb-frost"></div><canvas></canvas></div><div class="glb-base">${data.base || ""}</div></div>
       <p class="glb-hint"><b>👆 Tipp auf die Kugel</b> und schüttel dein Handy!</p>
       <div class="glb-after"></div>`;
     const g = el.querySelector(".glb"), cv = g.querySelector("canvas"), ctx = cv.getContext("2d");
@@ -37,7 +40,8 @@
       g.classList.remove("shake"); void g.offsetWidth; g.classList.add("shake");
       if (navigator.vibrate) navigator.vibrate(15);
       shakes++;
-      if (shakes >= (data.shakes || 6) && !done) reveal();
+      const fr = g.querySelector(".glb-frost"); if (fr) fr.style.opacity = Math.max(0, 1 - shakes / (data.shakes || 12));
+      if (shakes >= (data.shakes || 12) && !done) reveal();
     }
     function loop() {
       ctx.clearRect(0, 0, cv.width, cv.height);

@@ -2,7 +2,7 @@
 (function () {
   ADV.css("zm-css", `
   .zm-frame { position: relative; width: min(100%, 300px, 36svh); aspect-ratio: 1; margin: 4px auto 0; border: 3.5px solid var(--ink); border-radius: 18px;
-    overflow: hidden; box-shadow: var(--shadow); background: #0d3322; }
+    overflow: hidden; box-shadow: none; background: #0d3322; }
   .zm-frame img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .9s cubic-bezier(.3,1.2,.4,1); }
   .zm-lens { position: absolute; right: 10px; top: 10px; font-family: var(--pixel-font); font-size: 10px; color: #fff; background: rgba(10,36,24,.75);
     padding: 6px 8px; border-radius: 8px; border: 2px solid var(--ink); }

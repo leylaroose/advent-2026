@@ -1,7 +1,7 @@
 /* Loot-Drop im Action-RPG-Stil: Item fällt mit Lichtstrahl, Antippen zeigt Tooltip */
 (function () {
   ADV.css("lt-css", `
-  .lt-scene { position: relative; height: min(56svh, 400px); margin-top: 6px; border: 3px solid var(--ink); border-radius: 18px; overflow: hidden; box-shadow: var(--shadow);
+  .lt-scene { position: relative; height: min(56svh, 400px); margin-top: 6px; border: 3px solid var(--ink); border-radius: 18px; overflow: hidden; box-shadow: none;
     background: radial-gradient(ellipse at 50% 85%, #3b2a1a 0%, #1a120b 55%, #0c0806 100%); }
   .lt-scene::before { content: ""; position: absolute; inset: 0; background:
     radial-gradient(circle at 20% 80%, rgba(255,140,40,.15), transparent 30%), radial-gradient(circle at 85% 75%, rgba(255,140,40,.12), transparent 25%); }

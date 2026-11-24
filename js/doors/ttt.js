@@ -4,7 +4,7 @@
   .ttt-top { display: flex; align-items: center; gap: 12px; margin-top: 6px; }
   .ttt-ava { position: relative; flex: none; width: 118px; height: 136px; }
   .ttt-face { position: absolute; left: 2px; bottom: 0; width: 112px; height: 112px; border-radius: 50%; overflow: hidden; border: 3.5px solid var(--ink);
-    background: #8bd17c; box-shadow: 3px 4px 0 var(--ink); }
+    background: #8bd17c; box-shadow: none; }
   .ttt-face img { width: 100%; height: 100%; object-fit: cover; filter: brightness(1.08) contrast(1.05); }
   .ttt-face::after { content: ""; position: absolute; inset: 0; background: #5fd04a; mix-blend-mode: color; opacity: .8; pointer-events: none; }
   .ttt-face.raw::after { display: none; }

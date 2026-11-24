@@ -249,7 +249,7 @@ window.ADVENT = {
       ],
       boss: { icon: "👹", name: "Krampus", hp: 24, intro: "DER BODEN BEBT...<br>KRAMPUS ERSCHEINT!", how: "Tipp Krampus, bis er umfällt. Er wirft Kohle 🪨: Tipp sie weg, bevor sie die Geschenke trifft!" },
       bossLoot: [{ icon: "🥤", name: "Spezi des Spiegels", color: "#7fd7ff", count: 1 }],
-      note: "Krampus besiegt, Weihnachten ist sicher! [PLATZHALTER: deine Nachricht] ❤️"
+      note: "Weihnachten ist jetzt sicher. ❤️"
     },
 
     13: {
@@ -291,13 +291,13 @@ window.ADVENT = {
       dish: "🍝",
       dishName: "PASTA À LA JAN",
       endTitle: "STERNEKOCH!",
-      note: "3 Sterne für den Koch ⭐⭐⭐ Niemand kocht nämlich so gut wie du. ❤️"
+      note: "3 Sterne für den Koch ⭐⭐⭐, denn niemand kocht so gut wie du. ❤️"
     },
 
     15: {
       type: "invite",
-      title: "Ich koche für dich!",
-      teaser: "Heute bin ich dran. 👩‍🍳",
+      title: "Post für dich ✉️",
+      teaser: "Heute ist Post gekommen. ✉️",
       intro: "Du hast mir schon so oft gekocht. Jetzt bin ich dran! Tipp auf den Umschlag.",
       card: {
         kicker: "GUTSCHEIN",
@@ -342,7 +342,7 @@ window.ADVENT = {
     18: {
       type: "invite",
       ticket: true,
-      title: "Heute Abend: Christkindlesmarkt!",
+      title: "Ein Ticket für dich 🎟️",
       teaser: "Heute haben wir beide frei. 🎟️",
       intro: "Wir haben heute beide frei. Und das bedeutet... Tipp aufs Ticket!",
       card: {
@@ -374,10 +374,10 @@ window.ADVENT = {
       type: "globe",
       title: "Let it snow!",
       teaser: "Let it snow! ❄️",
-      intro: "Let it snow! Schüttel die Schneekugel.",
-      image: "img/europapark-2025.jpg",
+      intro: "Let it snow! Die Kugel ist ganz zugeschneit. Schüttel sie, bis du siehst, was drin ist.",
+      image: "img/fotobox-kuss.jpg",
       base: "Jan & Leyla",
-      shakes: 6,
+      shakes: 12,
       endTitle: "LET IT<br>SNOW!"
     },
 
@@ -386,20 +386,31 @@ window.ADVENT = {
       title: "Flappy Rentier",
       teaser: "Rudolph braucht deine Hilfe! 🦌",
       intro: "Rudolph muss die Geschenke ausliefern. Hilf ihm über die Dächer!",
-      how: "Tippen = flattern. Flieg zwischen den Wolken und den Dächern durch. 7 Häuser schaffen!",
-      goal: 7,
+      how: "Einmal tippen zum Starten, dann: Tippen = flattern. Flieg zwischen den Girlanden und den Dächern durch. 8 Häuser schaffen!",
+      goal: 8,
       endTitle: "ALLES<br>AUSGELIEFERT!",
       note: "Rudolph und ich sind stolz auf dich. ❤️"
     },
 
     22: {
-      type: "hangman",
-      title: "Rette den Schneemann",
-      teaser: "Der Schneemann schmilzt! ☀️",
-      intro: "Die Sonne kommt raus! Errate den Satz, bevor der Schneemann schmilzt. Jeder falsche Buchstabe kostet ihn ein Stück.",
-      phrase: "NUR NOCH ZWEI MAL SCHLAFEN",
-      endTitle: "SCHNEEMANN<br>GERETTET!",
-      note: "Nur noch zwei Mal schlafen, dann ist Weihnachten. ❤️"
+      type: "snowball",
+      title: "Schneeballschlacht",
+      teaser: "Heute fliegen Schneebälle! ❄️",
+      intro: "Ich hab mich hinter den Schneewällen versteckt. Triff mich!",
+      how: "Tipp mich an, wenn ich hinter einer Mauer auftauche. Werfe ich zurück, tipp den Schneeball weg, bevor er dich trifft. 8 Treffer zum Sieg, du hast 3 Leben.",
+      goal: 8,
+      lives: 3,
+      faces: { normal: "img/leyla-grinsen.jpg", mad: "img/leyla-motzig.jpg", wow: "img/leyla-staunen.jpg" },
+      taunts: {
+        start: "Du triffst mich eh nicht! 😜",
+        janHit: ["HEY! 😤", "Das war unfair!", "Kalt!!", "Na warte...", "Mitten ins Gesicht?!"],
+        throw: ["Achtung! ❄️", "Zurück an dich!", "Fang!"],
+        leylaHit: ["Volltreffer! 😎", "Hehe.", "Eiskalt erwischt!"],
+        leylaWins: "Eingeschneit! Revanche? 😎",
+        final: "Okay, ich ergebe mich! Aber nur, weil du so süß bist. ❤️"
+      },
+      endTitle: "SCHNEEBALL-<br>SCHLACHT GEWONNEN!",
+      note: "Ich ergebe mich. Aber beim nächsten echten Schnee bist du dran! ❤️"
     },
 
     23: {
@@ -411,50 +422,38 @@ window.ADVENT = {
       hintTitle: "Die Hinweise:",
       wheels: [
         { hint: "Was hast du an Tag 1 geschüttelt?", symbols: ["🎁", "☕", "img/spezi-flasche.png", "🍷"], answer: 2 },
-        { hint: "Wer hat Weihnachten geklaut?", symbols: ["🎅", "img/grinch-leyla.jpg", "🦌", "⛄"], answer: 1 },
+        { hint: "Wer hat Weihnachten geklaut?", symbols: ["img/leyla-grinsen.jpg", "img/grinch-leyla.jpg", "img/leyla-staunen.jpg", "img/leyla-motzig.jpg"], answer: 1 },
         { hint: "Womit hast du mich im Tennis geschlagen?", symbols: ["⚽", "🏀", "⛸️", "🎾"], answer: 3 },
-        { hint: "Was hast du als Sternekoch gekocht?", symbols: ["🍕", "🍝", "🥗", "🍔"], answer: 1 }
+        { hint: "Wo haben wir uns zum ersten Mal getroffen?", symbols: ["🎬", "🎤", "🎳", "🍿"], answer: 1 }
       ],
       endTitle: "SCHLOSS<br>GEKNACKT!",
       note: "Das Finale ist freigeschaltet. Morgen ist es so weit. 🎄❤️"
     },
 
     24: {
-      type: "final",
-      title: "Das große Finale",
-      teaser: "Frohe Weihnachten! 🎄",
-      intro: "Frohe Weihnachten, my love! Ein letztes Spiel, dann gibt's eine Geschichte für dich.",
-      storyIntro: "Geschafft! Und jetzt: unsere Geschichte. ❤️",
-      kicker: "JAN & LEYLA",
-      cover: "Unsere Geschichte",
-      slides: [
-        { type: "text", kicker: "UNSERE GESCHICHTE", title: "Es war einmal...", text: "...ein Pirat und eine Prinzessin. ❤️", burst: true },
-        { type: "photo", img: "img/kind-jan-pirat.jpg", kicker: "PLAYER 1", title: "Jan, Pirat seit Tag 1 🏴‍☠️" },
-        { type: "photo", img: "img/kind-leyla-belle.jpg", kicker: "PLAYER 2", title: "Leyla, Prinzessin seit Tag 1 👑" },
-        { type: "text", title: "Und dann haben sich die beiden getroffen...", text: "Im Büro. Über Teams. 💻" },
-        { type: "photo", fit: "contain", img: "img/girlfriend.jpg", kicker: "DER MOMENT", title: "Jan + Leyla = 💑", text: "Du hast mich mit einer selbstgebauten Webseite gefragt. Jetzt kriegst du eine zurück. ❤️", burst: true },
-        { type: "photo", img: "img/spezi-kalender-2025.jpg", kicker: "LETZTES JAHR", title: "24 Spezis mit Santa-Hütchen 🎅", text: "Wer hätte gedacht, dass der dieses Jahr noch getoppt wird?" },
-        { type: "photo", img: "img/europapark-2025.jpg", title: "Europa-Park, Winter 2025" },
-                { type: "photo", img: "img/europapark-kuss.jpg", title: "Europa-Park im Winter", text: "Unsere Tradition." },
-        { type: "photo", img: "img/nashville-strasse.jpg", kicker: "ABENTEUER", title: "Nashville 🤠", text: "Hot Chicken, Honky Tonks und wir." },
-        { type: "stat", kicker: "NEU GELERNT", big: "🔥", title: "Hot Chicken ist wirklich hot." },
-        { type: "photo", img: "img/essen-weihnachten.jpg", kicker: "MEIN LIEBLINGSKOCH", title: "Jan ⭐⭐⭐", text: "Danke für jedes einzelne Essen." },
-        { type: "photo", img: "img/lissabon-selfie.jpg", kicker: "ABENTEUER", title: "Lissabon 🇵🇹", text: "Rote Dächer, Miradouros und wir." },
-        { type: "photo", img: "img/sintra-pena.jpg", title: "Sintra", text: "Unser Märchenschloss." },
-        { type: "photo", img: "img/fotobox-kuss.jpg", title: "Fotobox im Time Out Market", text: "Beweisfoto. 💋" },
-        { type: "photo", img: "img/tennis-kuss.jpg", kicker: "UNSER SPORT", title: "Tennis 🎾", text: "Wer gewonnen hat? Egal. 😤❤️" },
-        { type: "photo", img: "img/padel-kuss.jpg", title: "Und Padel.", text: "Auch egal." },
-        { type: "photo", img: "img/uns-weinberg.jpg", title: "Spaziergänge in den Weinbergen" },
-        { type: "photo", img: "img/uns-kuscheln.jpg", kicker: "LIEBLINGSORT", title: "Sofa. Mit dir." },
-        { type: "photo", img: "img/uns-wiese.jpg", kicker: "SOMMER", title: "Goldene Stunde", text: "[PLATZHALTER]" },
-        { type: "photo", img: "img/uns-tanz.jpg", title: "Und dann wurde getanzt.", text: "[PLATZHALTER]" },
-        { type: "photo", img: "img/uns-wiese-kuss.jpg", title: "Du & ich", text: "[PLATZHALTER]" },
-        { type: "stat", kicker: "MEISTGETRUNKEN", big: "🥤", title: "Spezi", text: "[PLATZHALTER: geschätzte Anzahl] Flaschen. Mindestens." },
-        { type: "list", kicker: "TOP 5", title: "Unsere Momente", items: ["[PLATZHALTER]", "[PLATZHALTER]", "[PLATZHALTER]", "[PLATZHALTER]", "[PLATZHALTER]"] },
-        { type: "photo", img: "img/uns-weihnachtsmarkt.jpg", title: "Und jetzt: Weihnachten.", text: "Mit dir. 🎄" },
-        { type: "stat", kicker: "PLAYER 2", big: "❤️", title: "Für immer dein Team.", burst: true },
-        { type: "letter", kicker: "EIN BRIEF FÜR DICH", paragraphs: ["Lieber Jan,", "[PLATZHALTER: dein Brief]", "[PLATZHALTER]"], sign: "Deine Leyla ❤️" }
-      ],
+      type: "boss",
+      title: "Der Endboss",
+      teaser: "Frohe Weihnachten! Ein letzter Kampf... 🎄",
+      intro: "Frohe Weihnachten, my love! Aber halt: Grinch-Leyla hat alle 23 Türchen geklaut. Hol sie dir zurück!",
+      how: "Tipp Grinch-Leyla an, um Türchen zurückzuholen. Sie wirft Socken und Kohle: Tipp sie weg, bevor sie die Geschenke treffen. Fang die ❤️ für Extraleben.",
+      face: "img/grinch-leyla.jpg",
+      faceWin: "img/leyla-staunen.jpg",
+      hp: 60,
+      lives: 5,
+      taunts: {
+        start: "Hehe. Die Türchen gehören jetzt MIR! 😈",
+        go: "Na komm, hol sie dir doch!",
+        hit: ["Au!", "Hey!", "Das kitzelt nur!", "Grrr."],
+        phase2: "Jetzt wird's ernst! Kohle-Alarm! 😤",
+        phase3: "GRRR! Meine Türchen!! 😡",
+        leylaWins: "Haha! Nochmal? 😎",
+        final: "Okay, okay! Hier sind deine Türchen zurück. Frohe Weihnachten! ❤️"
+      },
+      letter: {
+        kicker: "EIN BRIEF FÜR DICH",
+        paragraphs: ["Lieber Jan,", "[PLATZHALTER: dein Brief]", "[PLATZHALTER]"],
+        sign: "Deine Leyla ❤️"
+      },
       endTitle: "FROHE<br>WEIHNACHTEN, JAN!",
       note: "[PLATZHALTER: optional der Reveal deines Weihnachtsgeschenks] ❤️"
     }

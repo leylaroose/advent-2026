@@ -2,7 +2,7 @@
 (function () {
   ADV.css("scr-css", `
   .scr-pola { position: relative; width: min(84%, 320px); margin: 12px auto 0; background: #fff; padding: 14px 14px 44px; border: 3px solid var(--ink);
-    box-shadow: 5px 6px 0 var(--ink); rotate: -2.5deg; }
+    box-shadow: none; rotate: -2.5deg; }
   .scr-photo { position: relative; aspect-ratio: 1; overflow: hidden; background: #ddd; }
   .scr-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
   .scr-photo canvas { position: absolute; inset: 0; width: 100%; height: 100%; touch-action: none; cursor: grab; }

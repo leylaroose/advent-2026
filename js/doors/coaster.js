@@ -1,7 +1,7 @@
 /* Level 3: Europa-Park. Achterbahn-Minispiel, danach Tagesmission zum Abhaken. */
 (function () {
   ADV.css("cst-css", `
-  .cst-wrap { position: relative; margin-top: 8px; border: 3px solid var(--ink); border-radius: 18px; overflow: hidden; box-shadow: var(--shadow);
+  .cst-wrap { position: relative; margin-top: 8px; border: 3px solid var(--ink); border-radius: 18px; overflow: hidden; box-shadow: none;
     background: #0b2a1c; touch-action: manipulation; user-select: none; -webkit-user-select: none; }
   .cst-wrap canvas { display: block; width: 100%; height: 300px; }
   .cst-name { position: absolute; left: 0; right: 0; top: 30px; text-align: center; font-family: var(--pixel-font); font-size: 9px; color: rgba(201,240,122,.55); pointer-events: none; }

@@ -1,7 +1,7 @@
 /* Flappy Rentier: Tippen = flattern, durch die Lücken zwischen den Schornsteinen fliegen. */
 (function () {
   ADV.css("flp-css", `
-  .flp-wrap { position: relative; margin-top: 8px; border: 3px solid var(--ink); border-radius: 16px; overflow: hidden; box-shadow: var(--shadow); touch-action: manipulation; user-select: none; -webkit-user-select: none; }
+  .flp-wrap { position: relative; margin-top: 8px; border: 3px solid var(--ink); border-radius: 16px; overflow: hidden; box-shadow: none; touch-action: manipulation; user-select: none; -webkit-user-select: none; }
   .flp-wrap canvas { display: block; width: 100%; }
   .flp-hud { position: absolute; left: 0; right: 0; top: 10px; text-align: center; font-family: var(--pixel-font); font-size: 14px; color: #fff; text-shadow: 2px 2px 0 #000; pointer-events: none; }
   .flp-over { position: absolute; inset: 0; display: grid; place-items: center; align-content: center; gap: 12px; text-align: center; background: rgba(10,26,40,.7); padding: 0 16px; }
@@ -21,8 +21,8 @@
     const vh = (window.visualViewport && visualViewport.height) || innerHeight;
     const W = cv.clientWidth, H = Math.round(Math.max(320, Math.min(W * 1.3, vh - 300, 480)));
     cv.style.height = H + "px"; cv.width = W * DPR; cv.height = H * DPR; ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
-    let bird, pipes, score, running = false, raf = 0, last = 0, t = 0, started = false;
-    const GAP = () => H * 0.42, PWD = 64, SPEED = W * 0.36;
+    let drawn = false, bird, pipes, score, running = false, raf = 0, last = 0, t = 0, started = false;
+    const GAP = () => H * 0.36, PWD = 64, SPEED = W * 0.40;
     const stars = Array.from({ length: 40 }, () => ({ x: Math.random() * W, y: Math.random() * H * 0.7, r: Math.random() * 1.5 + .4 }));
     function reset() { bird = { y: H * 0.45, vy: 0 }; pipes = []; score = 0; t = 0; started = false; hud(); }
     const hud = () => { el.querySelector(".flp-hud").textContent = `🏠 ${score}/${GOAL}`; };
@@ -39,26 +39,30 @@
           if (!p.passed && p.x + PWD < W * 0.28) { p.passed = true; score++; hud(); if (navigator.vibrate) navigator.vibrate(12); if (score >= GOAL) return win(); }
         });
         pipes = pipes.filter(p => p.x > -PWD - 10);
-        const bx = W * 0.28, r = 10, inset = 8; // großzügige Trefferfläche
+        const bx = W * 0.28, r = 11, inset = 6; // großzügige Trefferfläche
         const hit = bird.y > H - 6 || pipes.some(p => bx + r > p.x + inset && bx - r < p.x + PWD - inset && (bird.y - r < p.top - 4 || bird.y + r > p.top + GAP() + 10));
         if (bird.y < 12) { bird.y = 12; bird.vy = Math.max(0, bird.vy); }
         if (hit && running) crash();
       } else if (running) bird.y = H * 0.45 + Math.sin(t * 4) * 8;
       draw();
+      if (running && !started) { ctx.font = "bold 18px Fredoka, sans-serif"; ctx.fillStyle = "#fff"; ctx.textAlign = "center"; ctx.fillText("👆 Einmal tippen zum Starten", W / 2, H * 0.68); }
       if (running) raf = requestAnimationFrame(loop);
     }
     function draw() {
+      drawn = true;
       const g = ctx.createLinearGradient(0, 0, 0, H); g.addColorStop(0, "#0b1f33"); g.addColorStop(1, "#1d4b5f");
       ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
       ctx.fillStyle = "#fff"; stars.forEach(s => { ctx.globalAlpha = .5 + .5 * Math.abs(Math.sin(t * 2 + s.x)); ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2); ctx.fill(); });
       ctx.globalAlpha = 1;
       ctx.fillStyle = "#fff8c9"; ctx.beginPath(); ctx.arc(W * 0.8, H * 0.15, 26, 0, Math.PI * 2); ctx.fill();
       (pipes || []).forEach(p => {
-        // oben: Wolken, die herunterhängen
-        ctx.fillStyle = "#3a5670"; ctx.strokeStyle = "#0a2418"; ctx.lineWidth = 3;
-        ctx.fillRect(p.x + 6, 0, PWD - 12, p.top - 14);
-        for (let i = 0; i < 3; i++) { ctx.beginPath(); ctx.arc(p.x + 12 + i * (PWD - 24) / 2, p.top - 14, 16, 0, Math.PI * 2); ctx.fill(); }
-        ctx.fillStyle = "#e9f7ff"; for (let i = 0; i < 3; i++) { ctx.beginPath(); ctx.arc(p.x + 12 + i * (PWD - 24) / 2, p.top - 8, 6, 0, Math.PI); ctx.fill(); }
+        // oben: hängende Tannengirlande mit Kugeln
+        const gx = p.x + PWD / 2, gb = p.top - 6;
+        ctx.strokeStyle = "#0a2418"; ctx.lineWidth = 3;
+        ctx.fillStyle = "#1f7a4c"; ctx.fillRect(p.x + 10, 0, PWD - 20, gb); ctx.strokeRect(p.x + 10, -3, PWD - 20, gb + 3);
+        ctx.fillStyle = "#2f9e5b";
+        for (let yy = 6; yy < gb; yy += 14) { ctx.beginPath(); ctx.moveTo(p.x + 6, yy + 10); ctx.lineTo(gx, yy - 2); ctx.lineTo(p.x + PWD - 6, yy + 10); ctx.closePath(); ctx.fill(); ctx.stroke(); }
+        [["#e8414a", -14], ["#ffc83d", 0], ["#7fd7ff", 14]].forEach(([c, dx], i) => { ctx.fillStyle = c; ctx.beginPath(); ctx.arc(gx + dx, gb - 2 + (i % 2) * 6, 6, 0, Math.PI * 2); ctx.fill(); ctx.stroke(); });
         // unten: Haus mit verschneitem Dach
         const hy = p.top + GAP(), roof = 30;
         ctx.fillStyle = "#c9623f"; ctx.fillRect(p.x + 4, hy + roof, PWD - 8, H - hy - roof); ctx.strokeRect(p.x + 4, hy + roof, PWD - 8, H - hy - roof);

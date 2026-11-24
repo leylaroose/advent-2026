@@ -1,7 +1,7 @@
 /* Geschenke stapeln: Ein Geschenk schwingt am Haken, Tippen lässt es fallen. Turm aus X Geschenken bauen. */
 (function () {
   ADV.css("stk-css", `
-  .stk-wrap { position: relative; margin-top: 8px; border: 3px solid var(--ink); border-radius: 16px; overflow: hidden; box-shadow: var(--shadow); touch-action: manipulation; user-select: none; -webkit-user-select: none; }
+  .stk-wrap { position: relative; margin-top: 8px; border: 3px solid var(--ink); border-radius: 16px; overflow: hidden; box-shadow: none; touch-action: manipulation; user-select: none; -webkit-user-select: none; }
   .stk-wrap canvas { display: block; width: 100%; }
   .stk-hud { position: absolute; left: 10px; right: 10px; top: 8px; display: flex; justify-content: space-between; font-family: var(--pixel-font); font-size: 10px; color: var(--ink); pointer-events: none; }
   .stk-over { position: absolute; inset: 0; display: grid; place-items: center; align-content: center; gap: 12px; text-align: center; background: rgba(10,36,24,.72); padding: 0 16px; }

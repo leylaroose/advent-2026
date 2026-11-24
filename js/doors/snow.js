@@ -1,7 +1,7 @@
 /* Schneeflocken fangen: Flocken antippen, goldene zählen dreifach, Kohlestücke kosten Punkte. Ziel in X Sekunden. */
 (function () {
   ADV.css("snw-css", `
-  .snw-arena { position: relative; height: min(56svh, 430px); margin-top: 8px; border: 3px solid var(--ink); border-radius: 18px; overflow: hidden; box-shadow: var(--shadow);
+  .snw-arena { position: relative; height: min(56svh, 430px); margin-top: 8px; border: 3px solid var(--ink); border-radius: 18px; overflow: hidden; box-shadow: none;
     background: linear-gradient(#0b2a3a, #1e4f6b 60%, #d9f3e3); touch-action: manipulation; user-select: none; -webkit-user-select: none; }
   .snw-hud { position: absolute; left: 10px; right: 10px; top: 10px; z-index: 5; display: flex; justify-content: space-between; font-family: var(--pixel-font); font-size: 10px; color: #fff;
     text-shadow: 2px 2px 0 #000; pointer-events: none; }
@@ -33,7 +33,7 @@
       </div>
       <div class="snw-after"></div>`;
     const ar = el.querySelector(".snw-arena");
-    let score = 0, running = false, raf = 0, t0 = 0, last = 0, spawnT = 0, flakes = [];
+    let bag = [], score = 0, running = false, raf = 0, t0 = 0, last = 0, spawnT = 0, flakes = [];
     const rnd = (a, b) => a + Math.random() * (b - a);
     function upd() {
       el.querySelector(".snw-s").textContent = `❄ ${Math.max(0, score)}/${GOAL}`;
@@ -42,7 +42,8 @@
     }
     function pts(x, y, t) { const d = document.createElement("div"); d.className = "snw-pts"; d.style.left = x + "px"; d.style.top = y + "px"; d.textContent = t; ar.appendChild(d); setTimeout(() => d.remove(), 1000); }
     function spawn() {
-      const r = Math.random(), kind = r < 0.12 ? "gold" : r < 0.27 ? "coal" : "flake";
+      if (!bag.length) bag = ADV.shuffle(["gold", "coal", "coal", "flake", "flake", "flake", "flake", "flake", "flake", "flake"]);
+      const kind = bag.pop();
       const b = document.createElement("button");
       b.className = "snw-f " + (kind === "flake" ? "" : kind); b.textContent = kind === "coal" ? "🪨" : "❄️";
       const f = { el: b, x: rnd(30, ar.clientWidth - 30), y: 50, vy: rnd(70, 130), sway: rnd(0, 6), kind, dead: false };

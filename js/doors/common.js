@@ -50,8 +50,8 @@ window.ADV = {
       ${ADV.backBtn(msg ? 1.2 : .7)}`;
     el.appendChild(wrap);
     if (api && api.complete) api.complete();
-    setTimeout(() => { ADV.reveal(wrap); ADV.celebrate(wrap.querySelector(".adv-banner")); }, 120);
-    setTimeout(() => ADV.reveal(wrap), 1500); // nochmal, nachdem alles eingeblendet ist
+    setTimeout(() => { if (!opts.noScroll) ADV.reveal(wrap); ADV.celebrate(wrap.querySelector(".adv-banner")); }, 120);
+    if (!opts.noScroll) setTimeout(() => ADV.reveal(wrap), 1500); // nochmal, nachdem alles eingeblendet ist
     return wrap;
   }
 };

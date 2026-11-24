@@ -2,7 +2,7 @@
 (function () {
   ADV.css("wrp-css", `
   .wrp { position: relative; margin: 6px auto 0; width: min(100%, 380px); aspect-ratio: 9 / 15; max-height: 72svh; border: 3px solid var(--ink); border-radius: 22px; overflow: hidden;
-    box-shadow: var(--shadow); background: #0b3d27; color: #fff; user-select: none; -webkit-user-select: none; touch-action: manipulation; }
+    box-shadow: none; background: #0b3d27; color: #fff; user-select: none; -webkit-user-select: none; touch-action: manipulation; }
   .wrp-bars { position: absolute; left: 10px; right: 10px; top: 10px; z-index: 5; display: flex; gap: 4px; }
   .wrp-bars i { flex: 1; height: 4px; border-radius: 2px; background: rgba(255,255,255,.35); overflow: hidden; }
   .wrp-bars i b { display: block; height: 100%; width: 0; background: #fff; }

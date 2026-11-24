@@ -7,11 +7,11 @@
   .chf-ing span { font-family: system-ui; font-size: 20px; }
   .chf-ing.ok { background: var(--lime); }
   .chf-ing.bump { animation: popOk .3s cubic-bezier(.3,1.7,.5,1); }
-  .chf-wrap { position: relative; margin-top: 10px; border: 3px solid var(--ink); border-radius: 16px; overflow: hidden; box-shadow: var(--shadow); touch-action: none; }
+  .chf-wrap { position: relative; margin-top: 10px; border: 3px solid var(--ink); border-radius: 16px; overflow: hidden; box-shadow: none; touch-action: none; }
   .chf-wrap canvas { display: block; width: 100%; }
   .chf-hud { position: absolute; left: 10px; right: 10px; top: 8px; display: flex; justify-content: space-between; font-size: 16px; pointer-events: none; }
   .chf-wrap.ouch { animation: ouch .35s; }
-  @keyframes ouch { 30% { box-shadow: var(--shadow), inset 0 0 0 999px rgba(232,65,74,.35); } }
+  @keyframes ouch { 30% { box-shadow: inset 0 0 0 999px rgba(232,65,74,.35); } }
   .chf-over { position: absolute; inset: 0; display: grid; place-items: center; align-content: center; gap: 12px; text-align: center; background: rgba(10,36,24,.72); padding: 0 16px; }
   .chf-over p { margin: 0; font-family: var(--pixel-font); font-size: 12px; line-height: 1.8; color: var(--lime); text-shadow: 2px 2px 0 #000; }
   .chf-over .how { font-family: var(--body); font-weight: 800; font-size: 15px; color: var(--cream); text-shadow: none; }
@@ -38,7 +38,7 @@
       cv.style.height = H + "px"; cv.width = W * DPR; cv.height = H * DPR; ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
     }
     fit();
-    let pan = { x: 0 }, items = [], got = [], lives = LIVES, running = false, raf = 0, last = 0, spawnT = 0, t0 = 0, pops = [];
+    let bag = [], pan = { x: 0 }, items = [], got = [], lives = LIVES, running = false, raf = 0, last = 0, spawnT = 0, t0 = 0, pops = [];
     const panW = () => Math.max(84, W * 0.27);
     const livesTxt = () => { el.querySelector(".chf-lives").textContent = "❤️".repeat(lives) + "🖤".repeat(LIVES - lives); };
     const move = e => { const r = cv.getBoundingClientRect(); pan.x = Math.max(panW() / 2, Math.min(W - panW() / 2, e.clientX - r.left)); };
@@ -59,7 +59,8 @@
     }
     function spawn(now) {
       const missing = NEED.map((g, i) => got[i] < g.n ? i : -1).filter(i => i >= 0);
-      const bad = Math.random() < 0.32;
+      if (!bag.length) bag = ADV.shuffle([true, false, false, false, false]);
+      const bad = bag.pop();
       const icon = bad ? BAD[Math.floor(Math.random() * BAD.length)] : NEED[missing.length && Math.random() < 0.8 ? missing[Math.floor(Math.random() * missing.length)] : Math.floor(Math.random() * NEED.length)].icon;
       const sp = H * (0.32 + Math.random() * 0.18 + Math.min(0.25, (now - t0) / 1000 * 0.008));
       items.push({ x: 24 + Math.random() * (W - 48), y: -20, vy: sp, icon, bad, rot: Math.random() * 6, vr: (Math.random() - .5) * 3 });

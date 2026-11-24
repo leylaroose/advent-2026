@@ -1,7 +1,7 @@
 /* Path of Advent: Weihnachtsmonster laufen nach unten, Jan tippt sie weg. Danach Boss Krampus. */
 (function () {
   ADV.css("poa-css", `
-  .poa-arena { position: relative; height: min(56svh, 420px); margin-top: 6px; border: 3px solid var(--ink); border-radius: 18px; overflow: hidden; box-shadow: var(--shadow);
+  .poa-arena { position: relative; height: min(56svh, 420px); margin-top: 6px; border: 3px solid var(--ink); border-radius: 18px; overflow: hidden; box-shadow: none;
     background: linear-gradient(#0d1f17, #1d3a2a); touch-action: manipulation; user-select: none; -webkit-user-select: none; }
   .poa-arena::before { content: ""; position: absolute; inset: 0; background-image: radial-gradient(rgba(255,255,255,.08) 1.5px, transparent 2px); background-size: 26px 26px; }
   .poa-arena::after { content: "🎁 🎄 🎁 🎄 🎁"; position: absolute; left: 0; right: 0; bottom: 0; height: 44px; padding-top: 4px; text-align: center; font-size: 22px; letter-spacing: 8px; pointer-events: none;
@@ -11,7 +11,7 @@
   .poa-boss.angry { filter: drop-shadow(0 0 22px #ff2020) saturate(1.6); animation: angryShake .2s linear infinite; }
   @keyframes angryShake { 50% { rotate: 6deg; } }
   .poa-arena.ouch { animation: ouch .35s; }
-  @keyframes ouch { 0%, 100% { box-shadow: var(--shadow); } 30% { box-shadow: var(--shadow), inset 0 0 0 999px rgba(232,65,74,.35); } }
+  @keyframes ouch { 30% { box-shadow: inset 0 0 0 999px rgba(232,65,74,.35); } }
   .poa-hud { position: absolute; left: 10px; right: 10px; top: 10px; z-index: 5; display: flex; justify-content: space-between; align-items: center;
     font-family: var(--pixel-font); font-size: 10px; color: var(--lime); text-shadow: 2px 2px 0 #000; pointer-events: none; }
   .poa-hearts { font-size: 14px; letter-spacing: 1px; font-family: system-ui; }

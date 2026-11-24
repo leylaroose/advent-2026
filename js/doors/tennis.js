@@ -1,10 +1,10 @@
 /* Tennis gegen Leyla: Pong von oben gesehen. Jan unten (Finger ziehen), Leyla oben. Wer zuerst X Punkte hat. */
 (function () {
   ADV.css("ten-css", `
-  .ten-photo { width: 120px; margin: 4px auto 0; border: 3px solid var(--ink); border-radius: 14px; overflow: hidden; box-shadow: 3px 4px 0 var(--ink); rotate: -3deg; }
+  .ten-photo { width: 120px; margin: 4px auto 0; border: 3px solid var(--ink); border-radius: 14px; overflow: hidden; box-shadow: none; rotate: -3deg; }
   .ten-photo img { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; display: block; }
   .ten-top { display: flex; align-items: center; gap: 12px; margin-top: 4px; }
-  .ten-face { flex: none; width: 70px; height: 70px; border-radius: 50%; overflow: hidden; border: 3px solid var(--ink); box-shadow: 2px 3px 0 var(--ink); }
+  .ten-face { flex: none; width: 70px; height: 70px; border-radius: 50%; overflow: hidden; border: 3px solid var(--ink); box-shadow: none; }
   .ten-face img { width: 100%; height: 100%; object-fit: cover; }
   .ten-face.mad { animation: tauntWob .45s ease-in-out 2; }
   @keyframes tauntWob { 25% { rotate: -10deg; } 75% { rotate: 10deg; } }
@@ -13,7 +13,7 @@
   .ten-say::before { content: ""; position: absolute; left: -10px; top: 50%; width: 14px; height: 14px; translate: 0 -50%; rotate: 45deg; background: #fff;
     border-left: 3px solid var(--ink); border-bottom: 3px solid var(--ink); }
   .ten-say.pop { animation: popOk .35s cubic-bezier(.3,1.7,.5,1); }
-  .ten-wrap { position: relative; margin-top: 10px; border: 3px solid var(--ink); border-radius: 16px; overflow: hidden; box-shadow: var(--shadow); touch-action: none; }
+  .ten-wrap { position: relative; margin-top: 10px; border: 3px solid var(--ink); border-radius: 16px; overflow: hidden; box-shadow: none; touch-action: none; }
   .ten-wrap canvas { display: block; width: 100%; }
   .ten-score { position: absolute; right: 10px; top: 50%; translate: 0 -50%; display: grid; gap: 6px; text-align: center; font-family: var(--pixel-font); font-size: 10px;
     color: #fff; text-shadow: 2px 2px 0 #000; pointer-events: none; }
@@ -125,7 +125,7 @@
       else if (ball.y < -20) point(true);
     }
     function draw() {
-      ctx.fillStyle = "#2f8f55"; ctx.fillRect(0, 0, W, H);
+      ctx.fillStyle = "#3aa865"; ctx.fillRect(0, 0, W, H);
       ctx.fillStyle = "#3aa865"; ctx.fillRect(W * 0.1, 10, W * 0.8, H - 20);
       ctx.strokeStyle = "rgba(255,255,255,.9)"; ctx.lineWidth = 3;
       ctx.strokeRect(W * 0.1, 10, W * 0.8, H - 20);
