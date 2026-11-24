@@ -75,7 +75,22 @@
         upd(true);
       }));
       upd(false);
-      if (!list.length) rest.innerHTML = `<div class="adv-note adv-note-final adv-pop" style="animation-delay:.6s">${data.note || ""}<span class="from">${window.ADVENT.signoff || ""}</span></div>${ADV.backBtn(1)}`;
+      if (data.choices) {
+        const key2 = "choice-" + day, prev = ADV.load(key2, null);
+        rest.innerHTML = `<div class="inv-list adv-pop" style="animation-delay:.5s"><h3>${data.choiceTitle || "Wünsch dir was!"}</h3>
+          ${data.choices.map((c, i) => `<button class="inv-check inv-choice ${prev === i ? "done" : ""}" data-c="${i}"><span>${c.icon}</span><span>${c.text}</span><span class="bx">${prev === i ? "✓" : ""}</span></button>`).join("")}
+          <div class="inv-reward"></div></div>`;
+        const show = (i, fresh) => {
+          rest.querySelectorAll(".inv-choice").forEach(b => { const on = +b.dataset.c === i; b.classList.toggle("done", on); b.querySelector(".bx").textContent = on ? "✓" : ""; });
+          const rw = rest.querySelector(".inv-reward");
+          rw.innerHTML = `<div class="adv-note adv-note-final adv-pop">${(data.choices[i].reply ? data.choices[i].reply + "<br><br>" : "") + (data.note || "")}<span class="from">${window.ADVENT.signoff || ""}</span></div>${ADV.backBtn(.5)}`;
+          if (fresh) { ADV.celebrate(rw, false); setTimeout(() => ADV.reveal(rw), 200); }
+        };
+        rest.querySelectorAll(".inv-choice").forEach(b => b.addEventListener("click", () => { ADV.save(key2, +b.dataset.c); if (navigator.vibrate) navigator.vibrate(20); show(+b.dataset.c, true); }));
+        if (prev !== null) show(prev, false);
+        return;
+      }
+      if (!list.length) { rest.innerHTML = `<div class="adv-note adv-note-final adv-pop" style="animation-delay:.6s">${data.note || ""}<span class="from">${window.ADVENT.signoff || ""}</span></div>${ADV.backBtn(1)}`; setTimeout(() => ADV.reveal(rest), 1300); }
     });
   };
 })();

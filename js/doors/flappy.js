@@ -10,7 +10,7 @@
   `);
 
   window.DOOR_TYPES.flappy = function (el, day, data, api) {
-    const GOAL = data.goal || 10;
+    const GOAL = data.goal || 7;
     el.innerHTML = `
       <p class="lead">${data.intro || ""}</p>
       <div class="flp-wrap"><canvas></canvas><div class="flp-hud">🏠 0/${GOAL}</div>
@@ -22,7 +22,7 @@
     const W = cv.clientWidth, H = Math.round(Math.max(320, Math.min(W * 1.3, vh - 300, 480)));
     cv.style.height = H + "px"; cv.width = W * DPR; cv.height = H * DPR; ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
     let bird, pipes, score, running = false, raf = 0, last = 0, t = 0, started = false;
-    const GAP = () => H * 0.34, PWD = 58, SPEED = W * 0.42;
+    const GAP = () => H * 0.42, PWD = 64, SPEED = W * 0.36;
     const stars = Array.from({ length: 40 }, () => ({ x: Math.random() * W, y: Math.random() * H * 0.7, r: Math.random() * 1.5 + .4 }));
     function reset() { bird = { y: H * 0.45, vy: 0 }; pipes = []; score = 0; t = 0; started = false; hud(); }
     const hud = () => { el.querySelector(".flp-hud").textContent = `🏠 ${score}/${GOAL}`; };
@@ -39,8 +39,9 @@
           if (!p.passed && p.x + PWD < W * 0.28) { p.passed = true; score++; hud(); if (navigator.vibrate) navigator.vibrate(12); if (score >= GOAL) return win(); }
         });
         pipes = pipes.filter(p => p.x > -PWD - 10);
-        const bx = W * 0.28, r = 15;
-        const hit = bird.y > H - 22 || bird.y < 0 || pipes.some(p => bx + r > p.x && bx - r < p.x + PWD && (bird.y - r < p.top || bird.y + r > p.top + GAP()));
+        const bx = W * 0.28, r = 10, inset = 8; // großzügige Trefferfläche
+        const hit = bird.y > H - 6 || pipes.some(p => bx + r > p.x + inset && bx - r < p.x + PWD - inset && (bird.y - r < p.top - 4 || bird.y + r > p.top + GAP() + 10));
+        if (bird.y < 12) { bird.y = 12; bird.vy = Math.max(0, bird.vy); }
         if (hit && running) crash();
       } else if (running) bird.y = H * 0.45 + Math.sin(t * 4) * 8;
       draw();
@@ -53,17 +54,18 @@
       ctx.globalAlpha = 1;
       ctx.fillStyle = "#fff8c9"; ctx.beginPath(); ctx.arc(W * 0.8, H * 0.15, 26, 0, Math.PI * 2); ctx.fill();
       (pipes || []).forEach(p => {
-        const draw1 = (y, h, top) => {
-          ctx.fillStyle = "#a8432f"; ctx.strokeStyle = "#0a2418"; ctx.lineWidth = 3;
-          ctx.fillRect(p.x, y, PWD, h); ctx.strokeRect(p.x, y, PWD, h);
-          ctx.strokeStyle = "rgba(0,0,0,.25)"; ctx.lineWidth = 1.5;
-          for (let yy = y + 10; yy < y + h; yy += 14) { ctx.beginPath(); ctx.moveTo(p.x, yy); ctx.lineTo(p.x + PWD, yy); ctx.stroke(); }
-          ctx.fillStyle = "#fff"; ctx.strokeStyle = "#0a2418"; ctx.lineWidth = 3;
-          const cy = top ? y + h - 14 : y; ctx.beginPath(); ctx.roundRect(p.x - 6, cy, PWD + 12, 14, 6); ctx.fill(); ctx.stroke();
-        };
-        draw1(0, p.top, true); draw1(p.top + GAP(), H - p.top - GAP(), false);
+        // oben: Wolken, die herunterhängen
+        ctx.fillStyle = "#3a5670"; ctx.strokeStyle = "#0a2418"; ctx.lineWidth = 3;
+        ctx.fillRect(p.x + 6, 0, PWD - 12, p.top - 14);
+        for (let i = 0; i < 3; i++) { ctx.beginPath(); ctx.arc(p.x + 12 + i * (PWD - 24) / 2, p.top - 14, 16, 0, Math.PI * 2); ctx.fill(); }
+        ctx.fillStyle = "#e9f7ff"; for (let i = 0; i < 3; i++) { ctx.beginPath(); ctx.arc(p.x + 12 + i * (PWD - 24) / 2, p.top - 8, 6, 0, Math.PI); ctx.fill(); }
+        // unten: Haus mit verschneitem Dach
+        const hy = p.top + GAP(), roof = 30;
+        ctx.fillStyle = "#c9623f"; ctx.fillRect(p.x + 4, hy + roof, PWD - 8, H - hy - roof); ctx.strokeRect(p.x + 4, hy + roof, PWD - 8, H - hy - roof);
+        ctx.fillStyle = "#e8414a"; ctx.beginPath(); ctx.moveTo(p.x - 6, hy + roof + 2); ctx.lineTo(p.x + PWD / 2, hy); ctx.lineTo(p.x + PWD + 6, hy + roof + 2); ctx.closePath(); ctx.fill(); ctx.stroke();
+        ctx.fillStyle = "#fff"; ctx.beginPath(); ctx.moveTo(p.x - 2, hy + roof - 4); ctx.lineTo(p.x + PWD / 2, hy + 2); ctx.lineTo(p.x + PWD + 2, hy + roof - 4); ctx.lineTo(p.x + PWD - 10, hy + roof - 8); ctx.lineTo(p.x + PWD / 2, hy + 10); ctx.lineTo(p.x + 10, hy + roof - 8); ctx.closePath(); ctx.fill();
+        for (let wy = hy + roof + 14; wy < H - 20; wy += 34) { ctx.fillStyle = "#ffd970"; ctx.fillRect(p.x + 14, wy, 14, 14); ctx.fillRect(p.x + PWD - 28, wy, 14, 14); ctx.strokeRect(p.x + 14, wy, 14, 14); ctx.strokeRect(p.x + PWD - 28, wy, 14, 14); }
       });
-      ctx.fillStyle = "#e9f7ff"; ctx.fillRect(0, H - 18, W, 18);
       if (bird) { ctx.save(); ctx.translate(W * 0.28, bird.y); ctx.rotate(Math.max(-0.5, Math.min(0.9, (bird.vy || 0) / (H * 1.6)))); ctx.scale(-1, 1);
         ctx.font = "36px system-ui, Apple Color Emoji, Segoe UI Emoji"; ctx.textAlign = "center"; ctx.textBaseline = "middle"; ctx.fillText("🦌", 0, 0);
         ctx.fillStyle = "#e8414a"; ctx.beginPath(); ctx.arc(-15, 2, 4, 0, Math.PI * 2); ctx.fill(); ctx.restore(); }

@@ -1,7 +1,7 @@
 /* Freirubbeln: Ein Polaroid (oder anderes Bild) ist zugefroren, mit dem Finger frei rubbeln */
 (function () {
   ADV.css("scr-css", `
-  .scr-pola { position: relative; width: min(84%, 320px); margin: 12px auto 0; background: #fff; padding: 14px 14px 56px; border: 3px solid var(--ink);
+  .scr-pola { position: relative; width: min(84%, 320px); margin: 12px auto 0; background: #fff; padding: 14px 14px 44px; border: 3px solid var(--ink);
     box-shadow: 5px 6px 0 var(--ink); rotate: -2.5deg; }
   .scr-photo { position: relative; aspect-ratio: 1; overflow: hidden; background: #ddd; }
   .scr-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
@@ -20,7 +20,7 @@
       <p class="lead">${data.intro || ""}</p>
       <div class="scr-pola"><div class="scr-tape"></div>
         <div class="scr-photo"><img src="${data.image}" alt=""><canvas></canvas></div>
-        <div class="scr-cap">${data.caption || ""}</div>
+        ${data.caption ? `<div class="scr-cap">${data.caption}</div>` : ""}
       </div>
       <p class="scr-pct">👆 RUBBEL MIT DEM FINGER!</p>
       <div class="scr-after"></div>`;
@@ -54,17 +54,18 @@
       if (navigator.vibrate && n % 6 === 0) navigator.vibrate(4);
     }
     function check() {
+      if (done) return;
       const d = ctx.getImageData(0, 0, cv.width, cv.height).data;
       let clear = 0, tot = 0;
       for (let i = 3; i < d.length; i += 64) { tot++; if (d[i] < 40) clear++; }
       const p = clear / tot;
-      pct.textContent = p < 0.6 ? `${Math.round(p * 100)} % FREI` : "FAST GESCHAFFT!";
+      pct.textContent = `${Math.round(Math.min(p / 0.6, 1) * 100)} % FREI`;
       if (p > 0.6 && !done) finish();
     }
     function finish() {
       done = true;
       cv.style.transition = "opacity .8s"; cv.style.opacity = "0";
-      pola.classList.add("done"); pct.textContent = "";
+      pola.classList.add("done"); pct.remove();
       setTimeout(() => ADV.finish(el.querySelector(".scr-after"), day, data, api, { title: data.endTitle || "FREIGERUBBELT!" }), 600);
     }
     cv.addEventListener("pointerdown", e => { e.preventDefault(); down = true; lastP = null; try { cv.setPointerCapture(e.pointerId); } catch (_) {} rub(e); });

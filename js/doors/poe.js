@@ -2,9 +2,14 @@
 (function () {
   ADV.css("poa-css", `
   .poa-arena { position: relative; height: min(56svh, 420px); margin-top: 6px; border: 3px solid var(--ink); border-radius: 18px; overflow: hidden; box-shadow: var(--shadow);
-    background: linear-gradient(#101a14, #1d2e22 70%, #3a2414); touch-action: manipulation; user-select: none; -webkit-user-select: none; }
+    background: linear-gradient(#0d1f17, #1d3a2a); touch-action: manipulation; user-select: none; -webkit-user-select: none; }
   .poa-arena::before { content: ""; position: absolute; inset: 0; background-image: radial-gradient(rgba(255,255,255,.08) 1.5px, transparent 2px); background-size: 26px 26px; }
-  .poa-arena::after { content: "🎄 🎁 🎄 🎁 🎄 🎁 🎄"; position: absolute; left: 0; right: 0; bottom: 4px; text-align: center; font-size: 20px; letter-spacing: 6px; pointer-events: none; }
+  .poa-arena::after { content: "🎁 🎄 🎁 🎄 🎁"; position: absolute; left: 0; right: 0; bottom: 0; height: 44px; padding-top: 4px; text-align: center; font-size: 22px; letter-spacing: 8px; pointer-events: none;
+    background: radial-gradient(ellipse at 50% 0, #fff 60%, #e3f3ff 100%); border-top: 3px solid var(--ink); border-radius: 50% 50% 0 0 / 14px 14px 0 0; }
+  .poa-heart { filter: drop-shadow(0 0 8px #ff8a8a); }
+  .poa-coal { font-size: 34px; }
+  .poa-boss.angry { filter: drop-shadow(0 0 22px #ff2020) saturate(1.6); animation: angryShake .2s linear infinite; }
+  @keyframes angryShake { 50% { rotate: 6deg; } }
   .poa-arena.ouch { animation: ouch .35s; }
   @keyframes ouch { 0%, 100% { box-shadow: var(--shadow); } 30% { box-shadow: var(--shadow), inset 0 0 0 999px rgba(232,65,74,.35); } }
   .poa-hud { position: absolute; left: 10px; right: 10px; top: 10px; z-index: 5; display: flex; justify-content: space-between; align-items: center;
@@ -70,12 +75,27 @@
       arena.appendChild(d); timers.push(setTimeout(() => d.remove(), 1200));
     }
     function spawn(now) {
-      const m = MOBS[Math.floor(Math.random() * MOBS.length)];
       const w = arena.clientWidth;
+      // ab und zu ein Herz, das Leben zurückgibt
+      if (Math.random() < (data.heartRate ?? 0.16)) {
+        const b = document.createElement("button");
+        b.className = "poa-mob poa-heart"; b.textContent = "❤️";
+        const mob = { el: b, x: rnd(36, w - 36), y: 40, hp: 1, max: 1, speed: rnd(60, 80), good: true };
+        b.style.left = mob.x + "px"; b.style.top = mob.y + "px";
+        b.addEventListener("pointerdown", e => {
+          e.preventDefault(); if (!running || mob.hp <= 0) return;
+          mob.hp = 0; b.classList.add("dead"); setTimeout(() => b.remove(), 350);
+          if (lives < LIVES) { lives++; hearts(); }
+          pop(mob.x, mob.y - 30, "+1 ❤️", "dmg");
+          if (navigator.vibrate) navigator.vibrate(20);
+        });
+        arena.appendChild(b); mobs.push(mob); return;
+      }
+      const m = MOBS[Math.floor(Math.random() * MOBS.length)];
       const b = document.createElement("button");
       b.className = "poa-mob";
       b.innerHTML = `${m.icon}${m.hp > 1 ? `<span class="hp"><i style="width:100%"></i></span>` : ""}`;
-      const mob = { el: b, x: rnd(36, w - 36), y: 40, hp: m.hp, max: m.hp, speed: rnd(55, 85) + (now - t0) / 1000 * 2.2 };
+      const mob = { el: b, x: rnd(36, w - 36), y: 40, hp: m.hp, max: m.hp, speed: rnd(42, 58) + (now - t0) / 1000 * 1.2 };
       b.style.left = mob.x + "px"; b.style.top = mob.y + "px";
       b.addEventListener("pointerdown", e => {
         e.preventDefault(); if (!running || mob.hp <= 0) return;
@@ -88,28 +108,32 @@
           if (Math.random() < (data.dropRate ?? 0.6)) {
             const l = LOOT[Math.floor(Math.random() * LOOT.length)];
             stash[l.name] = (stash[l.name] || 0) + 1;
-            pop(mob.x, mob.y - 20, l.name, "loot", l.color);
+            pop(mob.x, mob.y - 20, `${l.icon || ""} ${l.name}`, "loot", l.color);
           }
           timers.push(setTimeout(() => b.remove(), 350));
         }
       });
       arena.appendChild(b); mobs.push(mob);
     }
+    const floorY = () => arena.clientHeight - 46;
+    function hurt() {
+      lives--; hearts(); arena.classList.remove("ouch"); void arena.offsetWidth; arena.classList.add("ouch");
+      if (navigator.vibrate) navigator.vibrate([40, 30, 40]);
+    }
     function loop(now) {
       if (!running) return;
       const dt = Math.min(50, now - last) / 1000; last = now;
       const left = Math.max(0, Math.ceil(TIME - (now - t0) / 1000));
       el.querySelector(".poa-time").textContent = `⏱ ${left}`;
-      const rate = Math.max(420, 850 - (now - t0) / 60);
-      if (now - spawnT > rate) { spawn(now); spawnT = now; }
-      const floor = arena.clientHeight - 34;
+      const rate = Math.max(650, 950 - (now - t0) / 50);
+      const alive = mobs.filter(m => !m.good && m.hp > 0).length;
+      if (now - spawnT > rate && alive < (data.maxMobs || 4)) { spawn(now); spawnT = now; }
       mobs = mobs.filter(m => {
         if (m.hp <= 0) return false;
         m.y += m.speed * dt; m.el.style.top = m.y + "px";
-        if (m.y >= floor) {
+        if (m.y >= floorY()) {
           m.el.classList.add("dead"); setTimeout(() => m.el.remove(), 350);
-          lives--; hearts(); arena.classList.remove("ouch"); void arena.offsetWidth; arena.classList.add("ouch");
-          if (navigator.vibrate) navigator.vibrate([40, 30, 40]);
+          if (!m.good) hurt();
           return false;
         }
         return true;
@@ -119,20 +143,26 @@
       raf = requestAnimationFrame(loop);
     }
     function start() {
-      arena.querySelectorAll(".poa-center, .poa-mob").forEach(x => x.remove());
+      arena.querySelectorAll(".poa-center, .poa-mob, .poa-boss, .poa-coal").forEach(x => x.remove());
+      el.querySelector(".poa-bossbar").classList.remove("on");
       running = true; kills = 0; lives = LIVES; mobs = []; stash = {};
       el.querySelector(".poa-kills").textContent = "☠ 0"; hearts();
       t0 = last = performance.now(); spawnT = 0;
       raf = requestAnimationFrame(loop);
     }
-    function gameOver() {
-      running = false;
+    function gameOver(boss) {
+      running = false; bossOn = false;
       mobs.forEach(m => m.el.remove()); mobs = [];
+      arena.querySelectorAll(".poa-boss, .poa-coal").forEach(x => x.remove());
+      timers.forEach(x => { clearTimeout(x); clearInterval(x); });
       const c = document.createElement("div");
-      c.className = "poa-center"; c.innerHTML = `<p>DIE MONSTER HABEN<br>DIE GESCHENKE ERREICHT!</p><button class="btn">🔁 Nochmal</button>`;
-      c.querySelector("button").addEventListener("click", start);
+      c.className = "poa-center";
+      c.innerHTML = boss ? `<p>KRAMPUS WAR<br>ZU STARK!</p><button class="btn">🔁 Nochmal gegen Krampus</button>` : `<p>DIE MONSTER HABEN<br>DIE GESCHENKE ERREICHT!</p><button class="btn">🔁 Nochmal</button>`;
+      c.querySelector("button").addEventListener("click", () => { c.remove(); if (boss) { lives = LIVES; hearts(); bossPhase(); } else start(); });
       arena.appendChild(c);
     }
+    // Boss: Krampus springt herum und wirft Kohle. Kohle antippen, bevor sie die Geschenke trifft.
+    let bossOn = false;
     function bossPhase() {
       running = false;
       mobs.forEach(m => m.el.remove()); mobs = [];
@@ -142,15 +172,40 @@
       arena.appendChild(c);
       if (navigator.vibrate) navigator.vibrate([100, 60, 160]);
       timers.push(setTimeout(() => {
-        c.remove();
+        c.remove(); bossOn = true;
         el.querySelector(".poa-bossbar").classList.add("on");
+        el.querySelector(".poa-bossbar .bar i").style.width = "100%";
+        el.querySelector(".poa-bossbar .nm").textContent = BOSS.name;
         const b = document.createElement("button");
         b.className = "poa-boss"; b.textContent = BOSS.icon;
         const w = arena.clientWidth, h = arena.clientHeight;
-        const move = () => { b.style.left = rnd(70, w - 70) + "px"; b.style.top = rnd(130, h - 80) + "px"; };
-        b.style.left = w / 2 + "px"; b.style.top = h / 2 + 20 + "px";
-        let hp = BOSS.hp;
-        const mv = setInterval(move, 1200); timers.push(mv);
+        let hp = BOSS.hp, angry = false;
+        const move = () => { b.style.left = rnd(70, w - 70) + "px"; b.style.top = rnd(110, h * 0.55) + "px"; };
+        b.style.left = w / 2 + "px"; b.style.top = h * 0.4 + "px";
+        let mv = setInterval(move, 1300); timers.push(mv);
+        const coals = [];
+        const throwCoal = () => {
+          if (!bossOn) return;
+          const k = document.createElement("button");
+          k.className = "poa-mob poa-coal"; k.textContent = "🪨";
+          const co = { el: k, x: parseFloat(b.style.left) || w / 2, y: (parseFloat(b.style.top) || h / 2) + 40, vy: angry ? 120 : 90, dead: false };
+          k.style.left = co.x + "px"; k.style.top = co.y + "px";
+          k.addEventListener("pointerdown", e => { e.preventDefault(); if (co.dead) return; co.dead = true; k.classList.add("dead"); setTimeout(() => k.remove(), 350); pop(co.x, co.y - 30, "💥", "dmg"); if (navigator.vibrate) navigator.vibrate(10); });
+          arena.appendChild(k); coals.push(co);
+        };
+        let th = setInterval(throwCoal, 1500); timers.push(th);
+        let lastT = performance.now();
+        const coalLoop = now => {
+          if (!bossOn) return;
+          const dt = Math.min(50, now - lastT) / 1000; lastT = now;
+          for (const co of coals) {
+            if (co.dead) continue;
+            co.y += co.vy * dt; co.el.style.top = co.y + "px";
+            if (co.y >= floorY()) { co.dead = true; co.el.classList.add("dead"); setTimeout(() => co.el.remove(), 350); hurt(); if (lives <= 0) return gameOver(true); }
+          }
+          raf = requestAnimationFrame(coalLoop);
+        };
+        raf = requestAnimationFrame(coalLoop);
         b.addEventListener("pointerdown", e => {
           e.preventDefault(); if (hp <= 0) return;
           hp--; b.classList.remove("hit"); void b.offsetWidth; b.classList.add("hit");
@@ -158,10 +213,16 @@
           if (navigator.vibrate) navigator.vibrate(10);
           const r = b.getBoundingClientRect(), ar = arena.getBoundingClientRect();
           pop(r.left - ar.left + r.width / 2 + rnd(-30, 30), r.top - ar.top + 10, "💥", "dmg");
-          if (hp <= 0) { clearInterval(mv); win(b); }
+          if (!angry && hp <= BOSS.hp / 2) {
+            angry = true; b.classList.add("angry");
+            el.querySelector(".poa-bossbar .nm").textContent = BOSS.name + " (WÜTEND!)";
+            clearInterval(mv); mv = setInterval(move, 950); timers.push(mv);
+            clearInterval(th); th = setInterval(throwCoal, 1100); timers.push(th);
+          }
+          if (hp <= 0) { bossOn = false; clearInterval(mv); clearInterval(th); coals.forEach(co => co.el.remove()); win(b); }
         });
         arena.appendChild(b);
-      }, 2400));
+      }, 2600));
     }
     function win(b) {
       b.style.transition = "transform 1s, opacity 1s"; b.style.transform = "scale(2) rotate(180deg)"; b.style.opacity = "0";
@@ -169,7 +230,7 @@
       BL.forEach(l => { stash[l.name] = (stash[l.name] || 0) + (l.count || 1); });
       ADV.celebrate(arena);
       timers.push(setTimeout(() => {
-        const rows = Object.entries(stash).map(([n, k]) => { const l = [...LOOT, ...BL].find(x => x.name === n) || {}; return `<div><span style="color:${l.color || "#c8c8c8"}">${n}</span><span>×${k}</span></div>`; }).join("");
+        const rows = Object.entries(stash).map(([n, k]) => { const l = [...LOOT, ...BL].find(x => x.name === n) || {}; return `<div><span style="color:${l.color || "#c8c8c8"}">${l.icon || ""} ${n}</span><span>×${k}</span></div>`; }).join("");
         el.querySelector(".poa-out").innerHTML = `<div class="poa-stash adv-pop"><h4>Deine Beute (☠ ${kills} Monster)</h4>${rows || "<div>Nichts. Aber du hast gekämpft!</div>"}</div><div class="poa-after"></div>`;
         ADV.finish(el.querySelector(".poa-after"), day, data, api, { title: "KRAMPUS<br>BESIEGT!" });
       }, 900));

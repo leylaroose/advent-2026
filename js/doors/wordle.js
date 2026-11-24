@@ -1,31 +1,32 @@
 /* Wort des Tages: 5 Buchstaben, 6 Versuche */
 (function () {
   ADV.css("wdl-css", `
-  .wdl-board { display: grid; gap: 6px; width: min(100%, 300px); margin: 6px auto 0; }
-  .wdl-row { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; }
+  .wdl-board { display: grid; gap: 5px; width: clamp(170px, calc(100svh - 470px), 270px); margin: 4px auto 0; }
+  .wdl-tip { font-weight: 800; font-size: 15px; margin: 4px 0 6px; color: var(--forest); }
+  .wdl-row { display: grid; grid-template-columns: repeat(5, 1fr); gap: 5px; }
   .wdl-row.shake { animation: nope .45s ease-in-out; }
   .wdl-tile { aspect-ratio: 1; border: 3px solid #b9d8c4; border-radius: 10px; background: #fff; display: grid; place-items: center;
-    font-family: var(--display); font-weight: 700; font-size: clamp(24px, 8vw, 32px); color: var(--ink); text-transform: uppercase; }
+    font-family: var(--display); font-weight: 700; font-size: clamp(18px, 6vw, 28px); color: var(--ink); text-transform: uppercase; }
   .wdl-tile.filled { border-color: var(--ink); animation: popOk .15s ease-out; }
   .wdl-tile.g, .wdl-tile.y, .wdl-tile.x { color: #fff; border-color: var(--ink); animation: flip .5s ease-in-out both; }
   .wdl-tile.g { background: var(--leaf); } .wdl-tile.y { background: #e0a91f; } .wdl-tile.x { background: #7d8f85; }
   @keyframes flip { 0% { transform: rotateX(0); } 50% { transform: rotateX(90deg); } 100% { transform: rotateX(0); } }
-  .wdl-msg { text-align: center; font-weight: 900; min-height: 1.4em; margin: 10px 0 6px; }
+  .wdl-msg { text-align: center; font-weight: 900; min-height: 1.3em; margin: 6px 0 4px; font-size: 15px; }
   .wdl-kb { display: grid; gap: 6px; margin-top: 4px; user-select: none; -webkit-user-select: none; }
   .wdl-kr { display: flex; gap: 4px; justify-content: center; }
-  .wdl-k { flex: 1; max-width: 38px; height: 48px; border: 2.5px solid var(--ink); border-radius: 8px; background: #fff; font-family: var(--display); font-weight: 700;
+  .wdl-k { flex: 1; max-width: 38px; height: 44px; border: 2.5px solid var(--ink); border-radius: 8px; background: #fff; font-family: var(--display); font-weight: 700;
     font-size: 17px; color: var(--ink); box-shadow: 1px 2px 0 var(--ink); padding: 0; cursor: pointer; touch-action: manipulation; }
   .wdl-k.wide { max-width: 56px; font-size: 18px; }
-  .wdl-k.wdl-enter { max-width: 100%; height: 46px; font-size: 17px; background: var(--lime); }
+  .wdl-k.wdl-enter { max-width: 100%; height: 42px; font-size: 17px; background: var(--lime); }
   .wdl-k:active { transform: translateY(2px); box-shadow: none; }
   .wdl-k.g { background: var(--leaf); color: #fff; } .wdl-k.y { background: #e0a91f; color: #fff; } .wdl-k.x { background: #7d8f85; color: #fff; }
   `);
 
   window.DOOR_TYPES.wordle = function (el, day, data, api) {
     const SOL = (data.solution || "EXILE").toUpperCase();
-    const N = SOL.length, TRIES = 6;
+    const N = SOL.length, TRIES = data.tries || 5;
     el.innerHTML = `
-      <p class="lead">${data.intro || ""}</p>
+      <p class="lead" style="margin:2px 0">${data.intro || ""}</p>${data.tip ? `<p class="wdl-tip">💡 ${data.tip}</p>` : ""}
       <div class="wdl-board">${Array.from({ length: TRIES }, () => `<div class="wdl-row">${"<div class='wdl-tile'></div>".repeat(N)}</div>`).join("")}</div>
       <p class="wdl-msg"></p>
       <div class="wdl-kb">

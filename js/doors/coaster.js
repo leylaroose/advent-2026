@@ -227,7 +227,6 @@
           ${list.map((m, i) => `<button class="cst-item ${saved.includes(i) ? "done" : ""}" data-i="${i}"><span class="ico">${m.icon}</span><span class="txt">${m.text}</span><span class="cst-check">${saved.includes(i) ? "✓" : ""}</span></button>`).join("")}
           <p class="cst-prog"></p>
           <div class="cst-reward"></div>
-          ${ADV.backBtn()}
         </div>`;
       const body = el.closest(".sheet-body");
       if (body) body.scrollTo({ top: after.getBoundingClientRect().top - body.getBoundingClientRect().top + body.scrollTop - 10, behavior: "smooth" });
@@ -238,8 +237,8 @@
         const rw = after.querySelector(".cst-reward");
         if (done === list.length && list.length) {
           if (!rw.innerHTML) {
-            rw.innerHTML = `<div class="adv-note adv-pop">${data.missionReward || ""}<span class="from">${window.ADVENT.signoff || ""}</span></div>`;
-            if (fresh) ADV.celebrate(rw);
+            rw.innerHTML = `<div class="adv-note adv-note-final adv-pop">${data.missionReward || ""}<span class="from">${window.ADVENT.signoff || ""}</span></div>${ADV.backBtn(.5)}`;
+            if (fresh) { ADV.celebrate(rw); setTimeout(() => ADV.reveal(rw), 300); }
           }
         } else rw.innerHTML = "";
       };

@@ -190,7 +190,7 @@
     else if (!PREVIEW && td && !opened.has(td)) s.textContent = `Findest du Level ${td}? 👀`;
     else if (td && missed) s.textContent = `Noch ${missed} Level zum Nachholen 👀`;
     else if (td) s.textContent = "Level geschafft! Morgen geht's weiter 🎄";
-    else s.textContent = "Frohe Weihnachten, Player 1! 🎄";
+    else s.textContent = "Frohe Weihnachten, Jan! 🎄";
     const n = cleared.size;
     $("#xpText").textContent = `${n}/24`;
     requestAnimationFrame(() => { $("#xpFill").style.width = (n / 24 * 100) + "%"; });

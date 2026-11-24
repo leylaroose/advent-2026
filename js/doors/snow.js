@@ -15,7 +15,7 @@
   @keyframes snwPop { to { transform: scale(2); opacity: 0; } }
   .snw-pts { position: absolute; z-index: 4; font-family: var(--pixel-font); font-size: 12px; color: #fff; text-shadow: 2px 2px 0 #000; pointer-events: none; translate: -50% 0; animation: dropUp 1s ease-out forwards; }
   @keyframes dropUp { to { transform: translateY(-40px); opacity: 0; } }
-  .snw-man { position: absolute; left: 50%; bottom: 6px; translate: -50% 0; font-size: calc(24px + var(--grow, 0) * 40px); transition: font-size .3s; pointer-events: none; z-index: 1; }
+  .snw-man { position: absolute; left: 50%; bottom: 6px; translate: -50% 0; font-size: calc(26px + var(--grow, 0) * 110px); line-height: 1; transition: font-size .35s cubic-bezier(.3,1.7,.5,1); filter: drop-shadow(0 4px 0 rgba(0,0,0,.2)); pointer-events: none; z-index: 1; }
   .snw-over { position: absolute; inset: 0; z-index: 6; display: grid; place-items: center; align-content: center; gap: 12px; text-align: center; background: rgba(5,20,30,.72); padding: 0 16px; }
   .snw-over p { margin: 0; font-family: var(--pixel-font); font-size: 12px; line-height: 1.8; color: #fff; text-shadow: 2px 2px 0 #000; }
   .snw-over .how { font-family: var(--body); font-weight: 800; font-size: 15px; color: var(--cream); }

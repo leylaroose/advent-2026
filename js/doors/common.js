@@ -20,6 +20,13 @@ window.ADV = {
     if (big) FX.rain(90);
     if (navigator.vibrate) navigator.vibrate([60, 40, 120]);
   },
+  /** Scrollt so, dass ein Abschluss-Block komplett (oder ab Oberkante) sichtbar ist */
+  reveal(node) {
+    const body = node.closest(".sheet-body"); if (!body) return;
+    const br = body.getBoundingClientRect(), nr = node.getBoundingClientRect();
+    const target = nr.height + 20 < br.height ? body.scrollTop + nr.bottom - br.bottom + 70 : body.scrollTop + nr.top - br.top - 10;
+    body.scrollTo({ top: Math.max(0, target), behavior: "smooth" });
+  },
   /** Button zurück zur Übersicht */
   backBtn(delay = 0) {
     return `<div class="adv-center"><button class="btn adv-back adv-pop" style="animation-delay:${delay}s" onclick="window.closeLevel && window.closeLevel()">🎄 Zurück zur Übersicht</button></div>`;
@@ -37,16 +44,14 @@ window.ADV = {
     const wrap = document.createElement("div");
     wrap.className = "adv-finish";
     // nur zwei Elemente: Banner (mit kurzem Satz) + Nachricht von Leyla
-    wrap.innerHTML = `${ADV.banner(day, opts.title, data.outro)}
-      ${data.note ? `<div class="adv-note adv-note-final adv-pop" style="animation-delay:.9s">${data.note}<span class="from">${window.ADVENT.signoff || ""}</span></div>` : ""}
-      ${ADV.backBtn(data.note ? 1.5 : .9)}`;
+    const msg = data.note || data.outro;
+    wrap.innerHTML = `${ADV.banner(day, opts.title)}
+      ${msg ? `<div class="adv-note adv-note-final adv-pop" style="animation-delay:.7s">${msg}<span class="from">${window.ADVENT.signoff || ""}</span></div>` : ""}
+      ${ADV.backBtn(msg ? 1.2 : .7)}`;
     el.appendChild(wrap);
     if (api && api.complete) api.complete();
-    setTimeout(() => {
-      const body = el.closest(".sheet-body");
-      if (body) body.scrollTo({ top: wrap.getBoundingClientRect().top - body.getBoundingClientRect().top + body.scrollTop - 10, behavior: "smooth" });
-      ADV.celebrate(wrap.querySelector(".adv-banner"));
-    }, 80);
+    setTimeout(() => { ADV.reveal(wrap); ADV.celebrate(wrap.querySelector(".adv-banner")); }, 120);
+    setTimeout(() => ADV.reveal(wrap), 1500); // nochmal, nachdem alles eingeblendet ist
     return wrap;
   }
 };

@@ -89,10 +89,10 @@ window.ADVENT = {
         janWins: ["Das war pures Glück!", "Grrr. Zufall!", "Ich hab dich gewinnen lassen. Absichtlich!"],
         grinchWins: ["HA! Weihnachten bleibt bei mir!", "Zu leicht. 😤"],
         draw: ["Unentschieden. Langweilig!", "Patt. Wir sind halt beide gut."],
-        final: "Na gut... du hast gewonnen. Hier hast du Weihnachten zurück. 💚"
+        final: "Na gut... du hast gewonnen. Hier hast du Weihnachten zurück. ❤️"
       },
       outro: "Weihnachten ist gerettet!",
-      note: "Okay, du hast gewonnen. Aber nur, weil ich dich liebe. 😤💚"
+      note: "Okay, du hast gewonnen. Aber nur, weil ich dich liebe. 😤❤️"
     },
 
     5: {
@@ -115,7 +115,7 @@ window.ADVENT = {
         { min: 0, text: "Okay, wir müssen definitiv mehr Zeit miteinander verbringen. 😏" }
       ],
       endTitle: "BESTANDEN!",
-      outro: "Quiz bestanden, Blödijan. 💚"
+      outro: "Quiz bestanden, Blödijan. ❤️"
     },
 
     6: {
@@ -131,8 +131,7 @@ window.ADVENT = {
       ],
       foundLabel: "🥨 Gefunden!",
       endTitle: "GEFUNDEN!",
-      outro: "Frohen Nikolaus, mein Süßer!",
-      note: "[PLATZHALTER: kleiner Nikolaus-Gruß]"
+      note: "Frohen Nikolaus, mein Süßer! [PLATZHALTER: kleiner Nikolaus-Gruß] ❤️"
     },
 
     7: {
@@ -189,17 +188,19 @@ window.ADVENT = {
         { img: "img/essen-kofta.jpg", text: "Köfte mit Joghurt, Walnüssen und Fladenbrot." },
         { img: "img/essen-weihnachten.jpg", text: "Weihnachtsessen mit Rotkohl und Knödeln. 🎄" }
       ],
-      outro: "Mein Lieblingsrestaurant? Unser Esstisch. 💚"
+      note: "Mein Lieblingsrestaurant? Unser Esstisch. ❤️"
     },
 
     10: {
       type: "wordle",
       title: "Wordle",
-      teaser: "Fünf Buchstaben, sechs Versuche.",
-      intro: "Das Wordle des Tages, diesmal mit einem <b>englischen</b> Wort: 5 Buchstaben, 6 Versuche. Grün = richtiger Platz, gelb = Buchstabe kommt vor, aber woanders. Kleiner Tipp: Es hat mit morgen zu tun. 👀",
+      teaser: "Fünf Buchstaben, fünf Versuche.",
+      intro: "Errate das <b>englische</b> Wort: 5 Buchstaben, 5 Versuche. Grün = richtiger Platz, gelb = kommt woanders vor.",
+      tip: "Morgen erscheint etwas, auf das du lange gewartet hast. 👀",
       solution: "EXILE",
-      winMsg: "EXILE! Na, klingelt's? 👀",
-      outro: "Morgen erscheint etwas, worauf du lange gewartet hast..."
+      tries: 5,
+      winMsg: "EXILE! Klingelt's? 👀",
+      note: "Morgen wird's legendär. Mach dich bereit! ❤️"
     },
 
     11: {
@@ -221,35 +222,34 @@ window.ADVENT = {
         ],
         flavor: "Wer den Korb öffnet, kehrt erst nach dem Endgame zurück."
       },
-      where: "[PLATZHALTER: Wo steht der echte Korb? z. B. Fundort: hinter dem Sofa im Wohnzimmer]",
-      note: "Heute Abend gehört der PC dir. Ich bring dir Snacks. 💚"
+      where: "[PLATZHALTER: Wo steht der echte Korb?]",
+      note: "Heute Abend gehört der PC dir. Viel Spaß! ❤️"
     },
 
     12: {
       type: "poe",
       title: "Path of Advent",
-      teaser: "Die Weihnachtsmonster greifen an!",
-      intro: "Die Weihnachtsmonster wollen an die Geschenke! Bist du bereit, Jan?",
-      how: "Tipp die Monster an, bevor sie unten bei den Geschenken ankommen. Manche brauchen mehrere Treffer. Du hast 5 Leben. Halte 30 Sekunden durch, dann kommt der Boss.",
-      time: 30,
+      teaser: "Die Krampus-Bande greift an!",
+      intro: "Die Krampus-Bande will an die Geschenke! Bist du bereit, Jan?",
+      how: "Tipp die Monster an, bevor sie unten bei den Geschenken ankommen. Fang die ❤️, die bringen Leben zurück. Halte 20 Sekunden durch, dann kommt der Boss.",
+      time: 20,
       lives: 5,
+      maxMobs: 4,
       mobs: [
-        { icon: "🍪", hp: 1 },
-        { icon: "🧝", hp: 2 },
-        { icon: "⛄", hp: 3 },
-        { icon: "🦌", hp: 2 }
+        { icon: "😈", hp: 1 },
+        { icon: "👺", hp: 2 },
+        { icon: "👾", hp: 1 },
+        { icon: "🦇", hp: 1 }
       ],
       loot: [
-        { name: "Chaos-Plätzchen", color: "#d9c27a" },
-        { name: "Glühwein-Orb", color: "#e8414a" },
-        { name: "Spekulatius der Erhabenheit", color: "#ffd27a" },
-        { name: "Zimtstern des Göttlichen", color: "#c9f07a" },
-        { name: "Lebkuchen-Splitter", color: "#c8c8c8" }
+        { icon: "🍪", name: "Chaos-Plätzchen", color: "#d9c27a" },
+        { icon: "🍷", name: "Glühwein-Orb", color: "#e8414a" },
+        { icon: "⭐", name: "Zimtstern des Göttlichen", color: "#ffd27a" },
+        { icon: "🥨", name: "Salzbrezel der Erhabenheit", color: "#c9f07a" }
       ],
-      boss: { icon: "👹", name: "Krampus, Schrecken der Adventszeit", hp: 30, intro: "DER BODEN BEBT...<br>KRAMPUS ERSCHEINT!", how: "Tipp ihn so oft an, wie du kannst!" },
-      bossLoot: [{ name: "Spezi des Spiegels", color: "#7fd7ff", count: 1 }],
-      outro: "Weihnachten ist sicher!",
-      note: "[PLATZHALTER: deine Nachricht als Belohnung]"
+      boss: { icon: "👹", name: "Krampus", hp: 24, intro: "DER BODEN BEBT...<br>KRAMPUS ERSCHEINT!", how: "Tipp Krampus, bis er umfällt. Er wirft Kohle 🪨: Tipp sie weg, bevor sie die Geschenke trifft!" },
+      bossLoot: [{ icon: "🥤", name: "Spezi des Spiegels", color: "#7fd7ff", count: 1 }],
+      note: "Krampus besiegt, Weihnachten ist sicher! [PLATZHALTER: deine Nachricht] ❤️"
     },
 
     13: {
@@ -269,10 +269,9 @@ window.ADVENT = {
         janPoint: ["Das war im Aus! 😤", "Netzroller zählt nicht!", "Ich war abgelenkt!", "Der Wind!!", "Ich hab die Sonne in den Augen! 😤", "Grrr."],
         leylaPoint: ["Ass! 😎", "Zu langsam, my love!", "Hehe.", "Das nennt man Technik."],
         leylaWins: "Haha! Revanche gefällig? 😎",
-        final: "Okay... du hast gewonnen. Aber nur heute. 😤💚"
+        final: "Okay... du hast gewonnen. Aber nur heute. 😤❤️"
       },
-      outro: "Spiel, Satz und Sieg!",
-      note: "[PLATZHALTER: deine Nachricht, z. B. Du darfst mir ab jetzt beim Tennis Tipps geben. Vielleicht.]"
+      note: "Du darfst mir ab jetzt beim Tennis Tipps geben. Vielleicht. ❤️"
     },
 
     14: {
@@ -280,23 +279,55 @@ window.ADVENT = {
       title: "Sternekoch Jan",
       teaser: "Heute wird gekocht. Zumindest auf dem Handy. 👨‍🍳",
       intro: "Koch mir mein Lieblingsessen! Fang die Zutaten mit der Pfanne.",
-      how: "Zieh die Pfanne mit dem Finger hin und her. Fang alle Zutaten, die oben stehen. Aber Finger weg von Schokolade und Socken! Du hast 3 Leben.",
+      how: "Zieh die Pfanne mit dem Finger hin und her. Fang alle Zutaten, die oben stehen. Aber Finger weg von den Socken! Du hast 3 Leben.",
       need: [
         { icon: "🍝", n: 3 },
         { icon: "🍅", n: 3 },
         { icon: "🧀", n: 2 },
         { icon: "🌿", n: 2 }
       ],
-      bad: ["🍫", "🧦"],
+      bad: ["🧦"],
       lives: 3,
       dish: "🍝",
       dishName: "PASTA À LA JAN",
       endTitle: "STERNEKOCH!",
-      outro: "Drei Sterne für den Koch! ⭐⭐⭐",
-      note: "[PLATZHALTER: deine Nachricht, z. B. Niemand kocht so gut wie du.]"
+      note: "3 Sterne für den Koch ⭐⭐⭐ Niemand kocht nämlich so gut wie du. ❤️"
     },
 
     15: {
+      type: "invite",
+      title: "Ich koche für dich!",
+      teaser: "Heute bin ich dran. 👩‍🍳",
+      intro: "Du hast mir schon so oft gekocht. Jetzt bin ich dran! Tipp auf den Umschlag.",
+      card: {
+        kicker: "GUTSCHEIN",
+        title: "Ich koche für dich!",
+        sub: "Einlösbar, wann du willst. Du hast die Wahl.",
+        rows: [
+          { k: "FÜR", v: "Jan, Sternekoch ⭐⭐⭐" },
+          { k: "VON", v: "Leyla" }
+        ]
+      },
+      choiceTitle: "Was wünschst du dir?",
+      choices: [
+        { icon: "🍝", text: "Leyla kocht für mich", reply: "Abgemacht! Sag mir dein Wunschessen und ich koche. Du darfst nur zuschauen. 😌" },
+        { icon: "🍪", text: "Wir backen zusammen Plätzchen", reply: "Plätzchen-Abend! Ich besorge alles, du bringst die Ausstecher-Skills mit. 🎄" },
+        { icon: "👩‍🍳", text: "Wir kochen zusammen", reply: "Team-Kochen! Du Chef, ich Sous-Chefin. 👨‍🍳👩‍🍳" }
+      ],
+      note: "Danke für jeden Abend, an dem du für uns kochst. ❤️"
+    },
+
+    16: {
+      type: "scratch",
+      title: "Ein Lieblingsmoment",
+      teaser: "Heute taut etwas auf. ❄️",
+      intro: "Das Foto ist eingefroren. Rubbel das Eis weg!",
+      image: "img/europapark-kuss.jpg",
+      endTitle: "AUFGETAUT!",
+      note: "Einer meiner liebsten Momente mit dir. ❤️"
+    },
+
+    17: {
       type: "stack",
       title: "Geschenke-Turm",
       teaser: "Heute brauchst du eine ruhige Hand. 🎁",
@@ -305,111 +336,49 @@ window.ADVENT = {
       goal: 8,
       lives: 3,
       endTitle: "TURM<br>GEBAUT!",
-      outro: "Stabil wie wir zwei. 💚",
-      note: "[PLATZHALTER: kurze Nachricht von dir]"
-    },
-
-    16: {
-      type: "scratch",
-      title: "Ein Lieblingsmoment",
-      teaser: "Heute taut etwas auf. ❄️",
-      intro: "Das Foto ist eingefroren. Rubbel das Eis weg!",
-      image: "img/uns-see.jpg",
-      caption: "[PLATZHALTER: Ort & Datum]",
-      endTitle: "AUFGETAUT!",
-      outro: "Einer meiner liebsten Momente mit dir.",
-      note: "[PLATZHALTER: Was du an diesem Tag/Foto so magst]"
-    },
-
-    17: {
-      type: "invite",
-      title: "Heute kochen wir!",
-      teaser: "Heute Abend ist die Küche geöffnet. 👨‍🍳",
-      intro: "Eine Einladung ist eingetroffen. Tipp auf den Umschlag!",
-      card: {
-        kicker: "RESTAURANT CHEZ JAN & LEYLA",
-        title: "Heute kochen wir zusammen",
-        sub: "Reservierung für 2 Personen. Dresscode: Jogginghose.",
-        rows: [
-          { k: "WANN", v: "Heute, [PLATZHALTER: Uhrzeit]" },
-          { k: "VORSPEISE", v: "[PLATZHALTER]" },
-          { k: "HAUPTGANG", v: "[PLATZHALTER: z. B. selbstgemachte Pasta]" },
-          { k: "DESSERT", v: "[PLATZHALTER: ohne Schokolade 😉]" },
-          { k: "KÜCHENCHEF", v: "Jan (natürlich) ⭐⭐⭐" },
-          { k: "SOUS-CHEF & VORKOSTERIN", v: "Leyla" }
-        ]
-      },
-      listTitle: "Die Küchen-Mission",
-      listSub: "Heute Abend abhaken:",
-      list: [
-        { icon: "🛒", text: "Zusammen einkaufen" },
-        { icon: "🎶", text: "Weihnachtsplaylist an" },
-        { icon: "🕯️", text: "Kerzen anzünden" },
-        { icon: "👨‍🍳", text: "Zusammen kochen (ohne Streit 😄)" },
-        { icon: "🥂", text: "Anstoßen" }
-      ],
-      note: "Danke für jeden Abend, an dem du für uns kochst. Heute koche ich mit. 💚"
+      note: "Stabil wie wir zwei. ❤️"
     },
 
     18: {
       type: "invite",
       ticket: true,
-      title: "Ausflug!",
+      title: "Heute Abend: Christkindlesmarkt!",
       teaser: "Heute haben wir beide frei. 🎟️",
       intro: "Wir haben heute beide frei. Und das bedeutet... Tipp aufs Ticket!",
       card: {
         kicker: "🎟️ EINTRITTSKARTE · 2 PERSONEN",
-        title: "Weihnachtsmarkt-Tag",
-        sub: "Nur gültig mit Leyla.",
+        title: "Christkindlesmarkt Karlsruhe",
+        sub: "Heute Abend. Nur gültig mit Leyla.",
         rows: [
-          { k: "WO", v: "[PLATZHALTER: welcher Weihnachtsmarkt]" },
-          { k: "ABFAHRT", v: "[PLATZHALTER: Uhrzeit]" },
-          { k: "MITBRINGEN", v: "Mütze, Handschuhe, Hunger" }
+          { k: "WANN", v: "Heute Abend" },
+          { k: "MITBRINGEN", v: "Mütze, Handschuhe, Hunger" },
+          { k: "AUF DEM PROGRAMM", v: "Glühwein, Salzbrezeln und wir zwei" }
         ]
       },
-      listTitle: "Weihnachtsmarkt-Bingo",
-      listSub: "Antippen, wenn erledigt. Volles Feld = Überraschung!",
-      listStyle: "bingo",
-      list: [
-        { icon: "🍷", text: "Glühwein" },
-        { icon: "🥨", text: "Salzbrezel" },
-        { icon: "🎡", text: "Riesenrad" },
-        { icon: "📸", text: "Selfie am Baum" },
-        { icon: "🌰", text: "Gebrannte Mandeln" },
-        { icon: "🎄", text: "Kugel kaufen" },
-        { icon: "🎅", text: "Nikolaus sichten" },
-        { icon: "🍄", text: "Flammkuchen" },
-        { icon: "💋", text: "Kuss unterm Mistelzweig" }
-      ],
-      note: "[PLATZHALTER: Nachricht für den Abend]"
+      note: "Ein ganzer freier Tag mit dir, und abends Glühwein unter Lichterketten. Mehr Weihnachten geht nicht. ❤️"
     },
 
     19: {
       type: "snow",
       title: "Schneeflocken fangen",
       teaser: "Es schneit! ❄️",
-      intro: "Es schneit! Fang genug Flocken für einen Schneemann.",
+      intro: "Es schneit! Mit jeder Flocke wächst dein Schneemann.",
       how: "Tipp die Schneeflocken an. Goldene zählen dreifach, Kohle zieht 3 ab. 40 Flocken in 30 Sekunden!",
       goal: 40,
       time: 30,
       endTitle: "SCHNEEMANN<br>GEBAUT!",
-      outro: "Der schönste Schneemann der Welt. Fast so schön wie du.",
-      note: "[PLATZHALTER: kurze Nachricht]"
+      note: "Der schönste Schneemann der Welt. Fast so schön wie du. ❤️"
     },
 
     20: {
       type: "globe",
-      title: "Unsere Schneekugel",
-      teaser: "Heute wird geschüttelt. Noch einmal. 🔮",
-      intro: "Heute ist mein letzter Tag in Karlsruhe vor Weihnachten. Schüttel die Schneekugel!",
-      image: "img/uns-weihnachtsmarkt.jpg",
+      title: "Let it snow!",
+      teaser: "Let it snow! ❄️",
+      intro: "Let it snow! Schüttel die Schneekugel.",
+      image: "img/europapark-2025.jpg",
       base: "Jan & Leyla",
       shakes: 6,
-      reunion: "", // [PLATZHALTER: Datum, an dem ihr euch wiederseht, z. B. "2026-12-27"] → zeigt einen Countdown
-      reunionText: "Tage, bis wir uns wiedersehen",
-      endTitle: "LET IT<br>SNOW!",
-      outro: "Ab morgen bin ich weg, aber nur kurz.",
-      note: "[PLATZHALTER: Abschiedsnachricht für die Tage, an denen du nicht da bist]"
+      endTitle: "LET IT<br>SNOW!"
     },
 
     21: {
@@ -417,33 +386,20 @@ window.ADVENT = {
       title: "Flappy Rentier",
       teaser: "Rudolph braucht deine Hilfe! 🦌",
       intro: "Rudolph muss die Geschenke ausliefern. Hilf ihm über die Dächer!",
-      how: "Tippen = flattern. Flieg durch die Lücken zwischen den Schornsteinen. 10 Häuser schaffen!",
-      goal: 10,
+      how: "Tippen = flattern. Flieg zwischen den Wolken und den Dächern durch. 7 Häuser schaffen!",
+      goal: 7,
       endTitle: "ALLES<br>AUSGELIEFERT!",
-      outro: "Rudolph ist stolz auf dich.",
-      note: "[PLATZHALTER: Nachricht von unterwegs, z. B. Ich vermisse dich jetzt schon.]"
+      note: "Rudolph und ich sind stolz auf dich. ❤️"
     },
 
     22: {
-      type: "quiz",
-      title: "Wo war das?",
-      teaser: "Heute geht's auf Zeitreise. 📸",
-      intro: "Eine Reise durch unser Jahr. Wo war das?",
-      questions: [
-        { img: "img/nashville-laylas.jpg", q: "Wo war das?", a: ["New Orleans", "Las Vegas", "Nashville"], correct: 2, shuffle: false, note: "Welcome to Nashville! Mit einer Bar, die (fast) so heißt wie ich. 🤠" },
-        { img: "img/nashville-chicken.jpg", q: "Und was haben wir hier gegessen?", a: ["BBQ Ribs", "Nashville Hot Chicken", "Burger"], correct: 1, shuffle: false, note: "Scharf. Sehr scharf. 🔥" },
-        { img: "img/europapark-atlantis.jpg", q: "In welcher Attraktion entstand dieses Foto?", a: ["Silver Star", "Abenteuer Atlantis", "Piraten in Batavia"], correct: 1, shuffle: false, note: "Dein Gesicht. 😂" },
-        { img: "img/sintra-pena.jpg", q: "Welches Schloss ist das?", a: ["Neuschwanstein", "Palácio da Pena in Sintra", "Alhambra"], correct: 1, shuffle: false, note: "Das bunteste Schloss der Welt. 🏰" },
-        { img: "img/lissabon-aussicht.jpg", q: "Und in welcher Stadt ist dieser Ausblick?", a: ["Porto", "Barcelona", "Lissabon"], correct: 2, shuffle: false, note: "Lissabon von oben. 🇵🇹" },
-        { img: "img/uns-pullis.jpg", q: "Wer hatte den hässlicheren Pulli?", a: ["Jan", "Leyla", "Beide gleich schlimm"], all: true, shuffle: false, note: "Ganz klar: unentschieden. 🎄" }
-      ],
-      ranks: [
-        { min: 6, text: "Perfektes Gedächtnis! 🏆" },
-        { min: 3, text: "Gut gemacht! 📸" },
-        { min: 0, text: "Wir müssen öfter Fotos anschauen. 😄" }
-      ],
-      endTitle: "ZEITREISE<br>BEENDET!",
-      outro: "Was für ein Jahr mit dir."
+      type: "hangman",
+      title: "Rette den Schneemann",
+      teaser: "Der Schneemann schmilzt! ☀️",
+      intro: "Die Sonne kommt raus! Errate den Satz, bevor der Schneemann schmilzt. Jeder falsche Buchstabe kostet ihn ein Stück.",
+      phrase: "NUR NOCH ZWEI MAL SCHLAFEN",
+      endTitle: "SCHNEEMANN<br>GERETTET!",
+      note: "Nur noch zwei Mal schlafen, dann ist Weihnachten. ❤️"
     },
 
     23: {
@@ -454,54 +410,53 @@ window.ADVENT = {
       lockTitle: "FINALE GESPERRT",
       hintTitle: "Die Hinweise:",
       wheels: [
-        { hint: "Was hast du an Level 1 geschüttelt?", symbols: ["🎁", "☕", "🥤", "🍷"], answer: 2 },
-        { hint: "Wer hat an Level 4 Weihnachten geklaut?", symbols: ["🎅", "😤", "🦌", "⛄"], answer: 1 },
-        { hint: "Was haben wir an Level 13 gespielt?", symbols: ["⚽", "🏀", "⛸️", "🎾"], answer: 3 },
-        { hint: "Was hast du an Level 14 gekocht?", symbols: ["🍕", "🍝", "🥗", "🍔"], answer: 1 }
+        { hint: "Was hast du an Tag 1 geschüttelt?", symbols: ["🎁", "☕", "img/spezi-flasche.png", "🍷"], answer: 2 },
+        { hint: "Wer hat Weihnachten geklaut?", symbols: ["🎅", "img/grinch-leyla.jpg", "🦌", "⛄"], answer: 1 },
+        { hint: "Womit hast du mich im Tennis geschlagen?", symbols: ["⚽", "🏀", "⛸️", "🎾"], answer: 3 },
+        { hint: "Was hast du als Sternekoch gekocht?", symbols: ["🍕", "🍝", "🥗", "🍔"], answer: 1 }
       ],
       endTitle: "SCHLOSS<br>GEKNACKT!",
-      outro: "Das Finale ist freigeschaltet. Morgen ist es so weit. 🎄"
+      note: "Das Finale ist freigeschaltet. Morgen ist es so weit. 🎄❤️"
     },
 
     24: {
-      type: "wrapped",
-      title: "Jan & Leyla Wrapped 2026",
-      teaser: "Das Finale ist da! 🎄",
-      intro: "Frohe Weihnachten, my love! Hier ist unser Jahr.",
+      type: "final",
+      title: "Das große Finale",
+      teaser: "Frohe Weihnachten! 🎄",
+      intro: "Frohe Weihnachten, my love! Ein letztes Spiel, dann gibt's eine Geschichte für dich.",
+      storyIntro: "Geschafft! Und jetzt: unsere Geschichte. ❤️",
       kicker: "JAN & LEYLA",
-      cover: "Wrapped 2026",
+      cover: "Unsere Geschichte",
       slides: [
-        { type: "text", kicker: "WRAPPED 2026", title: "Was für ein Jahr.", text: "Lass uns zurückschauen. 💚", burst: true },
+        { type: "text", kicker: "UNSERE GESCHICHTE", title: "Es war einmal...", text: "...ein Pirat und eine Prinzessin. ❤️", burst: true },
         { type: "photo", img: "img/kind-jan-pirat.jpg", kicker: "PLAYER 1", title: "Jan, Pirat seit Tag 1 🏴‍☠️" },
         { type: "photo", img: "img/kind-leyla-belle.jpg", kicker: "PLAYER 2", title: "Leyla, Prinzessin seit Tag 1 👑" },
         { type: "text", title: "Und dann haben sich die beiden getroffen...", text: "Im Büro. Über Teams. 💻" },
         { type: "photo", fit: "contain", img: "img/girlfriend.jpg", kicker: "DER MOMENT", title: "Jan + Leyla = 💑", text: "Du hast mich mit einer selbstgebauten Webseite gefragt. Jetzt kriegst du eine zurück. ❤️", burst: true },
         { type: "photo", img: "img/spezi-kalender-2025.jpg", kicker: "LETZTES JAHR", title: "24 Spezis mit Santa-Hütchen 🎅", text: "Wer hätte gedacht, dass der dieses Jahr noch getoppt wird?" },
         { type: "photo", img: "img/europapark-2025.jpg", title: "Europa-Park, Winter 2025" },
-        { type: "stat", kicker: "TOP-STAT", big: "[X]", title: "Europa-Park-Besuche", text: "[PLATZHALTER]" },
-        { type: "photo", img: "img/europapark-kuss.jpg", title: "Europa-Park im Winter", text: "Unsere Tradition." },
-        { type: "photo", img: "img/nashville-strasse.jpg", kicker: "REISE DES JAHRES", title: "Nashville 🤠", text: "Hot Chicken, Honky Tonks und wir." },
+                { type: "photo", img: "img/europapark-kuss.jpg", title: "Europa-Park im Winter", text: "Unsere Tradition." },
+        { type: "photo", img: "img/nashville-strasse.jpg", kicker: "ABENTEUER", title: "Nashville 🤠", text: "Hot Chicken, Honky Tonks und wir." },
         { type: "stat", kicker: "NEU GELERNT", big: "🔥", title: "Hot Chicken ist wirklich hot." },
-        { type: "photo", img: "img/essen-weihnachten.jpg", kicker: "KOCH DES JAHRES", title: "Jan ⭐⭐⭐", text: "Danke für jedes einzelne Essen." },
-        { type: "photo", img: "img/lissabon-selfie.jpg", kicker: "REISE DES JAHRES #2", title: "Lissabon 🇵🇹", text: "Rote Dächer, Miradouros und wir." },
+        { type: "photo", img: "img/essen-weihnachten.jpg", kicker: "MEIN LIEBLINGSKOCH", title: "Jan ⭐⭐⭐", text: "Danke für jedes einzelne Essen." },
+        { type: "photo", img: "img/lissabon-selfie.jpg", kicker: "ABENTEUER", title: "Lissabon 🇵🇹", text: "Rote Dächer, Miradouros und wir." },
         { type: "photo", img: "img/sintra-pena.jpg", title: "Sintra", text: "Unser Märchenschloss." },
         { type: "photo", img: "img/fotobox-kuss.jpg", title: "Fotobox im Time Out Market", text: "Beweisfoto. 💋" },
-        { type: "photo", img: "img/tennis-kuss.jpg", kicker: "SPORTART DES JAHRES", title: "Tennis 🎾", text: "Wer gewonnen hat? Egal. 😤💚" },
+        { type: "photo", img: "img/tennis-kuss.jpg", kicker: "UNSER SPORT", title: "Tennis 🎾", text: "Wer gewonnen hat? Egal. 😤❤️" },
         { type: "photo", img: "img/padel-kuss.jpg", title: "Und Padel.", text: "Auch egal." },
         { type: "photo", img: "img/uns-weinberg.jpg", title: "Spaziergänge in den Weinbergen" },
         { type: "photo", img: "img/uns-kuscheln.jpg", kicker: "LIEBLINGSORT", title: "Sofa. Mit dir." },
-        { type: "photo", img: "img/uns-wiese.jpg", kicker: "SOMMER 2026", title: "Goldene Stunde", text: "[PLATZHALTER]" },
+        { type: "photo", img: "img/uns-wiese.jpg", kicker: "SOMMER", title: "Goldene Stunde", text: "[PLATZHALTER]" },
         { type: "photo", img: "img/uns-tanz.jpg", title: "Und dann wurde getanzt.", text: "[PLATZHALTER]" },
         { type: "photo", img: "img/uns-wiese-kuss.jpg", title: "Du & ich", text: "[PLATZHALTER]" },
         { type: "stat", kicker: "MEISTGETRUNKEN", big: "🥤", title: "Spezi", text: "[PLATZHALTER: geschätzte Anzahl] Flaschen. Mindestens." },
         { type: "list", kicker: "TOP 5", title: "Unsere Momente", items: ["[PLATZHALTER]", "[PLATZHALTER]", "[PLATZHALTER]", "[PLATZHALTER]", "[PLATZHALTER]"] },
         { type: "photo", img: "img/uns-weihnachtsmarkt.jpg", title: "Und jetzt: Weihnachten.", text: "Mit dir. 🎄" },
-        { type: "stat", kicker: "DEIN TOP-MENSCH 2026", big: "💚", title: "Leyla", text: "Und nächstes Jahr wieder.", burst: true },
+        { type: "stat", kicker: "PLAYER 2", big: "❤️", title: "Für immer dein Team.", burst: true },
         { type: "letter", kicker: "EIN BRIEF FÜR DICH", paragraphs: ["Lieber Jan,", "[PLATZHALTER: dein Brief]", "[PLATZHALTER]"], sign: "Deine Leyla ❤️" }
       ],
-      endTitle: "FROHE<br>WEIHNACHTEN!",
-      outro: "24 Level geschafft. Du bist der Beste.",
-      note: "[PLATZHALTER: optional der Reveal deines Weihnachtsgeschenks]"
+      endTitle: "FROHE<br>WEIHNACHTEN, JAN!",
+      note: "[PLATZHALTER: optional der Reveal deines Weihnachtsgeschenks] ❤️"
     }
   }
 };

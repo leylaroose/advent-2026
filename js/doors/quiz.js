@@ -12,6 +12,7 @@
   .qz-dots { display: flex; gap: 6px; justify-content: center; margin: 4px 0 10px; }
   .qz-dots i { width: 12px; height: 12px; border-radius: 3px; border: 2px solid var(--ink); background: #fff; }
   .qz-dots i.ok { background: var(--lime); } .qz-dots i.no { background: #ffb3b6; } .qz-dots i.cur { background: var(--gold); }
+  .qz-rank { text-align: center; font-weight: 800; margin: 4px 0 0; }
   .qz-score { font-family: var(--pixel-font); font-size: 14px; text-align: center; color: var(--forest); margin-top: 6px; }
   `);
 
@@ -60,10 +61,9 @@
 
     function end() {
       drawDots();
-      stage.innerHTML = `<p class="qz-score">PUNKTE: ${score}/${qs.length}</p>`;
       const rank = (data.ranks || []).find(r => score >= r.min);
-      const d = Object.assign({}, data, { outro: (rank ? rank.text + "<br>" : "") + (data.outro || "") });
-      ADV.finish(el.querySelector(".qz-after"), day, d, api, { title: data.endTitle || "BESTANDEN!" });
+      stage.innerHTML = `<p class="qz-score">PUNKTE: ${score}/${qs.length}</p>${rank ? `<p class="qz-rank">${rank.text}</p>` : ""}`;
+      ADV.finish(el.querySelector(".qz-after"), day, data, api, { title: data.endTitle || "BESTANDEN!" });
     }
 
     show();
