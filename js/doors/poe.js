@@ -95,7 +95,7 @@
       const b = document.createElement("button");
       b.className = "poa-mob";
       b.innerHTML = `${m.icon}${m.hp > 1 ? `<span class="hp"><i style="width:100%"></i></span>` : ""}`;
-      const mob = { el: b, x: rnd(36, w - 36), y: 40, hp: m.hp, max: m.hp, speed: rnd(52, 68) + (now - t0) / 1000 * 1.6 };
+      const mob = { el: b, x: rnd(36, w - 36), y: 40, hp: m.hp, max: m.hp, speed: (rnd(52, 68) + (now - t0) / 1000 * 2.4) * (data.mobSpeed || 1) };
       b.style.left = mob.x + "px"; b.style.top = mob.y + "px";
       b.addEventListener("pointerdown", e => {
         e.preventDefault(); if (!running || mob.hp <= 0) return;
@@ -125,7 +125,7 @@
       const dt = Math.min(50, now - last) / 1000; last = now;
       const left = Math.max(0, Math.ceil(TIME - (now - t0) / 1000));
       el.querySelector(".poa-time").textContent = `⏱ ${left}`;
-      const rate = Math.max(650, 950 - (now - t0) / 50);
+      const rate = Math.max(450, 750 - (now - t0) / 40);
       const alive = mobs.filter(m => !m.good && m.hp > 0).length;
       if (now - spawnT > rate && alive < (data.maxMobs || 4)) { spawn(now); spawnT = now; }
       mobs = mobs.filter(m => {

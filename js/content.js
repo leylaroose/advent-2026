@@ -234,8 +234,9 @@ window.ADVENT = {
       how: "Tipp die Monster an, bevor sie unten bei den Geschenken ankommen. Fang die ❤️, die bringen Leben zurück. Halte 20 Sekunden durch, dann kommt der Boss.",
       time: 20,
       lives: 5,
-      maxMobs: 5,
+      maxMobs: 6,
       heartRate: 0.04,
+      mobSpeed: 1.35,
       mobs: [
         { icon: "😈", hp: 1 },
         { icon: "👺", hp: 2 },
@@ -257,14 +258,13 @@ window.ADVENT = {
       type: "tennis",
       title: "Tennis gegen Leyla",
       teaser: "Heute geht's auf den Platz. Gegen mich. 🎾",
-      intro: "Ein Spiel, echte Tennis-Zählung: 15, 30, 40, Spiel. Schlag mich!",
-      photo: "img/leyla-tennis.jpg",
+      intro: "Ein Tennis-Spiel gegen mich: 15, 30, 40, Spiel.",
       how: "Zieh deinen grünen Schläger unten mit dem Finger hin und her und spiel den Ball zurück. Triffst du ihn am Rand, fliegt er schräg.",
       face: "img/leyla-grinsen.jpg",
       faces: { mad: "img/leyla-motzig.jpg", smug: "img/leyla-grinsen.jpg", wow: "img/leyla-staunen.jpg" },
       points: 5,
-      aiSpeed: 0.85, // wie schnell Leyla läuft (höher = schwerer)
-      aiError: 1.7,  // wie ungenau Leyla zielt (höher = leichter)
+      aiSpeed: 0.62, // wie schnell Leyla läuft (höher = schwerer)
+      aiError: 2.1,  // wie ungenau Leyla zielt (höher = leichter)
       taunts: {
         start: "Na, traust du dich? Ich bin heute in Topform. 🎾",
         janPoint: ["Das war im Aus! 😤", "Netzroller zählt nicht!", "Ich war abgelenkt!", "Der Wind!!", "Ich hab die Sonne in den Augen! 😤", "Grrr."],
