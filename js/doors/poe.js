@@ -95,7 +95,7 @@
       const b = document.createElement("button");
       b.className = "poa-mob";
       b.innerHTML = `${m.icon}${m.hp > 1 ? `<span class="hp"><i style="width:100%"></i></span>` : ""}`;
-      const mob = { el: b, x: rnd(36, w - 36), y: 40, hp: m.hp, max: m.hp, speed: rnd(42, 58) + (now - t0) / 1000 * 1.2 };
+      const mob = { el: b, x: rnd(36, w - 36), y: 40, hp: m.hp, max: m.hp, speed: rnd(52, 68) + (now - t0) / 1000 * 1.6 };
       b.style.left = mob.x + "px"; b.style.top = mob.y + "px";
       b.addEventListener("pointerdown", e => {
         e.preventDefault(); if (!running || mob.hp <= 0) return;

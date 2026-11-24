@@ -28,7 +28,11 @@
     const hud = () => { el.querySelector(".flp-hud").textContent = `🏠 ${score}/${GOAL}`; };
     function flap() { if (!running) return; started = true; bird.vy = -H * 0.95; if (navigator.vibrate) navigator.vibrate(6); }
     wrap.addEventListener("pointerdown", e => { if (e.target.closest("button")) return; e.preventDefault(); flap(); });
-    function addPipe() { const m = H * 0.12 + Math.random() * (H * 0.76 - GAP()); pipes.push({ x: W + 20, top: m, passed: false }); }
+    function addPipe() {
+      const lo = H * 0.12, hi = H * 0.88 - GAP(), prev = pipes.length ? pipes[pipes.length - 1].top : (lo + hi) / 2;
+      let m, n = 0; do { m = lo + Math.random() * (hi - lo); } while (Math.abs(m - prev) < H * 0.16 && ++n < 20); // immer deutlich andere Höhe
+      pipes.push({ x: W + 20, top: m, passed: false });
+    }
     function loop(now) {
       const dt = Math.min(0.033, (now - last) / 1000); last = now; t += dt;
       if (running && started) {

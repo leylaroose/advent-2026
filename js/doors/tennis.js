@@ -61,7 +61,10 @@
       ball = { x: W / 2, y: H / 2, vx: Math.sin(ang) * sp, vy: Math.cos(ang) * sp * serveTo, r: 9, speed: sp };
       pause = 0.6;
     }
-    function reset() { jan.x = ley.x = W / 2; sj = sl = 0; el.querySelector(".sj").textContent = 0; el.querySelector(".sl").textContent = 0; serveTo = -1; serve(); }
+    // Tennis-Zählung: 0, 15, 30, 40, Vorteil, Spiel
+    const lbl = (a, b) => a >= 3 && b >= 3 ? (a > b ? "AD" : "40") : ["0", "15", "30", "40"][Math.min(a, 3)];
+    function showScore() { el.querySelector(".sj").textContent = lbl(sj, sl); el.querySelector(".sl").textContent = lbl(sl, sj); }
+    function reset() { jan.x = ley.x = W / 2; sj = sl = 0; showScore(); serveTo = -1; serve(); }
 
     const move = e => {
       const r = cv.getBoundingClientRect();
@@ -73,10 +76,11 @@
     function point(janScored) {
       if (janScored) { sj++; setFace("mad"); talk(pick(T.janPoint || ["Das war im Aus!"]), true); if (navigator.vibrate) navigator.vibrate(30); const r = cv.getBoundingClientRect(); FX.burst(r.left + r.width / 2, r.top + 30, { count: 40, speed: 9, size: 8, life: 70 }); }
       else { sl++; setFace("smug"); talk(pick(T.leylaPoint || ["Ass! 😎"])); if (navigator.vibrate) navigator.vibrate([20, 30, 20]); }
-      el.querySelector(".sj").textContent = sj; el.querySelector(".sl").textContent = sl;
+      showScore();
       serveTo = janScored ? 1 : -1;
-      if (sj >= WIN) return end(true);
-      if (sl >= WIN) return end(false);
+      if (sj >= 4 && sj - sl >= 2) return end(true);
+      if (sl >= 4 && sl - sj >= 2) return end(false);
+      if (sj >= 3 && sj === sl) talk(T.deuce || "Einstand! 😤");
       serve();
     }
     function end(janWon) {
@@ -89,7 +93,7 @@
         ADV.finish(el.querySelector(".ten-after"), day, data, api, { title: "MATCH<br>GEWONNEN!" });
       } else {
         setFace("smug"); talk(T.leylaWins || "Haha! Revanche gefällig? 😎");
-        o.innerHTML = `<p>LEYLA GEWINNT<br>${sl}:${sj}</p><button class="btn">🔁 Revanche</button>`;
+        o.innerHTML = `<p>SPIEL LEYLA!</p><button class="btn">🔁 Revanche</button>`;
         o.querySelector("button").addEventListener("click", () => { o.remove(); reset(); running = true; last = performance.now(); raf = requestAnimationFrame(loop); });
         wrap.appendChild(o);
       }

@@ -34,7 +34,7 @@
   const KEY_CLEAR = "advent26-cleared";
   // ?reset=1 setzt alle geöffneten Level zurück (zum Testen)
   if (params.has("reset")) {
-    try { localStorage.removeItem(KEY); localStorage.removeItem(KEY_CLEAR); } catch (e) {}
+    try { Object.keys(localStorage).filter(k => k.startsWith("advent26-")).forEach(k => localStorage.removeItem(k)); } catch (e) {}
     params.delete("reset");
     const q = params.toString();
     history.replaceState(null, "", location.pathname + (q ? "?" + q : "") + location.hash);
@@ -43,6 +43,7 @@
   if (params.has("ab")) {
     const n = parseInt(params.get("ab"), 10) || 1;
     const before = Array.from({ length: Math.max(0, n - 1) }, (_, i) => i + 1);
+    try { Object.keys(localStorage).filter(k => k.startsWith("advent26-")).forEach(k => localStorage.removeItem(k)); } catch (e) {}
     try { localStorage.setItem(KEY, JSON.stringify(before)); localStorage.setItem(KEY_CLEAR, JSON.stringify(before)); } catch (e) {}
     params.delete("ab");
     const q = params.toString();

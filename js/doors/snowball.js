@@ -9,7 +9,7 @@
     background: linear-gradient(#bfe3f5, #e9f7ff 70%); touch-action: manipulation; user-select: none; -webkit-user-select: none; }
   .sbl-hud { position: absolute; left: 10px; right: 10px; top: 8px; z-index: 6; display: flex; justify-content: space-between; font-family: var(--pixel-font); font-size: 10px; color: var(--ink); pointer-events: none; }
   .sbl-slot { position: absolute; bottom: 0; width: 33.33%; height: 62%; }
-  .sbl-face { position: absolute; left: 50%; bottom: 34%; width: 78px; height: 78px; margin-left: -39px; border-radius: 50%; overflow: hidden; border: 3px solid var(--ink);
+  .sbl-face { position: absolute; left: 50%; bottom: 40%; width: 78px; height: 78px; margin-left: -39px; border-radius: 50%; overflow: hidden; border: 3px solid var(--ink);
     transform: translateY(120%); transition: transform .18s ease-out; z-index: 1; cursor: pointer; }
   .sbl-face img { width: 100%; height: 100%; object-fit: cover; }
   .sbl-slot.up .sbl-face { transform: none; }
@@ -57,16 +57,16 @@
       slots.forEach(s => s.classList.remove("up", "hit"));
       let i; do { i = Math.floor(Math.random() * 3); } while (i === cur);
       cur = i; const s = slots[i]; setFace(s, "normal"); s.classList.add("up");
-      const stay = Math.max(800, 1300 - score * 50);
+      const stay = Math.max(600, 1000 - score * 45);
       // manchmal wirft sie zurück
-      if (Math.random() < 0.45) later(() => { if (running && s.classList.contains("up") && !s.classList.contains("hit")) throwBall(s); }, stay * 0.45);
+      if (Math.random() < 0.65) later(() => { if (running && s.classList.contains("up") && !s.classList.contains("hit")) throwBall(s); }, stay * 0.45);
       later(() => { s.classList.remove("up"); later(peek, 350); }, stay);
     }
     function throwBall(s) {
       const r = s.getBoundingClientRect(), a = ar.getBoundingClientRect();
       const b = document.createElement("button");
       b.className = "sbl-ball"; b.setAttribute("aria-label", "Schneeball");
-      const dur = Math.max(900, 1400 - score * 40);
+      const dur = Math.max(650, 1050 - score * 40);
       b.style.setProperty("--t", dur + "ms");
       b.style.left = r.left - a.left + r.width / 2 + "px"; b.style.top = a.height * 0.45 + "px";
       ar.appendChild(b);

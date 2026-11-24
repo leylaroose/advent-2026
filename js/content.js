@@ -234,7 +234,8 @@ window.ADVENT = {
       how: "Tipp die Monster an, bevor sie unten bei den Geschenken ankommen. Fang die ❤️, die bringen Leben zurück. Halte 20 Sekunden durch, dann kommt der Boss.",
       time: 20,
       lives: 5,
-      maxMobs: 4,
+      maxMobs: 5,
+      heartRate: 0.04,
       mobs: [
         { icon: "😈", hp: 1 },
         { icon: "👺", hp: 2 },
@@ -256,19 +257,20 @@ window.ADVENT = {
       type: "tennis",
       title: "Tennis gegen Leyla",
       teaser: "Heute geht's auf den Platz. Gegen mich. 🎾",
-      intro: "Matchball! Schlag mich im Tennis: Wer zuerst 5 Punkte hat, gewinnt.",
+      intro: "Ein Spiel, echte Tennis-Zählung: 15, 30, 40, Spiel. Schlag mich!",
       photo: "img/leyla-tennis.jpg",
       how: "Zieh deinen grünen Schläger unten mit dem Finger hin und her und spiel den Ball zurück. Triffst du ihn am Rand, fliegt er schräg.",
       face: "img/leyla-grinsen.jpg",
       faces: { mad: "img/leyla-motzig.jpg", smug: "img/leyla-grinsen.jpg", wow: "img/leyla-staunen.jpg" },
       points: 5,
-      aiSpeed: 0.9,  // wie schnell Leyla läuft (höher = schwerer)
-      aiError: 1.5,  // wie ungenau Leyla zielt (höher = leichter)
+      aiSpeed: 0.85, // wie schnell Leyla läuft (höher = schwerer)
+      aiError: 1.7,  // wie ungenau Leyla zielt (höher = leichter)
       taunts: {
         start: "Na, traust du dich? Ich bin heute in Topform. 🎾",
         janPoint: ["Das war im Aus! 😤", "Netzroller zählt nicht!", "Ich war abgelenkt!", "Der Wind!!", "Ich hab die Sonne in den Augen! 😤", "Grrr."],
         leylaPoint: ["Ass! 😎", "Zu langsam, my love!", "Hehe.", "Das nennt man Technik."],
-        leylaWins: "Haha! Revanche gefällig? 😎",
+        leylaWins: "Spiel Leyla! Revanche gefällig? 😎",
+        deuce: "Einstand! Jetzt wird's spannend. 😤",
         final: "Okay... du hast gewonnen. Aber nur heute. 😤❤️"
       },
       note: "Du darfst mir ab jetzt beim Tennis Tipps geben. Vielleicht. ❤️"
@@ -363,8 +365,8 @@ window.ADVENT = {
       title: "Schneeflocken fangen",
       teaser: "Es schneit! ❄️",
       intro: "Es schneit! Mit jeder Flocke wächst dein Schneemann.",
-      how: "Tipp die Schneeflocken an. Goldene zählen dreifach, Kohle zieht 3 ab. 40 Flocken in 30 Sekunden!",
-      goal: 40,
+      how: "Tipp die Schneeflocken an. Goldene zählen dreifach, Kohle zieht 3 ab. 35 Flocken in 30 Sekunden!",
+      goal: 35,
       time: 30,
       endTitle: "SCHNEEMANN<br>GEBAUT!",
       note: "Der schönste Schneemann der Welt. Fast so schön wie du. ❤️"
@@ -377,7 +379,7 @@ window.ADVENT = {
       intro: "Let it snow! Die Kugel ist ganz zugeschneit. Schüttel sie, bis du siehst, was drin ist.",
       image: "img/fotobox-kuss.jpg",
       base: "Jan & Leyla",
-      shakes: 12,
+      shakes: 20,
       endTitle: "LET IT<br>SNOW!"
     },
 
@@ -423,8 +425,7 @@ window.ADVENT = {
       wheels: [
         { hint: "Was hast du an Tag 1 geschüttelt?", symbols: ["🎁", "☕", "img/spezi-flasche.png", "🍷"], answer: 2 },
         { hint: "Wer hat Weihnachten geklaut?", symbols: ["img/leyla-grinsen.jpg", "img/grinch-leyla.jpg", "img/leyla-staunen.jpg", "img/leyla-motzig.jpg"], answer: 1 },
-        { hint: "Womit hast du mich im Tennis geschlagen?", symbols: ["⚽", "🏀", "⛸️", "🎾"], answer: 3 },
-        { hint: "Wo haben wir uns zum ersten Mal getroffen?", symbols: ["🎬", "🎤", "🎳", "🍿"], answer: 1 }
+        { hint: "Womit hast du mich im Tennis geschlagen?", symbols: ["⚽", "🏀", "⛸️", "🎾"], answer: 3 }
       ],
       endTitle: "SCHLOSS<br>GEKNACKT!",
       note: "Das Finale ist freigeschaltet. Morgen ist es so weit. 🎄❤️"
@@ -434,28 +435,22 @@ window.ADVENT = {
       type: "boss",
       title: "Der Endboss",
       teaser: "Frohe Weihnachten! Ein letzter Kampf... 🎄",
-      intro: "Frohe Weihnachten, my love! Aber halt: Grinch-Leyla hat alle 23 Türchen geklaut. Hol sie dir zurück!",
-      how: "Tipp Grinch-Leyla an, um Türchen zurückzuholen. Sie wirft Socken und Kohle: Tipp sie weg, bevor sie die Geschenke treffen. Fang die ❤️ für Extraleben.",
+      intro: "Halt! Grinch-Leyla hat alle 23 Türchen in ihren Sack gesteckt. Hol sie dir zurück!",
+      how: "Tipp Grinch-Leyla an: Dann fällt ein Türchen aus ihrem Sack. Fang es (antippen), bevor es unten landet, sonst fliegt es zurück in den Sack. Hol dir alle 23!",
       face: "img/grinch-leyla.jpg",
       faceWin: "img/leyla-staunen.jpg",
-      hp: 60,
-      lives: 5,
+      decoys: ["img/leyla-grinsen.jpg", "img/leyla-motzig.jpg"],
       taunts: {
         start: "Hehe. Die Türchen gehören jetzt MIR! 😈",
-        go: "Na komm, hol sie dir doch!",
-        hit: ["Au!", "Hey!", "Das kitzelt nur!", "Grrr."],
-        phase2: "Jetzt wird's ernst! Kohle-Alarm! 😤",
-        phase3: "GRRR! Meine Türchen!! 😡",
-        leylaWins: "Haha! Nochmal? 😎",
-        final: "Okay, okay! Hier sind deine Türchen zurück. Frohe Weihnachten! ❤️"
+        go: "Fang mich doch! 😈",
+        hit: ["Hey! Das ist meins!", "Gib das zurück!", "Grrr.", "Na warte!"],
+        miss: ["Hehe, meins!", "Zu langsam! 😜", "Ab in den Sack!"],
+        phase2: "Jetzt werd ich schneller! 😤",
+        phase3: "Welche ist die echte? 😈",
+        final: "Okay, okay! Alle 23 Türchen sind zurück. ❤️"
       },
-      letter: {
-        kicker: "EIN BRIEF FÜR DICH",
-        paragraphs: ["Lieber Jan,", "[PLATZHALTER: dein Brief]", "[PLATZHALTER]"],
-        sign: "Deine Leyla ❤️"
-      },
-      endTitle: "FROHE<br>WEIHNACHTEN, JAN!",
-      note: "[PLATZHALTER: optional der Reveal deines Weihnachtsgeschenks] ❤️"
+      endTitle: "GESCHAFFT!",
+      note: "Frohe Weihnachten, my love ❤️"
     }
   }
 };

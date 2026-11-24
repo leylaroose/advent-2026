@@ -62,13 +62,13 @@
       if (!bag.length) bag = ADV.shuffle([true, false, false, false, false]);
       const bad = bag.pop();
       const icon = bad ? BAD[Math.floor(Math.random() * BAD.length)] : NEED[missing.length && Math.random() < 0.8 ? missing[Math.floor(Math.random() * missing.length)] : Math.floor(Math.random() * NEED.length)].icon;
-      const sp = H * (0.32 + Math.random() * 0.18 + Math.min(0.25, (now - t0) / 1000 * 0.008));
+      const sp = H * (0.42 + Math.random() * 0.18 + Math.min(0.25, (now - t0) / 1000 * 0.01));
       items.push({ x: 24 + Math.random() * (W - 48), y: -20, vy: sp, icon, bad, rot: Math.random() * 6, vr: (Math.random() - .5) * 3 });
     }
     function loop(now) {
       if (!running) return;
       const dt = Math.min(0.033, (now - last) / 1000); last = now;
-      if (now - spawnT > Math.max(480, 900 - (now - t0) / 40)) { spawn(now); spawnT = now; }
+      if (now - spawnT > Math.max(400, 700 - (now - t0) / 40)) { spawn(now); spawnT = now; }
       const py = H - 34;
       items = items.filter(it => {
         it.y += it.vy * dt; it.rot += it.vr * dt;
