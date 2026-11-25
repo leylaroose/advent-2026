@@ -49,7 +49,7 @@
     const W = cv.clientWidth, H = Math.round(Math.max(360, Math.min(W * 1.5, vh - topY - 18, 560)));
     cv.style.height = H + "px"; cv.width = W * DPR; cv.height = H * DPR; ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
 
-    const G = H * 2.6, JUMP = H * 1.28, PW = 70, PH = 14, R = 17;
+    const G = H * 2.6, JUMP = H * 1.28, PW = 92, PH = 14, R = 17;
     const CLIMB = H * (data.climbScreens || 7);
     const janImg = new Image(); janImg.src = data.player || "";
     const talk = t => { say.textContent = t; say.classList.remove("pop"); void say.offsetWidth; say.classList.add("pop"); };
@@ -61,9 +61,9 @@
       plats = [{ x: W / 2 - 60, y: H - 30, w: 120, type: "n" }];
       let y = H - 30;
       while (y > -CLIMB) {
-        y -= rnd(H * 0.1, H * 0.2);
+        y -= rnd(H * 0.09, H * 0.17);
         const prog = (H - 30 - y) / CLIMB;
-        const type = Math.random() < 0.08 ? "spring" : prog > 0.3 && Math.random() < 0.3 ? "move" : "n";
+        const type = Math.random() < 0.2 ? "spring" : prog > 0.35 && Math.random() < 0.22 ? "move" : "n";
         plats.push({ x: rnd(8, W - PW - 8), y, w: PW, type, dx: type === "move" ? (Math.random() < .5 ? -1 : 1) * W * rnd(.18, .3) : 0 });
         // ab und zu eine zerbrechliche Eisplatte als Bonus (nicht nötig zum Weiterkommen)
         if (prog > 0.45 && Math.random() < 0.25) plats.push({ x: rnd(8, W - PW - 8), y: y - rnd(10, H * 0.06), w: PW, type: "ice" });
@@ -91,10 +91,11 @@
     };
 
     // Steuerung: Finger irgendwo ziehen, Figur folgt horizontal
-    const setFinger = e => { const r = cv.getBoundingClientRect(); fingerX = e.clientX - r.left; };
-    wrap.addEventListener("pointerdown", e => { if (e.target.closest("button")) return; setFinger(e); try { wrap.setPointerCapture(e.pointerId); } catch (_) {} });
-    wrap.addEventListener("pointermove", e => { if (fingerX !== null || e.pointerType === "touch") setFinger(e); });
-    ["pointerup", "pointercancel"].forEach(ev => wrap.addEventListener(ev, () => { fingerX = null; }));
+    // relatives Wischen: Figur bewegt sich so weit wie der Finger (etwas verstärkt)
+    let lastFX = null, moveAcc = 0;
+    wrap.addEventListener("pointerdown", e => { if (e.target.closest("button")) return; lastFX = e.clientX; try { wrap.setPointerCapture(e.pointerId); } catch (_) {} });
+    wrap.addEventListener("pointermove", e => { if (lastFX === null) return; moveAcc += (e.clientX - lastFX) * 1.4; lastFX = e.clientX; });
+    ["pointerup", "pointercancel"].forEach(ev => wrap.addEventListener(ev, () => { lastFX = null; }));
     const onTilt = e => { if (e.gamma != null) tilt = e.gamma; };
 
     function loseLife() {
@@ -110,8 +111,7 @@
     function step(dt) {
       t += dt;
       // horizontal
-      if (fingerX !== null) p.x += (fingerX - p.x) * Math.min(1, dt * 12);
-      else if (tilt !== null) p.x += Math.max(-35, Math.min(35, tilt)) / 35 * W * 1.3 * dt;
+      p.x += moveAcc; moveAcc = 0;
       if (p.x < -R) p.x = W + R; if (p.x > W + R) p.x = -R;
       // vertikal
       const prevY = p.y;
@@ -245,9 +245,6 @@
     reset(); draw();
     el.querySelector(".dj-go").addEventListener("click", e => {
       e.stopPropagation(); e.currentTarget.parentElement.remove();
-      const DOE = window.DeviceOrientationEvent;
-      if (DOE && typeof DOE.requestPermission === "function") DOE.requestPermission().then(r => { if (r === "granted") addEventListener("deviceorientation", onTilt); }).catch(() => {});
-      else if (DOE) addEventListener("deviceorientation", onTilt);
       running = true; last = performance.now(); raf = requestAnimationFrame(loop);
     });
     return () => { running = false; cancelAnimationFrame(raf); removeEventListener("deviceorientation", onTilt); };
