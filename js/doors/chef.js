@@ -59,7 +59,7 @@
     }
     function spawn(now) {
       const missing = NEED.map((g, i) => got[i] < g.n ? i : -1).filter(i => i >= 0);
-      if (!bag.length) bag = ADV.shuffle([true, false, false, false, false]);
+      if (!bag.length) bag = ADV.shuffle([true, true, false, false, false, false, false]);
       const bad = bag.pop();
       const icon = bad ? BAD[Math.floor(Math.random() * BAD.length)] : NEED[missing.length && Math.random() < 0.8 ? missing[Math.floor(Math.random() * missing.length)] : Math.floor(Math.random() * NEED.length)].icon;
       const sp = H * (0.42 + Math.random() * 0.18 + Math.min(0.25, (now - t0) / 1000 * 0.01));
