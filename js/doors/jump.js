@@ -54,7 +54,7 @@
     const janImg = new Image(); janImg.src = data.player || "";
     const talk = t => { say.textContent = t; say.classList.remove("pop"); void say.offsetWidth; say.classList.add("pop"); };
     const rnd = (a, b) => a + Math.random() * (b - a);
-    let p, plats, socks, camY, lives, running = false, raf = 0, last = 0, phase = "climb", boss, startY, best, fingerX = null, tilt = null, sockT = 0, inv = 0, t = 0;
+    let boings = [], p, plats, socks, camY, lives, running = false, raf = 0, last = 0, phase = "climb", boss, startY, best, fingerX = null, tilt = null, sockT = 0, inv = 0, t = 0;
     const stars = Array.from({ length: 50 }, () => ({ x: Math.random() * W, y: Math.random() * H, r: Math.random() * 1.6 + .4 }));
 
     function genClimb() {
@@ -64,6 +64,7 @@
         y -= rnd(H * 0.09, H * 0.17);
         const prog = (H - 30 - y) / CLIMB;
         const type = Math.random() < 0.2 ? "spring" : prog > 0.35 && Math.random() < 0.22 ? "move" : "n";
+        if (type === "spring" && !plats.some(q => q.first)) { plats.push({ x: rnd(8, W - PW - 8), y, w: PW, type, first: true, dx: 0 }); continue; }
         plats.push({ x: rnd(8, W - PW - 8), y, w: PW, type, dx: type === "move" ? (Math.random() < .5 ? -1 : 1) * W * rnd(.18, .3) : 0 });
         // ab und zu eine zerbrechliche Eisplatte als Bonus (nicht nötig zum Weiterkommen)
         if (prog > 0.45 && Math.random() < 0.25) plats.push({ x: rnd(8, W - PW - 8), y: y - rnd(10, H * 0.06), w: PW, type: "ice" });
@@ -122,6 +123,7 @@
         if (p.vy > 0 && prevY + R <= q.y + 2 && p.y + R >= q.y && p.x > q.x - 8 && p.x < q.x + q.w + 8) {
           if (q.type === "ice") { q.gone = true; q.fall = 0; continue; }
           p.y = q.y - R; p.vy = q.type === "spring" ? -JUMP * 1.6 : -JUMP;
+          if (q.type === "spring") { q.squash = 0.25; boings.push({ x: p.x, y: q.y - 40, life: 0.9 }); }
           if (navigator.vibrate) navigator.vibrate(q.type === "spring" ? 25 : 6);
         }
       }
@@ -136,12 +138,18 @@
       if (p.y - camY > H + 30) loseLife();
     }
     function startBoss() {
-      phase = "boss"; genArena();
+      phase = "boss"; running = false; genArena();
       boss = { x: W / 2, y: camY + H * 0.27, hp: BOSS_HP, dir: 1, sp: W * 0.28 };
+      // Jan sicher unten absetzen
+      p.x = W / 2; p.y = camY + H - 20 - R; p.vy = 0; socks = []; inv = 0;
       bossEl.style.display = "block"; el.querySelector(".dj-bhp").style.display = "block";
       talk(T.boss || "Da bist du ja endlich! 😈");
-      hud(); sockT = 1.2;
+      hud(); sockT = 1.5; draw();
       if (navigator.vibrate) navigator.vibrate([80, 40, 120]);
+      const o = document.createElement("div"); o.className = "dj-over";
+      o.innerHTML = `<p>ENDBOSS:<br>GRINCH-LEYLA!</p><div class="how">${data.bossHow || "Spring sie von unten an und weich ihren Socken aus!"}</div><button class="btn">⚔️ Kampf starten</button>`;
+      o.querySelector("button").addEventListener("click", e => { e.stopPropagation(); o.remove(); p.vy = -JUMP; running = true; last = performance.now(); raf = requestAnimationFrame(loop); });
+      wrap.appendChild(o);
     }
     function bossStep(dt) {
       boss.x += boss.dir * boss.sp * dt;
@@ -183,9 +191,21 @@
         ctx.fillStyle = q.type === "ice" ? "#bfe3f5" : q.type === "move" ? "#c9623f" : "#7a4a21";
         ctx.beginPath(); ctx.roundRect(q.x, y, q.w, PH, 6); ctx.fill(); ctx.stroke();
         ctx.fillStyle = "#fff"; ctx.beginPath(); ctx.roundRect(q.x - 2, y - 5, q.w + 4, 8, 5); ctx.fill(); ctx.stroke();
-        if (q.type === "spring") { ctx.font = "24px system-ui, Apple Color Emoji, Segoe UI Emoji"; ctx.fillText("🎁", q.x + q.w / 2, y - 16); }
+        if (q.type === "spring") {
+          const cx = q.x + q.w / 2, sq = q.squash > 0 ? 0.45 : 1, top = y - 5 - 16 * sq;
+          if (q.squash > 0) q.squash -= 1 / 60;
+          // Sprungfeder (Zickzack)
+          ctx.strokeStyle = "#c8c8c8"; ctx.lineWidth = 4; ctx.beginPath(); ctx.moveTo(cx - 8, y - 5);
+          for (let k = 1; k <= 4; k++) ctx.lineTo(cx + (k % 2 ? 8 : -8), y - 5 - k * 4 * sq);
+          ctx.stroke(); ctx.strokeStyle = "#0a2418"; ctx.lineWidth = 3;
+          ctx.font = "26px system-ui, Apple Color Emoji, Segoe UI Emoji"; ctx.fillText("🎁", cx, top - 12);
+          if (q.first) { ctx.font = "bold 12px Fredoka, sans-serif"; ctx.fillStyle = "#ffc83d"; ctx.fillText("⬆ SPRUNGFEDER!", cx, top - 34); }
+        }
         ctx.globalAlpha = 1;
       }
+      boings = boings.filter(o => (o.life -= 1 / 60) > 0);
+      boings.forEach(o => { ctx.globalAlpha = Math.min(1, o.life * 2); ctx.font = "bold 20px Fredoka, sans-serif"; ctx.fillStyle = "#ffc83d"; ctx.fillText("BOING!", o.x, o.y - camY - (0.9 - o.life) * 40); });
+      ctx.globalAlpha = 1;
       ctx.font = "26px system-ui, Apple Color Emoji, Segoe UI Emoji";
       socks.forEach(s => ctx.fillText("🧦", s.x, s.y - camY));
       // Jan
