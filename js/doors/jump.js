@@ -51,6 +51,7 @@
 
     const G = H * 2.6, JUMP = H * 1.28, PW = 70, PH = 14, R = 17;
     const CLIMB = H * (data.climbScreens || 7);
+    const janImg = new Image(); janImg.src = data.player || "";
     const talk = t => { say.textContent = t; say.classList.remove("pop"); void say.offsetWidth; say.classList.add("pop"); };
     const rnd = (a, b) => a + Math.random() * (b - a);
     let p, plats, socks, camY, lives, running = false, raf = 0, last = 0, phase = "climb", boss, startY, best, fingerX = null, tilt = null, sockT = 0, inv = 0, t = 0;
@@ -190,7 +191,22 @@
       // Jan
       ctx.save(); ctx.translate(p.x, p.y - camY);
       if (inv > 0 && Math.floor(inv * 10) % 2) ctx.globalAlpha = .35;
-      ctx.font = "36px system-ui, Apple Color Emoji, Segoe UI Emoji"; ctx.fillText("🧑‍🎄", 0, -2);
+      if (janImg.complete && janImg.naturalWidth) {
+        // Körper: grüner Pulli + Beine, die beim Springen mitwippen
+        const leg = Math.max(-1, Math.min(1, p.vy / JUMP)) * 4;
+        ctx.strokeStyle = "#0a2418"; ctx.lineWidth = 3; ctx.lineCap = "round";
+        ctx.beginPath(); ctx.moveTo(-6, 20); ctx.lineTo(-8, 28 + leg); ctx.moveTo(6, 20); ctx.lineTo(8, 28 - leg); ctx.stroke();
+        ctx.fillStyle = "#2f9e5b"; ctx.beginPath(); ctx.roundRect(-13, 4, 26, 18, 7); ctx.fill(); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(-12, 9); ctx.lineTo(-20, p.vy < 0 ? 0 : 14); ctx.moveTo(12, 9); ctx.lineTo(20, p.vy < 0 ? 0 : 14); ctx.stroke();
+        // Kopf
+        ctx.save(); ctx.beginPath(); ctx.arc(0, -12, 18, 0, Math.PI * 2); ctx.clip();
+        ctx.drawImage(janImg, -18, -30, 36, 36); ctx.restore();
+        ctx.beginPath(); ctx.arc(0, -12, 18, 0, Math.PI * 2); ctx.stroke();
+        // Mütze
+        ctx.fillStyle = "#e8414a"; ctx.beginPath(); ctx.moveTo(-14, -24); ctx.quadraticCurveTo(-4, -46, 18, -40); ctx.quadraticCurveTo(8, -34, 10, -24); ctx.closePath(); ctx.fill(); ctx.stroke();
+        ctx.fillStyle = "#fff"; ctx.beginPath(); ctx.roundRect(-16, -28, 30, 7, 4); ctx.fill(); ctx.stroke();
+        ctx.beginPath(); ctx.arc(19, -40, 4, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+      } else { ctx.font = "36px system-ui, Apple Color Emoji, Segoe UI Emoji"; ctx.fillText("🧑‍🎄", 0, -2); }
       ctx.restore();
       if (boss) { bossEl.style.transform = `translate(${boss.x - 39}px, ${boss.y - camY - 39}px)`; }
       if (phase === "climb" && best > CLIMB * 0.85) { ctx.font = "bold 16px Fredoka, sans-serif"; ctx.fillStyle = "#ffc83d"; ctx.fillText("Gleich oben... 😈", W / 2, 46); }

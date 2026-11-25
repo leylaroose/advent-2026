@@ -437,6 +437,7 @@ window.ADVENT = {
       teaser: "Frohe Weihnachten! Ein letzter Kampf... 🎄",
       intro: "Grinch-Leyla hat alle 23 Türchen geklaut und sich ganz oben versteckt. Spring hoch und hol sie dir zurück!",
       how: "Zieh den Finger nach links und rechts (oder neig dein Handy). 🎁 sind Sprungfedern, Eisplatten brechen. Oben wartet Grinch-Leyla: Spring sie 6 Mal von unten an und weich ihren Socken aus!",
+      player: "img/jan-kopf.jpg",
       face: "img/grinch-leyla.jpg",
       faceWin: "img/leyla-staunen.jpg",
       bossHp: 6,
