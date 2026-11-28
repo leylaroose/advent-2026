@@ -218,29 +218,11 @@ window.ADVENT = {
           "Immun gegen Haushalt für 48 Stunden",
           "Kann von Leyla nicht unterbrochen werden"
         ],
-        groups: [
-          { title: "— TRÄNKE —", mods: [
-            ["Capri-Sun Game On Red Berry", "+20 % Angriffsgeschwindigkeit beim Zocken"],
-            ["Rockstar Orange", "+30 % Energieregeneration"],
-            ["Rockstar Pink", "Verleiht Immunität gegen Müdigkeit"],
-            ["Rockstar Blueberry (EDM)", "+1 auf alle Bass-Drops"],
-            ["Rockstar Türkis", "Erhöht den Energieschild um 40 %"],
-            ["Red Bull Zero", "Verleiht Flügel, ohne Zucker-Abzug"]
-          ] },
-          { title: "— PROVIANT —", mods: [
-            ["Hula Hoops Sweet & Spicy Curry", "+15 % Feuerschaden, +10 Ringe (an jedem Finger)"],
-            ["Maoam Pinballs", "Projektile prallen 3 zusätzliche Male ab"],
-            ["Merci Petits", "+100 % Dankbarkeit gegenüber Leyla"],
-            ["Hanuta Minis", "Haselnuss-Schild blockt 20 % Hunger"],
-            ["Haribo Knallbunt Minis", "Gewährt eine zufällige Elementarresistenz"],
-            ["Gerollte Haribos", "+2 rollende Ladungen"],
-            ["Kettle Chips Sweet BBQ", "+25 % kritische Knusper-Trefferchance"],
-            ["2× Huober Brezeln", "Brezel-Affinität: maximal 🥨🥨"]
-          ] }
-        ],
+        unid: "Nicht identifiziert",
+        teaser: "Enthält: 6 Tränke · 9× Proviant",
         flavor: "Wer den Korb öffnet, kehrt erst nach dem Endgame zurück."
       },
-      where: "🔑 Abholung nur mit Passwort: Sag Leyla das Wort von gestern.",
+      where: "🔑 Der echte Korb wartet auf dich! Abholung nur mit Codewort: Sag Leyla das Wort von gestern.",
       gotLabel: "🧺 Korb abgeholt!",
       note: "Heute Abend gehört der PC dir. Viel Spaß! ❤️"
     },

@@ -29,6 +29,7 @@
   .lt-sec:last-child { border-bottom: 0; }
   .lt-prop { color: #9a9a9a; } .lt-prop b { color: #fff; font-weight: normal; }
   .lt-mod { color: #8888ff; margin: 4px 0; }
+  .lt-unid { color: #d20000; font-size: 16px; }
   .lt-gh { color: #e07b2e; font-size: 13px; letter-spacing: .12em; margin-bottom: 4px; }
   .lt-in { color: #c8c8c8; font-size: 13px; }
   .lt-flav { color: #af6025; font-style: italic; }
@@ -59,6 +60,7 @@
           <div class="lt-head"><div class="lt-name">${it.name || ""}</div><div class="lt-base">${it.base || ""}</div></div>
           ${it.props ? `<div class="lt-sec">${it.props.map(p => `<div class="lt-prop">${p}</div>`).join("")}</div>` : ""}
           <div class="lt-sec">${(it.mods || []).map(m => `<div class="lt-mod">${m}</div>`).join("")}</div>
+          ${it.unid ? `<div class="lt-sec"><div class="lt-unid">${it.unid}</div>${it.teaser ? `<div class="lt-in">${it.teaser}</div>` : ""}</div>` : ""}
           ${(it.groups || []).map(g => `<div class="lt-sec"><div class="lt-gh">${g.title}</div>${g.mods.map(m => `<div class="lt-mod"><span class="lt-in">${m[0]}</span><br>${m[1]}</div>`).join("")}</div>`).join("")}
           ${it.flavor ? `<div class="lt-sec lt-flav">${it.flavor}</div>` : ""}
         </div>
