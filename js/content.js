@@ -123,15 +123,15 @@ window.ADVENT = {
       title: "Der Nikolaus war da!",
       teaser: "Ho ho ho! Heute Nacht war jemand in der Wohnung.",
       icon: "boot",
-      intro: "Ho ho ho! Heute Nacht hat jemand etwas für dich versteckt. Keine Sorge: keine Schokolade. 🥨",
+      intro: "Ho ho ho! Heute Nacht war der Nikolaus da und hat etwas für dich dagelassen. Aber wo?",
       hints: [
-        "[PLATZHALTER Hinweis 1: z. B. Dort, wo dein Tag morgens anfängt...]",
-        "[PLATZHALTER Hinweis 2]",
-        "[PLATZHALTER Hinweis 3: fast schon die Lösung]"
+        "Ich habe eine Sohle, aber keine Seele. Normalerweise trage ich dich, heute trage ich etwas für dich.",
+        "Du findest mich dort, wo dein Tag draußen beginnt und abends endet.",
+        "Schau mal in deine Schuhe im Flur! 👢"
       ],
-      foundLabel: "🥨 Gefunden!",
+      foundLabel: "👢 Gefunden!",
       endTitle: "GEFUNDEN!",
-      note: "Frohen Nikolaus, mein Süßer! [PLATZHALTER: kleiner Nikolaus-Gruß] ❤️"
+      note: "Frohen Nikolaus, mein Süßer! Der Nikolaus und Rudolph haben dich gefunden. Du warst wohl brav. ❤️"
     },
 
     7: {
