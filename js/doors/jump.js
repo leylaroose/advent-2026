@@ -49,7 +49,7 @@
     const W = cv.clientWidth, H = Math.round(Math.max(360, Math.min(W * 1.5, vh - topY - 18, 560)));
     cv.style.height = H + "px"; cv.width = W * DPR; cv.height = H * DPR; ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
 
-    const G = H * 2.6, JUMP = H * 1.28, PW = 92, PH = 14, R = 17;
+    const G = H * 2.6, JUMP = H * 1.28, PW = 78, PH = 14, R = 17;
     const CLIMB = H * (data.climbScreens || 7);
     const janImg = new Image(); janImg.src = data.player || "";
     const talk = t => { say.textContent = t; say.classList.remove("pop"); void say.offsetWidth; say.classList.add("pop"); };
@@ -61,9 +61,9 @@
       plats = [{ x: W / 2 - 60, y: H - 30, w: 120, type: "n" }];
       let y = H - 30;
       while (y > -CLIMB) {
-        y -= rnd(H * 0.09, H * 0.17);
+        y -= rnd(H * 0.11, H * 0.19) + (plats[plats.length - 1].type === "spring" ? H * 0.06 : 0); // Platz über Sprungfedern
         const prog = (H - 30 - y) / CLIMB;
-        const type = Math.random() < 0.2 ? "spring" : prog > 0.35 && Math.random() < 0.22 ? "move" : "n";
+        const type = Math.random() < 0.1 ? "spring" : prog > 0.25 && Math.random() < 0.32 ? "move" : "n";
         if (type === "spring" && !plats.some(q => q.first)) { plats.push({ x: rnd(8, W - PW - 8), y, w: PW, type, first: true, dx: 0 }); continue; }
         plats.push({ x: rnd(8, W - PW - 8), y, w: PW, type, dx: type === "move" ? (Math.random() < .5 ? -1 : 1) * W * rnd(.18, .3) : 0 });
         // ab und zu eine zerbrechliche Eisplatte als Bonus (nicht nötig zum Weiterkommen)
@@ -191,7 +191,11 @@
         ctx.fillStyle = q.type === "ice" ? "#bfe3f5" : q.type === "move" ? "#c9623f" : "#7a4a21";
         ctx.beginPath(); ctx.roundRect(q.x, y, q.w, PH, 6); ctx.fill(); ctx.stroke();
         ctx.fillStyle = "#fff"; ctx.beginPath(); ctx.roundRect(q.x - 2, y - 5, q.w + 4, 8, 5); ctx.fill(); ctx.stroke();
-        if (q.type === "spring") {
+        ctx.globalAlpha = 1;
+      }
+      for (const q of plats) {
+        const y = q.y - camY;
+        if (q.type === "spring" && y > -60 && y < H + 30) {
           const cx = q.x + q.w / 2, sq = q.squash > 0 ? 0.45 : 1, top = y - 5 - 16 * sq;
           if (q.squash > 0) q.squash -= 1 / 60;
           // Sprungfeder (Zickzack)
