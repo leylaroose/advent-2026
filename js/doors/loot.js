@@ -28,7 +28,9 @@
   .lt-sec { padding: 8px 12px; border-bottom: 1px solid #5a3a20; font-size: 15px; line-height: 1.45; }
   .lt-sec:last-child { border-bottom: 0; }
   .lt-prop { color: #9a9a9a; } .lt-prop b { color: #fff; font-weight: normal; }
-  .lt-mod { color: #8888ff; }
+  .lt-mod { color: #8888ff; margin: 4px 0; }
+  .lt-gh { color: #e07b2e; font-size: 13px; letter-spacing: .12em; margin-bottom: 4px; }
+  .lt-in { color: #c8c8c8; font-size: 13px; }
   .lt-flav { color: #af6025; font-style: italic; }
   .lt-where { margin-top: 16px; }
   `);
@@ -57,10 +59,11 @@
           <div class="lt-head"><div class="lt-name">${it.name || ""}</div><div class="lt-base">${it.base || ""}</div></div>
           ${it.props ? `<div class="lt-sec">${it.props.map(p => `<div class="lt-prop">${p}</div>`).join("")}</div>` : ""}
           <div class="lt-sec">${(it.mods || []).map(m => `<div class="lt-mod">${m}</div>`).join("")}</div>
+          ${(it.groups || []).map(g => `<div class="lt-sec"><div class="lt-gh">${g.title}</div>${g.mods.map(m => `<div class="lt-mod"><span class="lt-in">${m[0]}</span><br>${m[1]}</div>`).join("")}</div>`).join("")}
           ${it.flavor ? `<div class="lt-sec lt-flav">${it.flavor}</div>` : ""}
         </div>
-        <div class="adv-note lt-where adv-pop" style="animation-delay:.5s">📍 ${data.where || ""}</div>
-        <div class="adv-center"><button class="btn adv-pop lt-got" style="animation-delay:.9s">🧺 Gefunden!</button></div>
+        <div class="adv-note lt-where adv-pop" style="animation-delay:.5s">${data.where || ""}</div>
+        <div class="adv-center"><button class="btn adv-pop lt-got" style="animation-delay:.9s">${data.gotLabel || "🧺 Gefunden!"}</button></div>
         <div class="lt-after"></div>`;
       el.querySelector(".lt-tip").scrollIntoView({ block: "start", behavior: "smooth" });
       el.querySelector(".lt-got").addEventListener("click", e => { e.currentTarget.remove(); ADV.finish(el.querySelector(".lt-after"), day, data, api, { title: "LOOT<br>GESICHERT!" }); });
